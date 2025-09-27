@@ -49,6 +49,14 @@
     .explorer-toolbar{display:flex;gap:8px;align-items:center;padding:6px;margin:0 0 8px 0;background:linear-gradient(#f7f7f7,#e5e5e5);border:1px solid #b5b5b5;border-radius:4px;box-shadow:0 1px 0 #fff inset;position:relative;z-index:100}
     .explorer-toolbar .tool{padding:4px 8px;border:1px solid #b5b5b5;border-radius:3px;background:#fff;cursor:pointer}
     .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .gallery.list-view{display:flex;flex-direction:column;gap:8px}
+    .gallery.list-view .thumb{display:flex;flex-direction:row;align-items:center;padding:12px;max-height:80px}
+    .gallery.list-view .thumb .frame{width:60px;height:60px;flex-shrink:0;margin-right:12px}
+    .gallery.list-view .thumb .pic{width:60px;height:60px;aspect-ratio:1/1;object-fit:cover}
+    .gallery.list-view .thumb .overlay{display:none}
+    .gallery.list-view .thumb .row{flex:1;margin-top:0;justify-content:space-between}
+    .gallery.list-view .thumb .meta{position:static;background:none;color:inherit;padding:0;opacity:1}
+    .gallery.list-view .thumb .badge{position:static;margin-left:8px}
     .thumb{position:relative;background:#fff;border:1px solid #b5b5b5;border-radius:6px;padding:8px;box-shadow:0 1px 0 #fff inset,0 2px 6px rgba(0,0,0,.05);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
     .thumb:hover{transform:translateY(-2px);box-shadow:0 2px 10px rgba(0,0,0,.15)}
     .thumb .frame{position:relative;border:1px solid #8a8a8a;border-radius:4px;background:linear-gradient(#fefefe,#f2f2f2);overflow:hidden}
@@ -230,6 +238,9 @@
     body.mobile .desktop{padding:4px}
     body.mobile .window{max-width:calc(100vw - 8px);left:4px !important;top:4px !important;width:calc(100vw - 8px) !important}
     body.mobile .gallery{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+    body.mobile .gallery.list-view .thumb{max-height:70px;padding:8px}
+    body.mobile .gallery.list-view .thumb .frame{width:50px;height:50px;margin-right:8px}
+    body.mobile .gallery.list-view .thumb .pic{width:50px;height:50px}
     body.mobile .thumb{padding:6px}
     body.mobile .explorer-toolbar{padding:6px;gap:6px;display:flex;align-items:center;flex-wrap:wrap}
     body.mobile .explorer-toolbar .tool{padding:4px 8px;font-size:12px;min-height:28px}
@@ -346,6 +357,7 @@
           </div>
           <input class="tool" id="searchBox" placeholder="Search…" aria-label="Search artworks" />
           <button class="clear-btn" id="clearSearch" title="Clear search">×</button>
+          <button class="tool" id="gridToggleBtn" title="Toggle Grid/List View">⊞</button>
           <button class="tool" id="toolbarReset" title="Reset filters">🧹 Reset</button>
           <span style="margin-left:auto;font-size:12px;opacity:.8">Tip: Click a card to expand inline. Tap ❤ to like.</span>
         </div>
@@ -1111,6 +1123,25 @@
     clearSearch.addEventListener('click', ()=>{ tryPlay('click'); searchBox.value=''; toolbarState.search=''; saveToolbar(toolbarState); applyToolbarState(); });
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && document.activeElement===searchBox && searchBox.value){ searchBox.value=''; toolbarState.search=''; saveToolbar(toolbarState); applyToolbarState(); } });
     toolbarReset.addEventListener('click', ()=>{ tryPlay('click'); toolbarState={sort:'date',search:''}; saveToolbar(toolbarState); applyToolbarState(); });
+    
+    // Grid toggle functionality
+    const gridToggleBtn = document.getElementById('gridToggleBtn');
+    const gallery = document.getElementById('gallery');
+    let isListView = false;
+    
+    gridToggleBtn.addEventListener('click', ()=>{ 
+      tryPlay('click'); 
+      isListView = !isListView; 
+      if(isListView) {
+        gallery.classList.add('list-view');
+        gridToggleBtn.textContent = '☰';
+        gridToggleBtn.title = 'Switch to Grid View';
+      } else {
+        gallery.classList.remove('list-view');
+        gridToggleBtn.textContent = '⊞';
+        gridToggleBtn.title = 'Switch to List View';
+      }
+    });
 
     // No APIs needed - just URLs and local storage
     console.log('🚀 Gallery ready - no APIs needed!');
