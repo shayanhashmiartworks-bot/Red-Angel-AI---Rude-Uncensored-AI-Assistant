@@ -370,6 +370,32 @@
     body.mobile .thumb{min-height:120px}
     body.mobile .explorer-toolbar{min-height:40px}
     body.mobile .taskbar{position:fixed;bottom:0;left:0;right:0;z-index:1000}
+    
+    /* Mobile animation optimizations */
+    body.mobile .start-btn,
+    body.mobile .sound-btn,
+    body.mobile .task,
+    body.mobile .btn,
+    body.mobile .explorer-toolbar .tool,
+    body.mobile .thumb {
+      animation-duration: 3s; /* Slower wobble on mobile */
+      transition-duration: 0.3s; /* Smoother transitions */
+    }
+    
+    /* Mobile touch feedback */
+    body.mobile .start-btn:active,
+    body.mobile .sound-btn:active,
+    body.mobile .btn:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+    
+    /* Mobile canvas optimizations */
+    body.mobile #matrixCanvas {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
 
     /* ===== Dark Mode Overrides ===== */
     body.dark{color:#e5e7eb}
@@ -1304,15 +1330,26 @@
         // Add mobile class to body
         document.body.classList.add('mobile');
         
-        // Disable matrix animation on mobile for performance
+        // Enable matrix animation on mobile with optimizations
         const matrixCanvas = document.getElementById('matrixCanvas');
         if(matrixCanvas) {
-          matrixCanvas.style.display = 'none';
+          matrixCanvas.style.display = 'block';
+          // Set mobile optimization flag
+          window.mobileOptimized = true;
         }
         
         // Optimize touch interactions
         document.addEventListener('touchstart', function() {}, {passive: true});
         document.addEventListener('touchmove', function() {}, {passive: true});
+        
+        // Add mobile haptic feedback
+        if('vibrate' in navigator) {
+          document.addEventListener('touchstart', function(e) {
+            if(e.target.matches('.start-btn, .sound-btn, .btn, .tool, .thumb')) {
+              navigator.vibrate(10); // Short vibration for touch feedback
+            }
+          }, {passive: true});
+        }
         
         console.log('📱 Mobile optimizations applied');
       }
@@ -1735,7 +1772,8 @@
       let animationPhase = 'typewriting'; // 'typewriting' or 'exploding'
       let explosionProgress = 0;
       let startTime = Date.now();
-      let typewriterSpeed = 50; // ms per character - slow typewriter
+      // Mobile-optimized typewriter speed
+      let typewriterSpeed = window.mobileOptimized ? 80 : 50; // Slower on mobile for better performance
       let lastTypeTime = 0;
       let maxLines = 0; // Track maximum lines to keep filling
       
@@ -1803,8 +1841,9 @@
           ctx.fillStyle='rgba(0,0,0,0.02)'; 
           ctx.fillRect(0,0,w,h);
           
-          // Add retro falling objects in background
-          for(let i = 0; i < 30; i++) {
+          // Add retro falling objects in background (mobile optimized)
+          const objectCount = window.mobileOptimized ? 15 : 30; // Fewer objects on mobile
+          for(let i = 0; i < objectCount; i++) {
             const x = Math.random() * w;
             const y = (Date.now() * 0.1 + i * 100) % h;
             const char = phrase[i % phrase.length];
@@ -1814,7 +1853,7 @@
           }
           
           // NES-style big missile animations on left and right sides
-          const missileSpeed = 0.5; // Much slower
+          const missileSpeed = window.mobileOptimized ? 0.3 : 0.5; // Even slower on mobile
           
           // Left side big missile
           const leftMissileX = 15;
