@@ -1783,7 +1783,7 @@
             const testLine = line + phrase;
             const testWidth = ctx.measureText(testLine).width;
             
-            if(testWidth < w - 20) { // 20px margin for better centering
+            if(testWidth < w - 40) { // 40px margin for equal padding
               // Add complete phrase to current line
               textLines[currentLineIndex] += phrase;
             } else {
@@ -1813,45 +1813,40 @@
             ctx.fillText(char, x, y);
           }
           
-          // NES-style missile animations on left and right sides
-          const missileSpeed = 2;
-          const missileCount = 8;
+          // NES-style big missile animations on left and right sides
+          const missileSpeed = 0.5; // Much slower
           
-          // Left side missiles
-          for(let i = 0; i < missileCount; i++) {
-            const missileX = 15 + (i % 3) * 5; // Staggered positions
-            const missileY = (Date.now() * missileSpeed + i * 150) % (h + 50);
-            
-            // Draw missile body
-            ctx.fillStyle = '#ff0000'; // Red
-            ctx.fillRect(missileX, missileY, 2, 8);
-            
-            // Draw missile tip
-            ctx.fillStyle = '#ffff00'; // Yellow
-            ctx.fillRect(missileX - 1, missileY - 2, 4, 3);
-            
-            // Draw missile trail
-            ctx.fillStyle = 'rgba(255, 100, 0, 0.6)'; // Orange trail
-            ctx.fillRect(missileX, missileY + 8, 2, 4);
-          }
+          // Left side big missile
+          const leftMissileX = 20;
+          const leftMissileY = (Date.now() * missileSpeed) % (h + 100);
           
-          // Right side missiles
-          for(let i = 0; i < missileCount; i++) {
-            const missileX = w - 20 + (i % 3) * 5; // Staggered positions
-            const missileY = (Date.now() * missileSpeed + i * 200) % (h + 50);
-            
-            // Draw missile body
-            ctx.fillStyle = '#00ff00'; // Green
-            ctx.fillRect(missileX, missileY, 2, 8);
-            
-            // Draw missile tip
-            ctx.fillStyle = '#ffff00'; // Yellow
-            ctx.fillRect(missileX - 1, missileY - 2, 4, 3);
-            
-            // Draw missile trail
-            ctx.fillStyle = 'rgba(0, 255, 100, 0.6)'; // Green trail
-            ctx.fillRect(missileX, missileY + 8, 2, 4);
-          }
+          // Draw big missile body
+          ctx.fillStyle = '#ff0000'; // Red
+          ctx.fillRect(leftMissileX, leftMissileY, 6, 20);
+          
+          // Draw big missile tip
+          ctx.fillStyle = '#ffff00'; // Yellow
+          ctx.fillRect(leftMissileX - 2, leftMissileY - 4, 10, 6);
+          
+          // Draw big missile trail
+          ctx.fillStyle = 'rgba(255, 100, 0, 0.8)'; // Orange trail
+          ctx.fillRect(leftMissileX, leftMissileY + 20, 6, 12);
+          
+          // Right side big missile
+          const rightMissileX = w - 30;
+          const rightMissileY = (Date.now() * missileSpeed + 100) % (h + 100);
+          
+          // Draw big missile body
+          ctx.fillStyle = '#00ff00'; // Green
+          ctx.fillRect(rightMissileX, rightMissileY, 6, 20);
+          
+          // Draw big missile tip
+          ctx.fillStyle = '#ffff00'; // Yellow
+          ctx.fillRect(rightMissileX - 2, rightMissileY - 4, 10, 6);
+          
+          // Draw big missile trail
+          ctx.fillStyle = 'rgba(0, 255, 100, 0.8)'; // Green trail
+          ctx.fillRect(rightMissileX, rightMissileY + 20, 6, 12);
           
           // Set font for typewriter
           ctx.font=fontSize+'px "Courier New", monospace';
