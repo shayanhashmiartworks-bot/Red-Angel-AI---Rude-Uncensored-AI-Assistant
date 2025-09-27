@@ -1782,7 +1782,7 @@
             ctx.font = fontSize + 'px "Courier New", monospace';
             const currentWidth = ctx.measureText(line).width;
             
-            if(currentWidth < w - 5) { // 5px margin for perfect alignment
+            if(currentWidth < w - 40) { // 40px margin for better spacing
               // Add next character from the phrase
               textLines[currentLineIndex] += phrase[phraseIndex];
               phraseIndex = (phraseIndex + 1) % phrase.length; // Loop through phrase
@@ -1821,7 +1821,7 @@
             const y = (index + 1) * fontSize;
             if(y < h && line.length > 0) {
               ctx.fillStyle='#ffff00'; // Yellow text
-              ctx.fillText(line, 0, y); // Start from x=0 to cover full width
+              ctx.fillText(line, 20, y); // Start from x=20 for left spacing
             }
           });
           
