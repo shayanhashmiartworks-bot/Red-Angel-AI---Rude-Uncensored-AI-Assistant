@@ -1813,6 +1813,46 @@
             ctx.fillText(char, x, y);
           }
           
+          // NES-style missile animations on left and right sides
+          const missileSpeed = 2;
+          const missileCount = 8;
+          
+          // Left side missiles
+          for(let i = 0; i < missileCount; i++) {
+            const missileX = 15 + (i % 3) * 5; // Staggered positions
+            const missileY = (Date.now() * missileSpeed + i * 150) % (h + 50);
+            
+            // Draw missile body
+            ctx.fillStyle = '#ff0000'; // Red
+            ctx.fillRect(missileX, missileY, 2, 8);
+            
+            // Draw missile tip
+            ctx.fillStyle = '#ffff00'; // Yellow
+            ctx.fillRect(missileX - 1, missileY - 2, 4, 3);
+            
+            // Draw missile trail
+            ctx.fillStyle = 'rgba(255, 100, 0, 0.6)'; // Orange trail
+            ctx.fillRect(missileX, missileY + 8, 2, 4);
+          }
+          
+          // Right side missiles
+          for(let i = 0; i < missileCount; i++) {
+            const missileX = w - 20 + (i % 3) * 5; // Staggered positions
+            const missileY = (Date.now() * missileSpeed + i * 200) % (h + 50);
+            
+            // Draw missile body
+            ctx.fillStyle = '#00ff00'; // Green
+            ctx.fillRect(missileX, missileY, 2, 8);
+            
+            // Draw missile tip
+            ctx.fillStyle = '#ffff00'; // Yellow
+            ctx.fillRect(missileX - 1, missileY - 2, 4, 3);
+            
+            // Draw missile trail
+            ctx.fillStyle = 'rgba(0, 255, 100, 0.6)'; // Green trail
+            ctx.fillRect(missileX, missileY + 8, 2, 4);
+          }
+          
           // Set font for typewriter
           ctx.font=fontSize+'px "Courier New", monospace';
           
@@ -1827,40 +1867,6 @@
               ctx.fillText(line, textX, y);
             }
           });
-          
-          // Draw vertical "boredm." text on left and right sides
-          const verticalText = "boredm.";
-          const verticalFontSize = fontSize * 0.8; // Slightly smaller
-          ctx.font = verticalFontSize + 'px "Courier New", monospace';
-          ctx.fillStyle = 'rgba(255,255,0,0.6)'; // Semi-transparent yellow
-          
-          // Left side vertical text
-          for(let i = 0; i < verticalText.length; i++) {
-            const char = verticalText[i];
-            const x = 10; // Left padding
-            const y = (i + 1) * verticalFontSize + 20; // Start below top margin
-            if(y < h - 20) { // Don't go below bottom margin
-              ctx.save();
-              ctx.translate(x, y);
-              ctx.rotate(-Math.PI / 2); // Rotate 90 degrees counter-clockwise
-              ctx.fillText(char, 0, 0);
-              ctx.restore();
-            }
-          }
-          
-          // Right side vertical text
-          for(let i = 0; i < verticalText.length; i++) {
-            const char = verticalText[i];
-            const x = w - 10; // Right padding
-            const y = (i + 1) * verticalFontSize + 20; // Start below top margin
-            if(y < h - 20) { // Don't go below bottom margin
-              ctx.save();
-              ctx.translate(x, y);
-              ctx.rotate(-Math.PI / 2); // Rotate 90 degrees counter-clockwise
-              ctx.fillText(char, 0, 0);
-              ctx.restore();
-            }
-          }
           
           // Keep typewriting forever - no explosion for now
           // The typewriter will run continuously and cover the entire screen
