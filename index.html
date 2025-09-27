@@ -787,8 +787,8 @@
     soundToggle.addEventListener('click', ()=>{ soundEnabled = !soundEnabled; updateSoundToggle(); if(soundEnabled) tryPlay('click'); });
 
     // unlock audio on first gesture
-      let unlocked=false; function unlockOnce(){ if(unlocked) return; unlocked=true; try{ ensureCtx(); if(soundEnabled) tryPlay('boot'); }catch{} document.removeEventListener('pointerdown', unlockOnce); document.removeEventListener('keydown', unlockOnce); }
-      document.addEventListener('pointerdown', unlockOnce); document.addEventListener('keydown', unlockOnce);
+    let unlocked=false; function unlockOnce(){ if(unlocked) return; unlocked=true; try{ ensureCtx(); if(soundEnabled) tryPlay('boot'); }catch{} document.removeEventListener('pointerdown', unlockOnce); document.removeEventListener('keydown', unlockOnce); }
+    document.addEventListener('pointerdown', unlockOnce); document.addEventListener('keydown', unlockOnce);
 
       // ===== Retro Boot Soundtrack =====
       let bootAudio = null;
@@ -1727,9 +1727,89 @@
       const canvas=document.getElementById('matrixCanvas');
       if(reduceMotion){ canvas.style.display='none'; return; }
       const ctx=canvas.getContext('2d');
-      let fontSize=16, columns=0, drops=[];
-      function resize(){ canvas.width=document.getElementById('desktop').clientWidth; canvas.height=document.getElementById('desktop').clientHeight; columns=Math.floor(canvas.width*1.0/fontSize); drops=Array(columns).fill(0); }
-      function draw(){ if(document.visibilityState==='hidden'){ requestAnimationFrame(draw); return; } ctx.fillStyle='rgba(0,0,0,0.06)'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#00ff55'; ctx.font=fontSize+'px monospace'; const glyphs='アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; for(let i=0;i<drops.length;i++){ const text=glyphs[Math.floor(Math.random()*glyphs.length)]; const x=i*fontSize; const y=drops[i]*fontSize; ctx.fillText(text,x,y); if(y>canvas.height && Math.random()>0.975){ drops[i]=0; } drops[i]++; } requestAnimationFrame(draw); }
+      let fontSize=14, columns=0, drops=[];
+      
+      // Ultra retro terminal characters and symbols
+      const terminalChars = [
+        // Classic ASCII art blocks
+        '█','▓','▒','░','▄','▀','▌','▐','■','□','▪','▫','●','○','◆','◇','▲','▼','◄','►',
+        // Retro symbols
+        '★','☆','※','§','¶','†','‡','•','·','°','±','×','÷','∞','≈','≠','≤','≥','√','∑',
+        // Terminal/Code symbols
+        '!','@','#','$','%','^','&','*','(',')','-','_','=','+','[',']','{','}','|','\\',
+        // Binary and hex (more emphasis)
+        '0','1','A','B','C','D','E','F',
+        // Classic computer symbols
+        '◊','◈','◉','◎','◯','◮','◭','◬','◫','◪','◩','◨','◧','◦','◥','◤','◣','◢','◡','◠',
+        // Retro gaming symbols
+        '♦','♠','♣','♥','♤','♧','♡','♢','♩','♪','♫','♬','♭','♮','♯'
+      ];
+      
+      function resize(){ 
+        canvas.width=document.getElementById('desktop').clientWidth; 
+        canvas.height=document.getElementById('desktop').clientHeight; 
+        columns=Math.floor(canvas.width*1.0/fontSize); 
+        drops=Array(columns).fill(0).map(()=>({
+          y: Math.random() * canvas.height,
+          speed: Math.random() * 1.5 + 0.5,
+          opacity: Math.random() * 0.9 + 0.1,
+          color: Math.random() > 0.6 ? '#00ff00' : (Math.random() > 0.3 ? '#00cc00' : '#00aa00'),
+          size: Math.random() > 0.8 ? 16 : 14,
+          glow: Math.random() > 0.7
+        })); 
+      }
+      
+      function draw(){ 
+        if(document.visibilityState==='hidden'){ requestAnimationFrame(draw); return; } 
+        
+        // Retro fade effect with scanlines
+        ctx.fillStyle='rgba(0,0,0,0.12)'; 
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        
+        // Add scanlines for CRT effect
+        ctx.fillStyle='rgba(0,255,0,0.02)';
+        for(let i=0; i<canvas.height; i+=2) {
+          ctx.fillRect(0,i,canvas.width,1);
+        }
+        
+        for(let i=0;i<drops.length;i++){ 
+          const drop = drops[i];
+          const text=terminalChars[Math.floor(Math.random()*terminalChars.length)]; 
+          const x=i*fontSize; 
+          const y=drop.y;
+          
+          // Set font size
+          ctx.font=drop.size+'px "Courier New", monospace';
+          
+          // Enhanced glow effect for retro feel
+          if(drop.glow) {
+            ctx.shadowColor=drop.color;
+            ctx.shadowBlur=3;
+          } else {
+            ctx.shadowBlur=0;
+          }
+          
+          ctx.fillStyle=drop.color;
+          ctx.globalAlpha=drop.opacity;
+          ctx.fillText(text,x,y); 
+          
+          // Reset shadow and alpha
+          ctx.shadowBlur=0;
+          ctx.globalAlpha=1;
+          
+          if(y>canvas.height && Math.random()>0.975){ 
+            drop.y=0; 
+            drop.speed=Math.random() * 1.5 + 0.5;
+            drop.opacity=Math.random() * 0.9 + 0.1;
+            drop.color=Math.random() > 0.6 ? '#00ff00' : (Math.random() > 0.3 ? '#00cc00' : '#00aa00');
+            drop.size=Math.random() > 0.8 ? 16 : 14;
+            drop.glow=Math.random() > 0.7;
+          } 
+          drop.y += drop.speed;
+        } 
+        requestAnimationFrame(draw); 
+      }
+      
       window.addEventListener('resize',resize); resize(); draw();
     })();
 
