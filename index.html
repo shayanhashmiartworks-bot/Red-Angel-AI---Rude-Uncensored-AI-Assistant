@@ -1735,7 +1735,7 @@
       let animationPhase = 'typewriting'; // 'typewriting' or 'exploding'
       let explosionProgress = 0;
       let startTime = Date.now();
-      let typewriterSpeed = 50; // ms per character
+      let typewriterSpeed = 20; // ms per character - faster to cover page in 1 minute
       let lastTypeTime = 0;
       
       // The target text to reveal
@@ -1787,10 +1787,20 @@
           ctx.fillStyle='rgba(0,0,0,0.02)'; 
           ctx.fillRect(0,0,w,h);
           
-          // Set font
+          // Add retro falling objects in background
+          for(let i = 0; i < 30; i++) {
+            const x = Math.random() * w;
+            const y = (Date.now() * 0.1 + i * 100) % h;
+            const char = cmdChars[Math.floor(Math.random() * cmdChars.length)];
+            ctx.fillStyle='rgba(255,255,0,0.3)';
+            ctx.font=fontSize+'px "Courier New", monospace';
+            ctx.fillText(char, x, y);
+          }
+          
+          // Set font for typewriter
           ctx.font=fontSize+'px "Courier New", monospace';
           
-          // Draw all lines
+          // Draw all typewriter lines
           textLines.forEach((line, index) => {
             const y = (index + 1) * fontSize;
             if(y < h) {
