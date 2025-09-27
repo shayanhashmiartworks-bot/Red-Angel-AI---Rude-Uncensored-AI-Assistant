@@ -1767,17 +1767,22 @@
         if(animationPhase === 'typewriting') {
           // Typewriter effect - add characters one by one
           if(now - lastTypeTime > typewriterSpeed) {
-            if(textLines.length === 0 || textLines[textLines.length - 1].length >= Math.floor(w / fontSize) - 2) {
-              // Start new line
-              textLines.push('');
-            }
+            const linesNeeded = Math.floor(h / fontSize);
             
-            const currentLineIndex = textLines.length - 1;
-            const line = textLines[currentLineIndex];
-            const lineLength = Math.floor(w / fontSize) - 2;
-            
-            if(line.length < lineLength) {
-              textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
+            // Only add new lines if we haven't filled the screen yet
+            if(textLines.length < linesNeeded) {
+              if(textLines.length === 0 || textLines[textLines.length - 1].length >= Math.floor(w / fontSize) - 2) {
+                // Start new line
+                textLines.push('');
+              }
+              
+              const currentLineIndex = textLines.length - 1;
+              const line = textLines[currentLineIndex];
+              const lineLength = Math.floor(w / fontSize) - 2;
+              
+              if(line.length < lineLength) {
+                textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
+              }
             }
             
             lastTypeTime = now;
@@ -1810,7 +1815,9 @@
           });
           
           // Check if we should start explosion (after 1 minute or screen is full)
-          if(now - startTime > 60000 || textLines.length * fontSize > h) {
+          // Calculate how many lines we need to fill the screen
+          const linesNeeded = Math.floor(h / fontSize);
+          if(now - startTime > 60000 || textLines.length >= linesNeeded) {
             animationPhase = 'exploding';
             explosionProgress = 0;
           }
