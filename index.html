@@ -117,7 +117,92 @@
     .fade-out{animation:fadeOut .4s ease forwards}
     @keyframes fadeOut{to{opacity:0;visibility:hidden}}
 
-    @media (max-width:720px){.window{min-width:280px}.thumb .pic{aspect-ratio:4/3}}
+    /* ===== Mobile Responsive Design ===== */
+    @media (max-width:768px){
+      /* Desktop and windows */
+      .desktop{padding:8px}
+      .window{min-width:280px;max-width:calc(100vw - 16px);left:8px !important;top:8px !important;width:calc(100vw - 16px) !important;height:calc(100vh - 56px) !important}
+      .window.maximized{left:0 !important;top:0 !important;width:100vw !important;height:calc(100vh - 40px) !important}
+      
+      /* Taskbar */
+      .taskbar{height:40px;padding:2px 4px}
+      .start-btn{height:28px;padding:0 8px;font-size:12px}
+      .sound-btn{height:24px;padding:0 6px;font-size:11px}
+      .clock{min-width:60px;font-size:11px}
+      
+      /* Gallery */
+      .gallery{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;padding:4px}
+      .thumb{padding:6px}
+      .thumb .pic{aspect-ratio:4/3}
+      .thumb .title{font-size:11px}
+      .thumb .sub{font-size:10px}
+      
+      /* Toolbar */
+      .explorer-toolbar{padding:4px;gap:4px}
+      .explorer-toolbar .tool{padding:3px 6px;font-size:11px}
+      .explorer-toolbar input{font-size:11px;padding:3px 6px}
+      
+      /* Shortcuts */
+      .shortcut{width:70px;font-size:10px}
+      .shortcut .icon{width:32px;height:32px;font-size:14px}
+      
+      /* Start menu */
+      .start-menu{width:200px;left:4px;bottom:40px}
+      .start-item{padding:6px;font-size:12px}
+      
+      /* Admin panel */
+      .window .content{padding:8px}
+      .window .content input, .window .content textarea, .window .content button{padding:6px;font-size:12px;margin-bottom:6px}
+      
+      /* Full-screen viewer */
+      .viewer .toolbar{padding:6px;gap:4px}
+      .viewer .toolbar .tool{padding:4px 8px;font-size:11px}
+      .viewer .info{padding:12px}
+      .viewer .info h3{font-size:16px}
+      .viewer .info p{font-size:12px}
+      .viewer .controls{right:12px;gap:6px}
+      .viewer .control-btn{width:36px;height:36px;font-size:14px}
+      .viewer .zoom-info{top:12px;right:12px;padding:6px 8px;font-size:11px}
+    }
+    
+    @media (max-width:480px){
+      /* Extra small screens */
+      .gallery{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
+      .thumb{padding:4px}
+      .thumb .title{font-size:10px}
+      .thumb .sub{font-size:9px}
+      
+      .explorer-toolbar .tool{padding:2px 4px;font-size:10px}
+      .explorer-toolbar input{font-size:10px;padding:2px 4px}
+      
+      .shortcut{width:60px;font-size:9px}
+      .shortcut .icon{width:28px;height:28px;font-size:12px}
+      
+      .start-menu{width:180px}
+      .start-item{padding:4px;font-size:11px}
+      
+      .viewer .toolbar .tool{padding:3px 6px;font-size:10px}
+      .viewer .info{padding:8px}
+      .viewer .info h3{font-size:14px}
+      .viewer .info p{font-size:11px}
+      .viewer .control-btn{width:32px;height:32px;font-size:12px}
+    }
+
+    /* ===== Mobile-specific styles ===== */
+    body.mobile .desktop{padding:4px}
+    body.mobile .window{max-width:calc(100vw - 8px);left:4px !important;top:4px !important;width:calc(100vw - 8px) !important}
+    body.mobile .gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}
+    body.mobile .thumb{padding:4px}
+    body.mobile .explorer-toolbar{padding:3px;gap:3px}
+    body.mobile .explorer-toolbar .tool{padding:2px 4px;font-size:10px}
+    body.mobile .shortcut{width:65px;font-size:9px}
+    body.mobile .shortcut .icon{width:30px;height:30px;font-size:13px}
+    body.mobile .start-menu{width:190px;left:2px;bottom:38px}
+    body.mobile .start-item{padding:5px;font-size:11px}
+    body.mobile .taskbar{height:38px;padding:1px 2px}
+    body.mobile .start-btn{height:26px;padding:0 6px;font-size:11px}
+    body.mobile .sound-btn{height:22px;padding:0 4px;font-size:10px}
+    body.mobile .clock{min-width:55px;font-size:10px}
 
     /* ===== Dark Mode Overrides ===== */
     body.dark{color:#e5e7eb}
@@ -770,6 +855,85 @@
       else zoomOut();
     });
     
+    // Touch events for mobile
+    let touchStartDistance = 0;
+    let touchStartZoom = 1;
+    let touchStartPanX = 0;
+    let touchStartPanY = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    viewerStage.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 1) {
+        // Single touch - start pan
+        isDragging = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartPanX = viewerPanX;
+        touchStartPanY = viewerPanY;
+        viewerStage.style.cursor = 'grabbing';
+      } else if(e.touches.length === 2) {
+        // Two touches - start pinch zoom
+        isDragging = false;
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        touchStartDistance = Math.sqrt(
+          Math.pow(touch2.clientX - touch1.clientX, 2) + 
+          Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+        touchStartZoom = viewerZoom;
+        touchStartPanX = viewerPanX;
+        touchStartPanY = viewerPanY;
+        touchStartX = (touch1.clientX + touch2.clientX) / 2;
+        touchStartY = (touch1.clientY + touch2.clientY) / 2;
+      }
+    });
+    
+    viewerStage.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 1 && isDragging) {
+        // Single touch - pan
+        const touch = e.touches[0];
+        viewerPanX = touchStartPanX + (touch.clientX - touchStartX);
+        viewerPanY = touchStartPanY + (touch.clientY - touchStartY);
+        updateViewerTransform();
+      } else if(e.touches.length === 2) {
+        // Two touches - pinch zoom
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        const currentDistance = Math.sqrt(
+          Math.pow(touch2.clientX - touch1.clientX, 2) + 
+          Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+        
+        if(touchStartDistance > 0) {
+          const scale = currentDistance / touchStartDistance;
+          viewerZoom = Math.max(0.1, Math.min(5, touchStartZoom * scale));
+          
+          // Adjust pan to zoom around touch center
+          const centerX = (touch1.clientX + touch2.clientX) / 2;
+          const centerY = (touch1.clientY + touch2.clientY) / 2;
+          const deltaX = centerX - touchStartX;
+          const deltaY = centerY - touchStartY;
+          
+          viewerPanX = touchStartPanX + deltaX * (1 - scale);
+          viewerPanY = touchStartPanY + deltaY * (1 - scale);
+          
+          updateViewerTransform();
+        }
+      }
+    });
+    
+    viewerStage.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 0) {
+        isDragging = false;
+        viewerStage.style.cursor = 'grab';
+        touchStartDistance = 0;
+      }
+    });
+    
     // Drag to pan
     viewerStage.addEventListener('mousedown', (e) => {
       if(e.target === viewerStage) {
@@ -810,6 +974,28 @@
         }
       }
     });
+    
+    // Mobile-specific optimizations
+    function isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+             window.innerWidth <= 768;
+    }
+    
+    // Optimize for mobile on load
+    if(isMobile()) {
+      // Add mobile class to body
+      document.body.classList.add('mobile');
+      
+      // Disable matrix animation on mobile for performance
+      const matrixCanvas = document.getElementById('matrixCanvas');
+      if(matrixCanvas) {
+        matrixCanvas.style.display = 'none';
+      }
+      
+      // Optimize touch interactions
+      document.addEventListener('touchstart', function() {}, {passive: true});
+      document.addEventListener('touchmove', function() {}, {passive: true});
+    }
     
     lightbox.addEventListener('click',(e)=>{ if(e.target===lightbox) closeViewer(); });
 
