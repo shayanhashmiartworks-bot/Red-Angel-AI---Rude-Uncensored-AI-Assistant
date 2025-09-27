@@ -205,11 +205,21 @@
     .viewer .zoom-info{position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.7);color:#fff;padding:8px 12px;border-radius:4px;font-size:12px;z-index:10}
 
     /* ===== Boot splash ===== */
-    #splash{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:10000}
-    #splashInner{color:#fff;text-align:center;min-width:260px}
-    #splashTitle{font-weight:700;font-size:22px;margin-bottom:14px}
-    #splashBar{width:240px;height:10px;border:1px solid #666;margin:0 auto;background:#111;overflow:hidden;border-radius:10px}
-    #splashFill{width:0;height:100%;background:linear-gradient(90deg,#1e90ff,#66ccff);transition:width .3s ease}
+    #splash{position:fixed;inset:0;background:linear-gradient(135deg,#000428,#004e92);display:flex;align-items:center;justify-content:center;z-index:10000;overflow:hidden;font-family:'Courier New',monospace}
+    #splash::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0px,transparent 2px,rgba(0,255,0,0.03) 2px,rgba(0,255,0,0.03) 4px);animation:scanlines 0.1s linear infinite}
+    #splashInner{color:#00ff00;text-align:center;min-width:320px;position:relative;z-index:1}
+    #splashTitle{font-weight:700;font-size:28px;margin-bottom:20px;text-shadow:0 0 10px #00ff00,0 0 20px #00ff00,0 0 30px #00ff00;animation:glow 2s ease-in-out infinite alternate;letter-spacing:2px}
+    #splashBar{width:320px;height:24px;border:2px solid #00ff00;margin:0 auto;background:#000;overflow:hidden;border-radius:0;box-shadow:inset 0 0 10px #00ff00,0 0 20px rgba(0,255,0,0.5);position:relative}
+    #splashBar::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(90deg,transparent 0px,transparent 4px,rgba(0,255,0,0.1) 4px,rgba(0,255,0,0.1) 8px);animation:progressScan 0.5s linear infinite}
+    #splashFill{width:0;height:100%;background:linear-gradient(90deg,#00ff00,#00cc00,#00ff00);border-radius:0;transition:width .3s ease;box-shadow:0 0 15px #00ff00,inset 0 0 10px rgba(255,255,255,0.3);position:relative;overflow:hidden}
+    #splashFill::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.3) 50%,transparent 100%);animation:fillShine 1s linear infinite}
+    #splashText{margin-top:20px;font-size:14px;color:#00ff00;text-shadow:0 0 5px #00ff00;animation:blink 1s infinite}
+    
+    @keyframes scanlines{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
+    @keyframes glow{0%{text-shadow:0 0 10px #00ff00,0 0 20px #00ff00,0 0 30px #00ff00}100%{text-shadow:0 0 20px #00ff00,0 0 30px #00ff00,0 0 40px #00ff00}}
+    @keyframes progressScan{0%{transform:translateX(-8px)}100%{transform:translateX(0px)}}
+    @keyframes fillShine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0.3}}
     .fade-out{animation:fadeOut .4s ease forwards}
     @keyframes fadeOut{to{opacity:0;visibility:hidden}}
 
@@ -410,8 +420,9 @@
   <!-- Boot Splash -->
   <div id="splash" role="status" aria-label="Boot splash">
     <div id="splashInner">
-      <div id="splashTitle">boredm — shayz</div>
+      <div id="splashTitle">BOREDM.SYS</div>
       <div id="splashBar"><div id="splashFill"></div></div>
+      <div id="splashText">INITIALIZING SYSTEM...</div>
     </div>
   </div>
 
@@ -779,8 +790,93 @@
     soundToggle.addEventListener('click', ()=>{ soundEnabled = !soundEnabled; updateSoundToggle(); if(soundEnabled) tryPlay('click'); });
 
     // unlock audio on first gesture
-    let unlocked=false; function unlockOnce(){ if(unlocked) return; unlocked=true; try{ ensureCtx(); if(soundEnabled) tryPlay('boot'); }catch{} document.removeEventListener('pointerdown', unlockOnce); document.removeEventListener('keydown', unlockOnce); }
-    document.addEventListener('pointerdown', unlockOnce); document.addEventListener('keydown', unlockOnce);
+      let unlocked=false; function unlockOnce(){ if(unlocked) return; unlocked=true; try{ ensureCtx(); if(soundEnabled) tryPlay('boot'); }catch{} document.removeEventListener('pointerdown', unlockOnce); document.removeEventListener('keydown', unlockOnce); }
+      document.addEventListener('pointerdown', unlockOnce); document.addEventListener('keydown', unlockOnce);
+
+      // ===== Retro Boot Soundtrack =====
+      let bootAudio = null;
+      let isBootPlaying = false;
+      
+      const createRetroBootSound = () => {
+        const ctx = ensureCtx();
+        const sampleRate = ctx.sampleRate;
+        const duration = 8; // 8 seconds
+        const buffer = ctx.createBuffer(1, sampleRate * duration, sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        // Retro boot sequence melody (8-bit style)
+        const bootSequence = [
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.2}, // A4
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 165, duration: 0.4}, // E3
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.4}, // A4
+          {freq: 523, duration: 0.2}, // C5
+          {freq: 440, duration: 0.2}, // A4
+          {freq: 330, duration: 0.4}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.4}, // A4
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 165, duration: 0.6}, // E3
+          // System ready beep
+          {freq: 880, duration: 0.1}, // A5
+          {freq: 0, duration: 0.1},   // Silence
+          {freq: 880, duration: 0.1}, // A5
+          {freq: 0, duration: 0.1},   // Silence
+          {freq: 880, duration: 0.2}, // A5
+        ];
+        
+        let time = 0;
+        for (let i = 0; i < bootSequence.length; i++) {
+          const note = bootSequence[i];
+          const noteSamples = Math.floor(note.duration * sampleRate);
+          const frequency = note.freq;
+          
+          for (let j = 0; j < noteSamples && time < data.length; j++) {
+            if (frequency > 0) {
+              // Square wave with 8-bit distortion
+              const wave = Math.sin(2 * Math.PI * frequency * time / sampleRate);
+              data[time] = wave > 0 ? 0.15 : -0.15;
+            } else {
+              data[time] = 0; // Silence
+            }
+            time++;
+          }
+        }
+        
+        return buffer;
+      };
+
+      const playBootSound = () => {
+        if (isBootPlaying || !soundEnabled) return;
+        
+        try {
+          const ctx = ensureCtx();
+          const buffer = createRetroBootSound();
+          const source = ctx.createBufferSource();
+          source.buffer = buffer;
+          source.connect(ctx.destination);
+          source.start();
+          
+          bootAudio = { ctx, source };
+          isBootPlaying = true;
+          
+          source.onended = () => {
+            isBootPlaying = false;
+            bootAudio = null;
+          };
+          
+          console.log('🎵 Retro boot sound started!');
+        } catch (e) {
+          console.warn('Failed to play boot sound:', e);
+        }
+      };
 
     // ===== Likes (per-visitor, with counters) =====
     const LIKED_KEY = 'xp_art_liked_set_v1';
@@ -1585,15 +1681,46 @@
     (function bootSplash(){
       const splash=document.getElementById('splash');
       const fill=document.getElementById('splashFill');
+      const splashText=document.getElementById('splashText');
       const desktop=document.getElementById('desktop');
+      
       if(reduceMotion){ desktop.classList.add('ready'); splash.style.display='none'; return; }
+      
+      // Start boot sound
+      if(soundEnabled) playBootSound();
+      
+      const loadingMessages = [
+        'INITIALIZING SYSTEM...',
+        'LOADING GRAPHICS...',
+        'MOUNTING DRIVES...',
+        'CHECKING MEMORY...',
+        'LOADING ARTWORKS...',
+        'FINALIZING...',
+        'READY!'
+      ];
+      
       let p=0;
+      let messageIndex = 0;
+      
       const step=()=>{
         p+=Math.random()*25+15;
-        fill.style.width=Math.min(240,(p/100)*240)+'px';
+        fill.style.width=Math.min(320,(p/100)*320)+'px';
+        
+        // Update loading message
+        if(p > 15 && messageIndex < loadingMessages.length - 1) {
+          messageIndex = Math.floor((p/100) * loadingMessages.length);
+          splashText.textContent = loadingMessages[messageIndex];
+        }
+        
         if(p<100){ setTimeout(step,180); }
-        else { desktop.classList.add('ready'); splash.classList.add('fade-out'); setTimeout(()=>splash.style.display='none',420); }
+        else { 
+          splashText.textContent = 'READY!';
+          desktop.classList.add('ready'); 
+          splash.classList.add('fade-out'); 
+          setTimeout(()=>splash.style.display='none',420); 
+        }
       };
+      
       splash.addEventListener('click',()=>{ p=100; step(); });
       step();
     })();
