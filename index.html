@@ -1768,7 +1768,7 @@
         const now = Date.now();
         
         if(animationPhase === 'typewriting') {
-          // Typewriter effect - add characters one by one
+          // Typewriter effect - add complete phrases per line
           if(now - lastTypeTime > typewriterSpeed) {
             // Always keep adding lines to ensure full coverage
             if(textLines.length === 0) {
@@ -1778,16 +1778,16 @@
             const currentLineIndex = textLines.length - 1;
             const line = textLines[currentLineIndex];
             
-            // Check if current line fills the width by measuring text
+            // Check if current line can fit another complete phrase
             ctx.font = fontSize + 'px "Courier New", monospace';
-            const currentWidth = ctx.measureText(line).width;
+            const testLine = line + phrase;
+            const testWidth = ctx.measureText(testLine).width;
             
-            if(currentWidth < w - 40) { // 40px margin for better spacing
-              // Add next character from the phrase
-              textLines[currentLineIndex] += phrase[phraseIndex];
-              phraseIndex = (phraseIndex + 1) % phrase.length; // Loop through phrase
+            if(testWidth < w - 40) { // 40px margin for better spacing
+              // Add complete phrase to current line
+              textLines[currentLineIndex] += phrase;
             } else {
-              // Start new line when current line is full
+              // Start new line when current line can't fit another phrase
               textLines.push('');
             }
             
