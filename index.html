@@ -1742,8 +1742,9 @@
       // The target text to reveal
       const targetText = "truly free wen bored";
       
-      // CMD-style random characters for typewriter
-      const cmdChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
+      // The phrase to repeat
+      const phrase = "truly free wen bored ";
+      let phraseIndex = 0;
       
       function resize(){ 
         w = canvas.width = document.getElementById('desktop').clientWidth; 
@@ -1752,11 +1753,11 @@
         maxLines = Math.floor(h / fontSize) + 10; // Extra lines to ensure full coverage
       }
       
-      function generateRandomLine() {
+      function generatePhraseLine() {
         const lineLength = Math.floor(w / fontSize);
         let line = '';
         for(let i = 0; i < lineLength; i++) {
-          line += cmdChars[Math.floor(Math.random() * cmdChars.length)];
+          line += phrase[i % phrase.length];
         }
         return line;
       }
@@ -1782,7 +1783,9 @@
             const currentWidth = ctx.measureText(line).width;
             
             if(currentWidth < w - 5) { // 5px margin for perfect alignment
-              textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
+              // Add next character from the phrase
+              textLines[currentLineIndex] += phrase[phraseIndex];
+              phraseIndex = (phraseIndex + 1) % phrase.length; // Loop through phrase
             } else {
               // Start new line when current line is full
               textLines.push('');
@@ -1804,7 +1807,7 @@
           for(let i = 0; i < 30; i++) {
             const x = Math.random() * w;
             const y = (Date.now() * 0.1 + i * 100) % h;
-            const char = cmdChars[Math.floor(Math.random() * cmdChars.length)];
+            const char = phrase[i % phrase.length];
             ctx.fillStyle='rgba(255,255,0,0.3)';
             ctx.font=fontSize+'px "Courier New", monospace';
             ctx.fillText(char, x, y);
