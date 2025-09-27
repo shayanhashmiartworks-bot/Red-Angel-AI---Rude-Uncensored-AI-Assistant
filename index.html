@@ -68,19 +68,58 @@
 
     /* ===== Taskbar ===== */
     .taskbar{position:fixed;left:0;right:0;bottom:0;height:40px;display:flex;align-items:center;gap:8px;padding:4px 8px;background:linear-gradient(#2c6ccb,#1b4ea3);box-shadow:0 -1px 0 #0b2e6b inset,0 -2px 0 #0f3d86 inset;border-top:1px solid #0b2e6b;color:#fff;user-select:none;z-index:9998}
-    .start-btn{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;background:linear-gradient(#93d17b,#54a848);border:1px solid #1b6d10;border-radius:6px;box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2);font-weight:700;cursor:pointer;color:#fff}
-    .sound-btn{display:inline-flex;align-items:center;gap:6px;height:28px;margin-left:6px;padding:0 10px;background:linear-gradient(#f0f0f0,#d7d7d7);border:1px solid #6b6b6b;border-radius:6px;box-shadow:0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2);color:#000;cursor:pointer;font-weight:600}
+    .start-btn{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;background:linear-gradient(#93d17b,#54a848);border:1px solid #1b6d10;border-radius:6px;box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2);font-weight:700;cursor:pointer;color:#fff;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 0.5s ease-in-out infinite alternate}
+    .start-btn:hover{transform:translateY(-1px) rotate(1deg);box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 3px 0 rgba(0,0,0,.3);animation:wobbleHover 0.3s ease-in-out infinite alternate}
+    .start-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .6s ease}
+    .start-btn:hover::before{left:100%}
+    .start-btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2);animation:none}
+    .sound-btn{display:inline-flex;align-items:center;gap:6px;height:28px;margin-left:6px;padding:0 10px;background:linear-gradient(#f0f0f0,#d7d7d7);border:1px solid #6b6b6b;border-radius:6px;box-shadow:0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2);color:#000;cursor:pointer;font-weight:600;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 0.6s ease-in-out infinite alternate}
+    .sound-btn:hover{transform:translateY(-1px) rotate(-0.5deg);box-shadow:0 1px 0 #fff inset,0 3px 0 rgba(0,0,0,.3);animation:wobbleHover 0.4s ease-in-out infinite alternate}
+    .sound-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,0,0,.1),transparent);transition:left .4s ease}
+    .sound-btn:hover::before{left:100%}
+    .sound-btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2);animation:none}
     #themeToggle{margin-left:2px}
     .tasklist{display:flex;gap:6px;align-items:center;flex:1;overflow-x:auto}
-    .task{min-width:160px;max-width:240px;height:30px;padding:0 10px;display:flex;align-items:center;gap:8px;border-radius:4px;cursor:pointer;background:linear-gradient(#e3efff,#c6dbff);border:1px solid #7aa2e6;color:#000;box-shadow:0 1px 0 #fff inset;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .clock{margin-left:auto;min-width:80px;text-align:right;font-weight:600}
+    .task{min-width:160px;max-width:240px;height:30px;padding:0 10px;display:flex;align-items:center;gap:8px;border-radius:4px;cursor:pointer;background:linear-gradient(#e3efff,#c6dbff);border:1px solid #7aa2e6;color:#000;box-shadow:0 1px 0 #fff inset;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative;transition:all .2s ease;animation:wobble 0.7s ease-in-out infinite alternate}
+    .task:hover{transform:translateY(-1px) rotate(0.5deg);box-shadow:0 1px 0 #fff inset,0 2px 4px rgba(0,0,0,.2);animation:wobbleHover 0.5s ease-in-out infinite alternate}
+    .task::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transition:left .5s ease}
+    .task:hover::before{left:100%}
+    .task:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset;animation:none}
+    .clock{margin-left:auto;min-width:80px;text-align:right;font-weight:600;position:relative;overflow:hidden}
+    .clock::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:clockScan 4s infinite}
+    
+    @keyframes clockScan{0%{left:-100%}50%{left:100%}100%{left:100%}}
+    
+    /* ===== Nintendo/Metal Gear Wobble Animations ===== */
+    @keyframes wobble{
+      0%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      25%{transform:rotate(0.5deg) translateX(1px) translateY(-1px)}
+      50%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      75%{transform:rotate(-0.5deg) translateX(-1px) translateY(1px)}
+      100%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+    }
+    
+    @keyframes wobbleHover{
+      0%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      25%{transform:rotate(1deg) translateX(2px) translateY(-2px)}
+      50%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      75%{transform:rotate(-1deg) translateX(-2px) translateY(2px)}
+      100%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+    }
 
     /* ===== Windows ===== */
-    .window{position:absolute;min-width:320px;min-height:200px;background:#ece9d8;border:1px solid #0f3d86;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.25);overflow:hidden;z-index:1}
-    .titlebar{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 8px;cursor:move;user-select:none;background:linear-gradient(180deg,#3a6ea5 0%,#2b5797 50%,#244a87 100%);color:#fff;font-weight:700;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+    .window{position:absolute;min-width:320px;min-height:200px;background:#ece9d8;border:1px solid #0f3d86;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.25);overflow:hidden;z-index:1;transition:all .3s ease;animation:wobble 1s ease-in-out infinite alternate}
+    .window:hover{box-shadow:0 8px 20px rgba(0,0,0,.35);transform:translateY(-2px) rotate(0.5deg);animation:wobbleHover 0.8s ease-in-out infinite alternate}
+    .titlebar{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 8px;cursor:move;user-select:none;background:linear-gradient(180deg,#3a6ea5 0%,#2b5797 50%,#244a87 100%);color:#fff;font-weight:700;text-shadow:0 1px 0 rgba(0,0,0,.35);position:relative;overflow:hidden}
+    .titlebar::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);animation:titlebarScan 6s infinite}
+    
+    @keyframes titlebarScan{0%{left:-100%}50%{left:100%}100%{left:100%}}
     .titlebar .controls{display:flex;gap:4px}
-    .btn{width:18px;height:18px;border-radius:3px;display:grid;place-items:center;cursor:pointer;background:linear-gradient(#f0f0f0,#cccccc);border:1px solid #6b6b6b;box-shadow:0 1px 0 #fff inset;font-size:12px}
-    .btn:hover{filter:brightness(1.05)}.btn:active{transform:translateY(1px)}
+    .btn{width:18px;height:18px;border-radius:3px;display:grid;place-items:center;cursor:pointer;background:linear-gradient(#f0f0f0,#cccccc);border:1px solid #6b6b6b;box-shadow:0 1px 0 #fff inset;font-size:12px;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 0.8s ease-in-out infinite alternate}
+    .btn:hover{filter:brightness(1.05);transform:translateY(-1px) rotate(1deg);box-shadow:0 1px 0 #fff inset,0 2px 4px rgba(0,0,0,.2);animation:wobbleHover 0.6s ease-in-out infinite alternate}
+    .btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .3s ease}
+    .btn:hover::before{left:100%}
+    .btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset;animation:none}
     .window .content{padding:10px;height:calc(100% - 28px);overflow:auto;background:transparent}
     .resizer{position:absolute;right:4px;bottom:4px;width:14px;height:14px;cursor:nwse-resize;background:linear-gradient(135deg,#fff 0%,#cfcfcf 60%,#9c9c9c 100%);border:1px solid #6b6b6b;border-radius:3px;box-shadow:0 1px 0 #fff inset;opacity:.9}
     .resizer::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 2px,rgba(0,0,0,.15) 2px 4px);border-radius:3px}
@@ -97,12 +136,17 @@
 
     /* ===== Explorer / Gallery cards ===== */
     .explorer-toolbar{display:flex;gap:8px;align-items:center;padding:6px;margin:0 0 8px 0;background:linear-gradient(#f7f7f7,#e5e5e5);border:1px solid #b5b5b5;border-radius:4px;box-shadow:0 1px 0 #fff inset;position:relative;z-index:100}
-    .explorer-toolbar .tool{padding:4px 8px;border:1px solid #b5b5b5;border-radius:3px;background:#fff;cursor:pointer}
+    .explorer-toolbar .tool{padding:4px 8px;border:1px solid #b5b5b5;border-radius:3px;background:#fff;cursor:pointer;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 1.1s ease-in-out infinite alternate}
+    .explorer-toolbar .tool:hover{transform:translateY(-1px) rotate(0.5deg);box-shadow:0 2px 4px rgba(0,0,0,.1);animation:wobbleHover 0.7s ease-in-out infinite alternate}
+    .explorer-toolbar .tool::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,0,0,.05),transparent);transition:left .4s ease}
+    .explorer-toolbar .tool:hover::before{left:100%}
     .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
     .gallery.grid-view{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
     .gallery.list-view{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-    .thumb{position:relative;background:#fff;border:1px solid #b5b5b5;border-radius:6px;padding:8px;box-shadow:0 1px 0 #fff inset,0 2px 6px rgba(0,0,0,.05);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
-    .thumb:hover{transform:translateY(-2px);box-shadow:0 2px 10px rgba(0,0,0,.15)}
+    .thumb{position:relative;background:#fff;border:1px solid #b5b5b5;border-radius:6px;padding:8px;box-shadow:0 1px 0 #fff inset,0 2px 6px rgba(0,0,0,.05);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;overflow:hidden;animation:wobble 1.2s ease-in-out infinite alternate}
+    .thumb:hover{transform:translateY(-2px) rotate(1deg);box-shadow:0 2px 10px rgba(0,0,0,.15);animation:wobbleHover 0.9s ease-in-out infinite alternate}
+    .thumb::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s ease;z-index:1}
+    .thumb:hover::before{left:100%}
     .thumb .frame{position:relative;border:1px solid #8a8a8a;border-radius:4px;background:linear-gradient(#fefefe,#f2f2f2);overflow:hidden}
     .thumb .pic{width:100%;aspect-ratio:4/3;display:block;object-fit:cover}
     .thumb .badge{position:absolute;top:6px;left:6px;background:#e11d48;color:#fff;font-size:11px;padding:2px 6px;border-radius:10px;border:1px solid rgba(0,0,0,.2)}
