@@ -124,11 +124,11 @@
       .window{min-width:280px;max-width:calc(100vw - 16px);left:8px !important;top:8px !important;width:calc(100vw - 16px) !important;height:calc(100vh - 60px) !important}
       .window.maximized{left:0 !important;top:0 !important;width:100vw !important;height:calc(100vh - 50px) !important}
       
-      /* Taskbar - cleaner mobile design */
-      .taskbar{height:50px;padding:4px 8px;flex-wrap:wrap;gap:4px;justify-content:space-between}
-      .start-btn{height:36px;padding:0 12px;font-size:13px;min-width:60px}
-      .sound-btn{height:32px;padding:0 8px;font-size:11px;min-width:50px}
-      .clock{min-width:70px;font-size:12px;text-align:center;order:3;flex-basis:100%;margin-top:2px}
+      /* Taskbar - perfectly symmetrical mobile design */
+      .taskbar{height:60px;padding:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center;justify-items:center}
+      .start-btn{height:44px;padding:0 16px;font-size:14px;min-width:80px;border-radius:8px;grid-column:1}
+      .sound-btn{height:44px;padding:0 12px;font-size:12px;min-width:70px;border-radius:8px;grid-column:2}
+      .clock{font-size:13px;text-align:center;grid-column:3;font-weight:600;min-width:80px}
       .tasklist{display:none} /* Hide tasklist on mobile */
       
       /* Gallery */
@@ -138,15 +138,15 @@
       .thumb .title{font-size:11px}
       .thumb .sub{font-size:10px}
       
-      /* Filter bar - much cleaner */
-      .explorer-toolbar{padding:8px;gap:6px;flex-wrap:wrap;background:linear-gradient(#f7f7f7,#e5e5e5);border-radius:6px;margin:4px 0}
-      .explorer-toolbar .tool{padding:8px 12px;font-size:12px;min-height:36px;border-radius:4px;flex:1;min-width:80px;text-align:center}
-      .explorer-toolbar input{padding:8px 12px;font-size:12px;min-height:36px;border-radius:4px;flex:2;min-width:120px}
-      .explorer-toolbar .clear-btn{padding:8px 12px;font-size:12px;min-height:36px;border-radius:4px;min-width:36px}
-      .explorer-toolbar .tool-group{flex:1;min-width:100px}
-      .explorer-toolbar .split-btn{width:100%}
-      .explorer-toolbar .split-btn .primary{flex:1;min-width:60px}
-      .explorer-toolbar .split-btn .caret{min-width:30px}
+      /* Filter bar - perfectly organized and symmetrical */
+      .explorer-toolbar{padding:12px;gap:8px;display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;background:linear-gradient(#f8f9fa,#e9ecef);border-radius:12px;margin:8px 0;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+      .explorer-toolbar .tool-group{grid-column:1;display:flex;gap:4px}
+      .explorer-toolbar .tool{padding:10px 14px;font-size:13px;min-height:40px;border-radius:8px;text-align:center;font-weight:500;background:linear-gradient(#ffffff,#f8f9fa);border:1px solid #dee2e6;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+      .explorer-toolbar input{grid-column:2;padding:10px 14px;font-size:13px;min-height:40px;border-radius:8px;border:1px solid #dee2e6;background:#ffffff;box-shadow:inset 0 1px 3px rgba(0,0,0,0.1)}
+      .explorer-toolbar .clear-btn{grid-column:3;padding:10px 14px;font-size:13px;min-height:40px;border-radius:8px;min-width:40px;background:linear-gradient(#ffffff,#f8f9fa);border:1px solid #dee2e6;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+      .explorer-toolbar .split-btn{display:flex;width:100%}
+      .explorer-toolbar .split-btn .primary{flex:1;border-top-right-radius:0;border-bottom-right-radius:0}
+      .explorer-toolbar .split-btn .caret{min-width:32px;border-left:0;border-top-left-radius:0;border-bottom-left-radius:0}
       
       /* Shortcuts */
       .shortcut{width:70px;font-size:10px}
@@ -179,16 +179,16 @@
       .thumb .title{font-size:10px}
       .thumb .sub{font-size:9px}
       
-      /* Even cleaner for very small screens */
-      .taskbar{height:45px;padding:3px 6px}
-      .start-btn{height:32px;padding:0 10px;font-size:12px;min-width:55px}
-      .sound-btn{height:28px;padding:0 6px;font-size:10px;min-width:45px}
-      .clock{min-width:65px;font-size:11px}
+      /* Even more symmetrical for very small screens */
+      .taskbar{height:55px;padding:6px;grid-template-columns:1fr 1fr 1fr;gap:6px}
+      .start-btn{height:40px;padding:0 12px;font-size:13px;min-width:70px;border-radius:6px}
+      .sound-btn{height:40px;padding:0 10px;font-size:11px;min-width:60px;border-radius:6px}
+      .clock{font-size:12px;min-width:70px;font-weight:600}
       
-      .explorer-toolbar{padding:6px;gap:4px}
-      .explorer-toolbar .tool{padding:6px 8px;font-size:11px;min-height:32px;min-width:70px}
-      .explorer-toolbar input{padding:6px 8px;font-size:11px;min-height:32px;min-width:100px}
-      .explorer-toolbar .clear-btn{padding:6px 8px;font-size:11px;min-height:32px;min-width:32px}
+      .explorer-toolbar{padding:10px;gap:6px;grid-template-columns:1fr 2fr 1fr;border-radius:10px}
+      .explorer-toolbar .tool{padding:8px 12px;font-size:12px;min-height:36px;border-radius:6px}
+      .explorer-toolbar input{padding:8px 12px;font-size:12px;min-height:36px;border-radius:6px}
+      .explorer-toolbar .clear-btn{padding:8px 12px;font-size:12px;min-height:36px;border-radius:6px;min-width:36px}
       
       .shortcut{width:60px;font-size:9px}
       .shortcut .icon{width:28px;height:28px;font-size:12px}
@@ -211,26 +211,26 @@
     body.mobile .gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}
     body.mobile .thumb{padding:4px}
     
-    /* Mobile taskbar - much cleaner */
-    body.mobile .taskbar{height:50px;padding:4px 8px;flex-wrap:wrap;gap:4px;justify-content:space-between}
-    body.mobile .start-btn{height:36px;padding:0 12px;font-size:13px;min-width:60px}
-    body.mobile .sound-btn{height:32px;padding:0 8px;font-size:11px;min-width:50px}
-    body.mobile .clock{min-width:70px;font-size:12px;text-align:center;order:3;flex-basis:100%;margin-top:2px}
+    /* Mobile taskbar - perfectly symmetrical */
+    body.mobile .taskbar{height:60px;padding:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center;justify-items:center}
+    body.mobile .start-btn{height:44px;padding:0 16px;font-size:14px;min-width:80px;border-radius:8px;grid-column:1}
+    body.mobile .sound-btn{height:44px;padding:0 12px;font-size:12px;min-width:70px;border-radius:8px;grid-column:2}
+    body.mobile .clock{font-size:13px;text-align:center;grid-column:3;font-weight:600;min-width:80px}
     body.mobile .tasklist{display:none} /* Hide tasklist on mobile */
     
     /* Mobile start menu */
     body.mobile .start-menu{width:220px;left:8px;bottom:54px}
     body.mobile .start-item{padding:8px;font-size:13px;min-height:20px}
     
-    /* Mobile filter bar - much cleaner */
-    body.mobile .explorer-toolbar{padding:8px;gap:6px;flex-wrap:wrap;background:linear-gradient(#f7f7f7,#e5e5e5);border-radius:6px;margin:4px 0}
-    body.mobile .explorer-toolbar .tool{padding:8px 12px;font-size:12px;min-height:36px;border-radius:4px;flex:1;min-width:80px;text-align:center}
-    body.mobile .explorer-toolbar input{padding:8px 12px;font-size:12px;min-height:36px;border-radius:4px;flex:2;min-width:120px}
-    body.mobile .explorer-toolbar .clear-btn{padding:8px 12px;font-size:12px;min-height:36px;border-radius:4px;min-width:36px}
-    body.mobile .explorer-toolbar .tool-group{flex:1;min-width:100px}
-    body.mobile .explorer-toolbar .split-btn{width:100%}
-    body.mobile .explorer-toolbar .split-btn .primary{flex:1;min-width:60px}
-    body.mobile .explorer-toolbar .split-btn .caret{min-width:30px}
+    /* Mobile filter bar - perfectly organized and symmetrical */
+    body.mobile .explorer-toolbar{padding:12px;gap:8px;display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;background:linear-gradient(#f8f9fa,#e9ecef);border-radius:12px;margin:8px 0;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+    body.mobile .explorer-toolbar .tool-group{grid-column:1;display:flex;gap:4px}
+    body.mobile .explorer-toolbar .tool{padding:10px 14px;font-size:13px;min-height:40px;border-radius:8px;text-align:center;font-weight:500;background:linear-gradient(#ffffff,#f8f9fa);border:1px solid #dee2e6;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+    body.mobile .explorer-toolbar input{grid-column:2;padding:10px 14px;font-size:13px;min-height:40px;border-radius:8px;border:1px solid #dee2e6;background:#ffffff;box-shadow:inset 0 1px 3px rgba(0,0,0,0.1)}
+    body.mobile .explorer-toolbar .clear-btn{grid-column:3;padding:10px 14px;font-size:13px;min-height:40px;border-radius:8px;min-width:40px;background:linear-gradient(#ffffff,#f8f9fa);border:1px solid #dee2e6;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+    body.mobile .explorer-toolbar .split-btn{display:flex;width:100%}
+    body.mobile .explorer-toolbar .split-btn .primary{flex:1;border-top-right-radius:0;border-bottom-right-radius:0}
+    body.mobile .explorer-toolbar .split-btn .caret{min-width:32px;border-left:0;border-top-left-radius:0;border-bottom-left-radius:0}
     
     /* Mobile shortcuts */
     body.mobile .shortcut{width:70px;font-size:10px}
