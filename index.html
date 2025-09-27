@@ -3,8 +3,58 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Windows XP Art Portfolio — Shayz</title>
-  <meta name="description" content="Windows XP–themed portfolio to showcase Shayz’s artwork." />
+  <title>boredm</title>
+  <meta name="description" content="boredm - A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks. Explore grunge-style illustrations, digital art, and creative designs in a nostalgic desktop environment." />
+  <meta name="keywords" content="boredm, digital art, portfolio, Shayz, grunge art, digital illustration, creative design, Windows XP theme, art gallery, online portfolio" />
+  <meta name="author" content="Shayz" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta property="og:title" content="boredm" />
+  <meta property="og:description" content="boredm - A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks. Explore grunge-style illustrations and digital art." />
+  <meta property="og:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta property="twitter:title" content="boredm" />
+  <meta property="twitter:description" content="boredm - A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks." />
+  <meta property="twitter:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
+  
+  <!-- Additional SEO -->
+  <link rel="canonical" href="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta name="theme-color" content="#1b4ea3" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="boredm" />
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "boredm",
+    "description": "A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks",
+    "url": "https://shayanhashmiartworks-bot.github.io/boredm/",
+    "author": {
+      "@type": "Person",
+      "name": "Shayz",
+      "url": "https://shayanhashmiartworks-bot.github.io/boredm/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Shayz"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://shayanhashmiartworks-bot.github.io/boredm/?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  
   <style>
     /* ===== Base ===== */
     *,*::before,*::after{box-sizing:border-box}
@@ -525,6 +575,10 @@
         // Force reload the gallery
         ARTWORKS = dedupeArtworks(arr);
         applyToolbarState();
+        
+        // Update page title with new artwork count
+        updatePageTitle();
+        
         console.log('🔄 Gallery reloaded with', ARTWORKS.length, 'items');
       }catch(e){
         console.error('Error updating artworks:', e);
@@ -581,6 +635,51 @@
     function thumbUrl(url, w){
       try{ const u=new URL(url); if(u.searchParams.has('w')){ u.searchParams.set('w', String(w)); } else { u.searchParams.append('w', String(w)); } return u.toString(); }
       catch{ return url; }
+    }
+    
+    // ===== Image Optimization =====
+    function optimizeImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.8) {
+      return new Promise((resolve) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        
+        img.onload = function() {
+          // Calculate new dimensions maintaining aspect ratio
+          let { width, height } = img;
+          const aspectRatio = width / height;
+          
+          if (width > maxWidth) {
+            width = maxWidth;
+            height = width / aspectRatio;
+          }
+          if (height > maxHeight) {
+            height = maxHeight;
+            width = height * aspectRatio;
+          }
+          
+          // Set canvas dimensions
+          canvas.width = width;
+          canvas.height = height;
+          
+          // Draw and compress image
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Convert to optimized data URL
+          const optimizedDataUrl = canvas.toDataURL('image/jpeg', quality);
+          resolve(optimizedDataUrl);
+        };
+        
+        img.src = URL.createObjectURL(file);
+      });
+    }
+    
+    function isImageFile(file) {
+      return file.type.startsWith('image/');
+    }
+    
+    function getFileSizeMB(file) {
+      return (file.size / (1024 * 1024)).toFixed(2);
     }
 
     function escHtml(s){
@@ -807,7 +906,7 @@
         card.innerHTML=`
           <div class="frame">
             ${badge}
-            <img class="pic skeleton" alt="${safeTitle}" data-src="${thumb}" data-full="${full}" />
+            <img class="pic skeleton" alt="${safeTitle}" data-src="${thumb}" data-full="${full}" loading="lazy" decoding="async" />
             <div class="overlay">
               <div class="meta">
                 <div>${safeTitle}${year?` · ${year}`:''}</div>
@@ -1186,9 +1285,23 @@
       });
     }
 
+    // Update page title with artwork count
+    function updatePageTitle() {
+      const artworkCount = ARTWORKS.length;
+      const title = artworkCount > 0 
+        ? `boredm (${artworkCount})`
+        : 'boredm';
+      document.title = title;
+    }
+    
+    // Update page title when artworks change
+    updatePageTitle();
+
     // No APIs needed - just URLs and local storage
     console.log('🚀 Gallery ready - no APIs needed!');
     console.log('📱 Your uploaded art is stored locally and in shareable URLs');
+    console.log('🔍 SEO optimized for search engines');
+    console.log('🖼️ Image optimization enabled for faster loading');
 
     // Initial render & restore
     console.log('Initializing gallery with', ARTWORKS.length, 'artworks');
@@ -1255,7 +1368,7 @@
         // Show upload progress
         const submitBtn = adminForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Uploading...';
+        submitBtn.textContent = 'Optimizing & Uploading...';
         submitBtn.disabled = true;
         
         try {
@@ -1265,8 +1378,25 @@
           const descriptionStr = admDescription.value.trim()||undefined;
           
           for(const f of files){
-            console.log('Uploading file:', f.name);
-            const src = await uploadImageToHosting(f);
+            console.log('Processing file:', f.name, `(${getFileSizeMB(f)}MB)`);
+            
+            // Check if it's an image file and optimize it
+            let processedFile = f;
+            if(isImageFile(f)) {
+              console.log('Optimizing image:', f.name);
+              try {
+                const optimizedDataUrl = await optimizeImage(f, 1200, 1200, 0.8);
+                // Convert data URL back to blob for upload
+                const response = await fetch(optimizedDataUrl);
+                const blob = await response.blob();
+                processedFile = new File([blob], f.name, { type: 'image/jpeg' });
+                console.log('Image optimized:', f.name, `(${getFileSizeMB(processedFile)}MB)`);
+              } catch(error) {
+                console.warn('Image optimization failed, using original:', error);
+              }
+            }
+            
+            const src = await uploadImageToHosting(processedFile);
             
             if(!src) {
               console.error('Failed to upload file:', f.name);
