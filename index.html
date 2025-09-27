@@ -1783,7 +1783,7 @@
             const testLine = line + phrase;
             const testWidth = ctx.measureText(testLine).width;
             
-            if(testWidth < w - 40) { // 40px margin for better spacing
+            if(testWidth < w - 20) { // 20px margin for better centering
               // Add complete phrase to current line
               textLines[currentLineIndex] += phrase;
             } else {
@@ -1821,7 +1821,10 @@
             const y = (index + 1) * fontSize;
             if(y < h && line.length > 0) {
               ctx.fillStyle='#ffff00'; // Yellow text
-              ctx.fillText(line, 20, y); // Start from x=20 for left spacing
+              // Center the text on the line
+              const textWidth = ctx.measureText(line).width;
+              const textX = (w - textWidth) / 2;
+              ctx.fillText(line, textX, y);
             }
           });
           
