@@ -92,12 +92,21 @@
     .expanded-inner.loaded img{opacity:1;transform:scale(1)}
     .chip-close{position:absolute;top:8px;right:8px;background:#1b4ea3;color:#fff;border:1px solid #0f3d86;border-radius:12px;padding:2px 8px;font-size:12px;cursor:pointer}
 
-    /* ===== Lightbox (kept, not used by cards now) ===== */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:9997}
-    .viewer{background:#ece9d8;width:min(1000px,92vw);height:min(680px,80vh);border:1px solid #0f3d86;border-radius:6px;box-shadow:0 6px 24px rgba(0,0,0,.45);display:flex;flex-direction:column}
-    .viewer .toolbar{background:linear-gradient(#f7f7f7,#e5e5e5);border-bottom:1px solid #b5b5b5;padding:6px;display:flex;gap:8px;align-items:center}
-    .viewer .stage{flex:1;display:grid;place-items:center;background:#fff}
-    .viewer img{max-width:100%;max-height:100%}
+    /* ===== Full-screen Image Viewer ===== */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:0;z-index:9997;cursor:grab}
+    .lightbox:active{cursor:grabbing}
+    .viewer{background:#ece9d8;width:100vw;height:100vh;border:none;border-radius:0;box-shadow:none;display:flex;flex-direction:column;position:relative}
+    .viewer .toolbar{background:linear-gradient(#f7f7f7,#e5e5e5);border-bottom:1px solid #b5b5b5;padding:8px;display:flex;gap:8px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:10}
+    .viewer .stage{flex:1;display:flex;align-items:center;justify-content:center;background:#000;position:relative;overflow:hidden;cursor:grab}
+    .viewer .stage:active{cursor:grabbing}
+    .viewer img{max-width:none;max-height:none;transition:transform 0.1s ease;user-select:none;pointer-events:none}
+    .viewer .info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff;padding:20px;z-index:10}
+    .viewer .info h3{margin:0 0 8px 0;font-size:18px;font-weight:700}
+    .viewer .info p{margin:0;font-size:14px;opacity:0.9;line-height:1.4}
+    .viewer .controls{position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:10}
+    .viewer .control-btn{width:40px;height:40px;background:rgba(0,0,0,0.7);border:1px solid #666;border-radius:6px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background 0.2s}
+    .viewer .control-btn:hover{background:rgba(0,0,0,0.9)}
+    .viewer .zoom-info{position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.7);color:#fff;padding:8px 12px;border-radius:4px;font-size:12px;z-index:10}
 
     /* ===== Boot splash ===== */
     #splash{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:10000}
@@ -217,8 +226,8 @@
       <div class="content">
         <p>For commissions, collabs, or classes:</p>
         <p><strong>Email:</strong> <a href="mailto:boredm404@gmail.com">boredm404@gmail.com</a></p>
-        <p><strong>Twitter:</strong> <a href="https://x.com/shayz" target="_blank" rel="noreferrer noopener">@shayz</a></p>
-        <p><strong>Instagram:</strong> <a href="https://instagram.com/shayz" target="_blank" rel="noreferrer noopener">@shayz</a></p>
+        <p><strong>Twitter:</strong> <a href="https://x.com/boredm404" target="_blank" rel="noreferrer noopener">@boredm404</a></p>
+        <p><strong>Instagram:</strong> <a href="https://instagram.com/boredm404" target="_blank" rel="noreferrer noopener">@boredm404</a></p>
       </div>
       <div class="resizer"></div>
     </section>
@@ -234,6 +243,7 @@
           <input class="tool" id="admTitle" placeholder="Title (optional; used for single upload or as prefix)" />
           <input class="tool" id="admDate" type="date" placeholder="Date (optional)" />
           <input class="tool" id="admBadge" placeholder="Badge (e.g. NEW) — optional" />
+          <textarea class="tool" id="admDescription" placeholder="Description/Artist Notes (optional)" rows="3" style="resize:vertical;min-height:60px"></textarea>
           <input class="tool" id="admFile" type="file" accept="image/*" multiple />
           <button class="tool" type="submit">Upload Images</button>
         </form>
@@ -241,14 +251,16 @@
         <div style="border-top:1px solid #ccc;padding-top:8px;margin-bottom:10px">
           <h4 style="margin:0 0 8px 0;font-size:14px">🌐 Add Image URLs (Permanent for All Visitors)</h4>
           <form id="urlForm" style="display:grid;gap:8px">
-            <input class="tool" id="urlTitle" placeholder="Image Title" />
-            <input class="tool" id="urlImage" placeholder="Image URL (from Pinterest, Imgur, etc.)" />
-            <input class="tool" id="urlDate" type="date" placeholder="Date (optional)" />
-            <input class="tool" id="urlBadge" placeholder="Badge (e.g. NEW) — optional" />
+          <input class="tool" id="urlTitle" placeholder="Image Title" required />
+          <input class="tool" id="urlImage" placeholder="Image URL (from Pinterest, Imgur, etc.)" required />
+          <input class="tool" id="urlDate" type="date" placeholder="Date (optional)" />
+          <input class="tool" id="urlBadge" placeholder="Badge (e.g. NEW) — optional" />
+          <textarea class="tool" id="urlDescription" placeholder="Description/Artist Notes (optional)" rows="3" style="resize:vertical;min-height:60px"></textarea>
             <button class="tool" type="submit" style="background:#2196F3;color:white">➕ Add Image URL</button>
           </form>
           <div style="font-size:12px;opacity:.8;margin-top:8px">
             <strong>✅ Simple & Clean:</strong> No APIs needed! Just paste image URLs and they appear!<br>
+            <strong>🔄 Session Only:</strong> Images reset to defaults when page is refreshed<br>
             <strong>🔗 Shareable:</strong> Copy the URL below to share your gallery with others<br>
             <strong>💡 How to get image URLs:</strong><br>
             • Pinterest: Right-click image → "Copy image address"<br>
@@ -266,12 +278,31 @@
       <div class="resizer"></div>
     </section>
 
-    <!-- Lightbox (kept for future) -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <!-- Full-screen Image Viewer -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full-screen image viewer">
       <div class="viewer">
-        <div class="titlebar" style="cursor:default"><div class="title">🖼️ Windows Picture and Fax Viewer</div><div class="controls"><div class="btn" id="viewerClose" title="Close">×</div></div></div>
-        <div class="toolbar"><button id="prevBtn">⟨ Prev</button><button id="nextBtn">Next ⟩</button><div style="margin-left:auto;font-size:12px;opacity:.8" id="viewerCaption">&nbsp;</div></div>
-        <div class="stage"><img id="viewerImg" alt="Artwork" /></div>
+        <div class="toolbar">
+          <button id="prevBtn" class="tool">⟨ Prev</button>
+          <button id="nextBtn" class="tool">Next ⟩</button>
+          <button id="zoomInBtn" class="tool">🔍+</button>
+          <button id="zoomOutBtn" class="tool">🔍-</button>
+          <button id="resetZoomBtn" class="tool">⌂</button>
+          <div style="margin-left:auto;font-size:12px;opacity:.8" id="viewerCaption">&nbsp;</div>
+          <button id="viewerClose" class="tool">× Close</button>
+        </div>
+        <div class="stage" id="viewerStage">
+          <img id="viewerImg" alt="Artwork" />
+        </div>
+        <div class="info" id="viewerInfo">
+          <h3 id="viewerTitle"></h3>
+          <p id="viewerDescription"></p>
+        </div>
+        <div class="controls">
+          <button class="control-btn" id="zoomInControl" title="Zoom In">+</button>
+          <button class="control-btn" id="zoomOutControl" title="Zoom Out">-</button>
+          <button class="control-btn" id="resetZoomControl" title="Reset Zoom">⌂</button>
+        </div>
+        <div class="zoom-info" id="zoomInfo">100%</div>
       </div>
     </div>
   </div>
@@ -297,60 +328,44 @@
   </div>
 
   <script>
-    // ===== Demo artwork data =====
+    // ===== Default gallery with sample artwork =====
     const ARTWORKS_DEFAULT = [
-      { src:'https://images.unsplash.com/photo-1526312426976-593c2e61558f?q=80&w=1600&auto=format&fit=crop', title:'Neon Horizon', date:'2025-08-01', badge:'NEW' },
-      { src:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop', title:'Vaporwave Meadow', date:'2025-07-12' },
-      { src:'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1600&auto=format&fit=crop', title:'Crystal Hills', date:'2025-06-03' },
-      { src:'https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=1600&auto=format&fit=crop', title:'Retro Grid', date:'2025-04-20' },
-      { src:'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop', title:'Dream in Blue', date:'2025-02-14' }
+      { 
+        src: 'https://i.pinimg.com/736x/72/9a/b5/729ab5d311956865a8b7778490ca506e.jpg', 
+        title: 'Fine Art', 
+        date: '2025-01-15', 
+        badge: 'NEW',
+        description: 'A beautiful piece of digital artwork showcasing artistic creativity and style.'
+      },
+      { 
+        src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjOTBFRTkwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIvPgo8dGV4dCB4PSIyMDAiIHk9IjE2MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjcyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzAwMDAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NDozPC90ZXh0Pgo8L3N2Zz4K', 
+        title: 'golatih', 
+        date: '2025-01-15', 
+        badge: 'NEW',
+        description: 'A simple graphic displaying the 4:3 aspect ratio in bold black text on a light green background.'
+      }
     ];
     const ART_KEY='xp_artworks_v2';
-    // Simple approach - store gallery data in URL hash for permanent sharing
-    // No APIs needed - just URLs and the gallery data travels with the URL
+    // URL-based approach - store gallery data in URL hash for permanent sharing
+    // This ensures all visitors see the same gallery content
     function artId(a){ return a.id || (a.id = (a.title||'untitled')+'|'+String(a.date||'')+'|'+String(a.src).slice(0,64)); }
     function loadArtworks(){
       console.log('🔄 Loading artworks...');
       
-      // First check if there's gallery data in the URL hash (for sharing)
-      const hash = window.location.hash.substring(1);
-      if (hash) {
-        try {
-          const decoded = atob(hash);
-          const data = JSON.parse(decoded);
-          if (data.artworks && Array.isArray(data.artworks)) {
-            console.log('📥 Loaded gallery from URL hash:', data.artworks.length, 'items');
-            return data.artworks;
-          }
-        } catch (e) {
-          console.log('❌ Failed to load from URL hash:', e);
-        }
-      }
+      // Always start fresh - clear ALL existing data
+      localStorage.clear();
+      window.location.hash = '';
       
-      // Try to load from localStorage (your uploaded art)
-      try{ 
-        const raw=JSON.parse(localStorage.getItem(ART_KEY)||'null'); 
-        console.log('🔍 Checking localStorage for artworks...', raw);
-        if(Array.isArray(raw) && raw.every(a=>a&&a.src&&a.title)) {
-          console.log('📱 Loaded artworks from localStorage:', raw.length, 'items');
-          return raw; 
-        } else {
-          console.log('📱 No valid artworks in localStorage');
-        }
-      }catch(e){
-        console.error('Error loading artworks from localStorage:', e);
-      }
-      
-      console.log('📋 Using default artworks');
+      console.log('📋 Starting with empty gallery (fresh start)');
       return ARTWORKS_DEFAULT.slice();
     }
     function saveArtworks(arr){ 
       console.log('💾 Saving artworks...', arr);
       try{ 
-        localStorage.setItem(ART_KEY, JSON.stringify(arr)); 
-        console.log('✅ Saved artworks to localStorage:', arr.length, 'items');
+        // Don't save to localStorage - just update URL hash for sharing
+        console.log('✅ Artworks updated in current session:', arr.length, 'items');
         
-        // Also update the URL hash so it's shareable
+        // Update the URL hash so it's shareable to all visitors
         updateUrlHash(arr);
         
         // Force reload the gallery
@@ -358,7 +373,7 @@
         applyToolbarState();
         console.log('🔄 Gallery reloaded with', ARTWORKS.length, 'items');
       }catch(e){
-        console.error('Error saving artworks to localStorage:', e);
+        console.error('Error updating artworks:', e);
       }
     }
 
@@ -425,7 +440,7 @@
 
     // ===== Sounds (WebAudio — defined early to avoid TDZ) =====
     const SOUND_KEY='xp_sound_enabled_v1';
-    let soundEnabled = localStorage.getItem(SOUND_KEY)==='1';
+    let soundEnabled = false; // Always start with sound off
     const soundToggle = document.getElementById('soundToggle');
 
     // Reduced motion flag
@@ -465,7 +480,7 @@
     function updateSoundToggle(){ soundToggle.setAttribute('aria-pressed', String(soundEnabled)); soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔇 Sound Off'; }
     updateSoundToggle();
     function tryPlay(name){ if(!soundEnabled) return; const fn = SFX[name]; try{ fn && fn(); }catch{} }
-    soundToggle.addEventListener('click', ()=>{ soundEnabled = !soundEnabled; localStorage.setItem(SOUND_KEY, soundEnabled ? '1' : '0'); updateSoundToggle(); if(soundEnabled) tryPlay('click'); });
+    soundToggle.addEventListener('click', ()=>{ soundEnabled = !soundEnabled; updateSoundToggle(); if(soundEnabled) tryPlay('click'); });
 
     // unlock audio on first gesture
     let unlocked=false; function unlockOnce(){ if(unlocked) return; unlocked=true; try{ ensureCtx(); if(soundEnabled) tryPlay('boot'); }catch{} document.removeEventListener('pointerdown', unlockOnce); document.removeEventListener('keydown', unlockOnce); }
@@ -475,17 +490,16 @@
     const LIKED_KEY = 'xp_art_liked_set_v1';
     const LIKECOUNT_KEY = 'xp_art_like_counts_v1';
     let likedSet = new Set();
-    try { likedSet = new Set(JSON.parse(localStorage.getItem(LIKED_KEY) || '[]')); } catch {}
     let likeCounts = {};
-    try { likeCounts = JSON.parse(localStorage.getItem(LIKECOUNT_KEY) || '{}'); } catch { likeCounts = {}; }
+    // Don't load likes from localStorage - always start fresh
     function getCount(src){ return Math.max(0, Number(likeCounts[src]||0)); }
-    function setCount(src, n){ likeCounts[src]=Math.max(0, Number(n||0)); localStorage.setItem(LIKECOUNT_KEY, JSON.stringify(likeCounts)); }
+    function setCount(src, n){ likeCounts[src]=Math.max(0, Number(n||0)); }
     function isLiked(src){ return likedSet.has(src); }
     function setLiked(src, val){
       const was = likedSet.has(src);
       if(val && !was){ likedSet.add(src); setCount(src, getCount(src)+1); }
       if(!val && was){ likedSet.delete(src); setCount(src, getCount(src)-1); }
-      localStorage.setItem(LIKED_KEY, JSON.stringify([...likedSet]));
+      // Don't save likes to localStorage - always start fresh
     }
 
     // ===== Window manager & persistence =====
@@ -496,13 +510,54 @@
     const tasklist=document.getElementById('tasklist');
     const STATE_KEY='xp_portfolio_state_v1';
     let saveTimer;
-    function getState(){ try{ return JSON.parse(localStorage.getItem(STATE_KEY))||{} } catch(e){ return {} } }
-    function saveState(){ const data={}; windows.forEach(win=>{const id=win.id;if(!id)return; const cs=getComputedStyle(win); data[id]={left:win.style.left||cs.left,top:win.style.top||cs.top,width:win.style.width||cs.width,height:win.style.height||cs.height,display:cs.display,maximized:win.dataset.maximized==='1'};}); localStorage.setItem(STATE_KEY,JSON.stringify(data)); }
-    function saveStateDebounced(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveState,150); }
-    function restoreState(){ const data=getState(); windows.forEach(win=>{ const s=data[win.id]; if(!s) return; if(s.left) win.style.left=s.left; if(s.top) win.style.top=s.top; if(s.width) win.style.width=s.width; if(s.height) win.style.height=s.height; if(s.display) win.style.display=s.display; if(s.maximized){ win.style.left='0'; win.style.top='0'; win.style.width='100%'; win.style.height='calc(100% - 40px)'; win.dataset.maximized='1'; } else { win.dataset.maximized='0'; } }); const anyVisible=windows.some(w=>getComputedStyle(w).display!=='none'); if(!anyVisible){ const def=document.getElementById('galleryWindow')||document.getElementById('aboutWindow'); if(def){ def.style.display='block'; focusWindow(def); } } }
+    function getState(){ return {} }
+    function saveState(){ 
+      // Don't save state - always start fresh
+      console.log('State changes not persisted - will reset on refresh');
+    }
+    function saveStateDebounced(){ 
+      // Don't save state - always start fresh
+      console.log('State changes not persisted - will reset on refresh');
+    }
+    function restoreState(){ 
+      // Always start with default layout - no persistence
+      windows.forEach(win=>{ 
+        const d=DEFAULTS[win.id]; 
+        if(!d) return; 
+        win.style.left=d.left; 
+        win.style.top=d.top; 
+        win.style.width=d.width; 
+        win.style.height=d.height; 
+        win.style.display=d.display; 
+        win.dataset.maximized='0'; 
+      }); 
+      const primary=document.getElementById('galleryWindow')||document.getElementById('aboutWindow'); 
+      if(primary){ 
+        primary.style.display='block'; 
+        focusWindow(primary); 
+      } 
+    }
 
     function focusWindow(win){ windows.forEach(w=>w.style.zIndex=Math.max(1,parseInt(w.style.zIndex)||1)); win.style.zIndex=++zStack.current; ensureTaskItem(win); }
-    function ensureTaskItem(win){ const id=win.id; if(!id) return; let item=tasklist.querySelector(`[data-task='${id}']`); const title=win.querySelector('.titlebar .title')?.textContent?.trim()||id; if(!item){ item=document.createElement('div'); item.className='task'; item.dataset.task=id; item.innerHTML=`<span style="overflow:hidden;text-overflow:ellipsis">${title}</span>`; item.addEventListener('click',()=>{ win.style.display='block'; focusWindow(win); saveStateDebounced(); }); tasklist.appendChild(item); } }
+    function ensureTaskItem(win){ 
+      const id=win.id; 
+      if(!id) return; 
+      if(id === 'adminWindow') return; // Don't show admin window in taskbar 
+      let item=tasklist.querySelector(`[data-task='${id}']`); 
+      const title=win.querySelector('.titlebar .title')?.textContent?.trim()||id; 
+      if(!item){ 
+        item=document.createElement('div'); 
+        item.className='task'; 
+        item.dataset.task=id; 
+        item.innerHTML=`<span style="overflow:hidden;text-overflow:ellipsis">${title}</span>`; 
+        item.addEventListener('click',()=>{ 
+          win.style.display='block'; 
+          focusWindow(win); 
+          saveStateDebounced(); 
+        }); 
+        tasklist.appendChild(item); 
+      } 
+    }
     function minimizeWindow(win){ win.style.display='none'; saveStateDebounced(); }
     function closeWindow(win){ win.style.display='none'; saveStateDebounced(); }
 
@@ -534,10 +589,10 @@
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && startMenu.style.display==='flex'){ startMenu.style.display='none'; startBtn.setAttribute('aria-expanded','false'); startMenu.setAttribute('aria-hidden','true'); } });
     const resetLayout=document.getElementById('resetLayout');
     resetLayout?.addEventListener('click',()=>{
-      localStorage.removeItem(STATE_KEY);
+      // Reset to default layout
       windows.forEach(win=>{ const d=DEFAULTS[win.id]; if(!d) return; win.style.left=d.left; win.style.top=d.top; win.style.width=d.width; win.style.height=d.height; win.style.display=d.display; win.dataset.maximized='0'; });
       const primary=document.getElementById('galleryWindow')||windows[0]; if(primary){ primary.style.display='block'; focusWindow(primary); }
-      saveStateDebounced(); tryPlay('click');
+      tryPlay('click');
     });
 
     // Clock
@@ -545,16 +600,37 @@
     function tickClock(){ const d=new Date(); clockEl.textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
     tickClock(); setInterval(tickClock,15000);
 
-    // ===== Gallery & inline expand =====
+    // ===== Gallery & full-screen viewer =====
     const gallery=document.getElementById('gallery');
     const lightbox=document.getElementById('lightbox');
     const viewerImg=document.getElementById('viewerImg');
     const viewerCaption=document.getElementById('viewerCaption');
+    const viewerTitle=document.getElementById('viewerTitle');
+    const viewerDescription=document.getElementById('viewerDescription');
     const viewerClose=document.getElementById('viewerClose');
+    const viewerStage=document.getElementById('viewerStage');
+    const zoomInfo=document.getElementById('zoomInfo');
     const prevBtn=document.getElementById('prevBtn');
     const nextBtn=document.getElementById('nextBtn');
+    const zoomInBtn=document.getElementById('zoomInBtn');
+    const zoomOutBtn=document.getElementById('zoomOutBtn');
+    const resetZoomBtn=document.getElementById('resetZoomBtn');
+    const zoomInControl=document.getElementById('zoomInControl');
+    const zoomOutControl=document.getElementById('zoomOutControl');
+    const resetZoomControl=document.getElementById('resetZoomControl');
+    
     let currentIndex=0; let filtered=[...ARTWORKS];
     let currentSort='date';
+    
+    // Viewer state
+    let viewerZoom = 1;
+    let viewerPanX = 0;
+    let viewerPanY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragStartPanX = 0;
+    let dragStartPanY = 0;
 
     function renderGallery(items){
       gallery.innerHTML='';
@@ -573,6 +649,7 @@
         const likedNow = isLiked(full);
         const countNow = getCount(full);
         const safeTitle = escHtml(art.title);
+        const safeDescription = escHtml(art.description || '');
         card.innerHTML=`
           <div class="frame">
             ${badge}
@@ -613,24 +690,11 @@
         }
         function expand(){
           tryPlay('click');
-          const isExpanded=card.classList.contains('expanded');
-          document.querySelectorAll('.thumb.expanded').forEach(t=>{ if(t!==card) collapse(t); });
-          if(isExpanded){ collapse(card); return; }
-          card.classList.add('expanded');
-          card.style.gridColumn='span 2';
-          let ev=card.querySelector('.expanded-view');
-          if(!ev){
-            ev=document.createElement('div');
-            ev.className='expanded-view';
-            ev.innerHTML=`<div class='expanded-inner'><button class='chip-close' aria-label='Close'>× Close</button><img alt='${art.title}'/></div>`;
-            card.appendChild(ev);
+          // Open full-screen viewer instead of inline expand
+          const index = filtered.findIndex(a => a.id === art.id);
+          if(index !== -1) {
+            openViewer(index);
           }
-          const imgFull=ev.querySelector('img');
-          const wrap=ev.querySelector('.expanded-inner');
-          imgFull.onload=()=>{wrap.classList.add('loaded');};
-          imgFull.src = img.getAttribute('data-full');
-          requestAnimationFrame(()=>{ const targetH = ev.scrollHeight || wrap.getBoundingClientRect().height || 300; ev.style.height = targetH + 'px'; });
-          ev.querySelector('.chip-close').onclick=()=>collapse(card);
         }
         card.addEventListener('click', expand);
         card.addEventListener('keydown', (e)=>{
@@ -645,12 +709,115 @@
       });
     }
 
-    // Lightbox helpers (for future)
-    function openViewer(index){ currentIndex=index; const art=filtered[currentIndex]; viewerImg.src=art.src; viewerImg.alt=art.title; viewerCaption.textContent=`${art.title}`; lightbox.style.display='flex'; }
-    function closeViewer(){ lightbox.style.display='none'; }
-    function next(){ currentIndex=(currentIndex+1)%filtered.length; openViewer(currentIndex); }
-    function prev(){ currentIndex=(currentIndex-1+filtered.length)%filtered.length; openViewer(currentIndex); }
-    viewerClose.addEventListener('click',()=>{ tryPlay('click'); closeViewer(); }); nextBtn.addEventListener('click',()=>{ tryPlay('click'); next(); }); prevBtn.addEventListener('click',()=>{ tryPlay('click'); prev(); });
+    // Full-screen viewer functions
+    function updateViewerTransform() {
+      viewerImg.style.transform = `translate(${viewerPanX}px, ${viewerPanY}px) scale(${viewerZoom})`;
+      zoomInfo.textContent = Math.round(viewerZoom * 100) + '%';
+    }
+    
+    function resetViewer() {
+      viewerZoom = 1;
+      viewerPanX = 0;
+      viewerPanY = 0;
+      updateViewerTransform();
+    }
+    
+    function zoomIn() {
+      viewerZoom = Math.min(viewerZoom * 1.2, 5);
+      updateViewerTransform();
+    }
+    
+    function zoomOut() {
+      viewerZoom = Math.max(viewerZoom / 1.2, 0.1);
+      updateViewerTransform();
+    }
+    
+    function openViewer(index){ 
+      currentIndex=index; 
+      const art=filtered[currentIndex]; 
+      viewerImg.src=art.src; 
+      viewerImg.alt=art.title; 
+      viewerTitle.textContent = art.title;
+      viewerDescription.textContent = art.description || '';
+      viewerCaption.textContent=`${art.title} (${currentIndex + 1} of ${filtered.length})`; 
+      resetViewer();
+      lightbox.style.display='flex'; 
+    }
+    
+    function closeViewer(){ 
+      lightbox.style.display='none'; 
+      resetViewer();
+    }
+    
+    function next(){ 
+      currentIndex=(currentIndex+1)%filtered.length; 
+      openViewer(currentIndex); 
+    }
+    
+    function prev(){ 
+      currentIndex=(currentIndex-1+filtered.length)%filtered.length; 
+      openViewer(currentIndex); 
+    }
+    
+    // Event listeners
+    viewerClose.addEventListener('click',()=>{ tryPlay('click'); closeViewer(); }); 
+    nextBtn.addEventListener('click',()=>{ tryPlay('click'); next(); }); 
+    prevBtn.addEventListener('click',()=>{ tryPlay('click'); prev(); });
+    zoomInBtn.addEventListener('click',()=>{ tryPlay('click'); zoomIn(); });
+    zoomOutBtn.addEventListener('click',()=>{ tryPlay('click'); zoomOut(); });
+    resetZoomBtn.addEventListener('click',()=>{ tryPlay('click'); resetViewer(); });
+    zoomInControl.addEventListener('click',()=>{ tryPlay('click'); zoomIn(); });
+    zoomOutControl.addEventListener('click',()=>{ tryPlay('click'); zoomOut(); });
+    resetZoomControl.addEventListener('click',()=>{ tryPlay('click'); resetViewer(); });
+    
+    // Mouse wheel zoom
+    viewerStage.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if(e.deltaY < 0) zoomIn();
+      else zoomOut();
+    });
+    
+    // Drag to pan
+    viewerStage.addEventListener('mousedown', (e) => {
+      if(e.target === viewerStage) {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        dragStartPanX = viewerPanX;
+        dragStartPanY = viewerPanY;
+        viewerStage.style.cursor = 'grabbing';
+      }
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if(isDragging) {
+        viewerPanX = dragStartPanX + (e.clientX - dragStartX);
+        viewerPanY = dragStartPanY + (e.clientY - dragStartY);
+        updateViewerTransform();
+      }
+    });
+    
+    document.addEventListener('mouseup', () => {
+      if(isDragging) {
+        isDragging = false;
+        viewerStage.style.cursor = 'grab';
+      }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if(lightbox.style.display === 'flex') {
+        switch(e.key) {
+          case 'Escape': closeViewer(); break;
+          case 'ArrowLeft': prev(); break;
+          case 'ArrowRight': next(); break;
+          case '+': case '=': zoomIn(); break;
+          case '-': zoomOut(); break;
+          case '0': resetViewer(); break;
+        }
+      }
+    });
+    
     lightbox.addEventListener('click',(e)=>{ if(e.target===lightbox) closeViewer(); });
 
     // Sorting & search
@@ -662,8 +829,14 @@
     const clearSearch=document.getElementById('clearSearch');
     const toolbarReset=document.getElementById('toolbarReset');
 
-    function loadToolbar(){ try{ return JSON.parse(localStorage.getItem(TOOLBAR_KEY))||{sort:'date',search:''}; }catch{ return {sort:'date',search:''}; } }
-    function saveToolbar(state){ try{ localStorage.setItem(TOOLBAR_KEY, JSON.stringify(state)); }catch{} }
+    function loadToolbar(){ 
+      // Always start with default toolbar state
+      return {sort:'date',search:''}; 
+    }
+    function saveToolbar(state){ 
+      // Don't save toolbar state - always start fresh
+      console.log('Toolbar state not persisted - will reset on refresh');
+    }
 
     let toolbarState=loadToolbar();
     function applyToolbarState(){
@@ -718,7 +891,7 @@
 
     // ===== Admin logic (hidden access) =====
     (function admin(){
-      const ADMIN_KEY = localStorage.getItem('xp_admin_key') || 'shayz2024!';
+      const ADMIN_KEY = 'shayz2024!';
       let adminUnlocked=false;
       let adminTimeout;
       const adminWin=document.getElementById('adminWindow');
@@ -727,6 +900,7 @@
       const admDate=document.getElementById('admDate');
       const admFile=document.getElementById('admFile');
       const admBadge=document.getElementById('admBadge');
+      const admDescription=document.getElementById('admDescription');
       const adminList=document.getElementById('adminList');
 
       function lockAdmin(){
@@ -782,6 +956,7 @@
           const dateStr = admDate.value || new Date().toISOString().slice(0,10);
           const badgeStr = admBadge.value.trim()||undefined;
           const titleInput = (admTitle.value||'').trim();
+          const descriptionStr = admDescription.value.trim()||undefined;
           
           for(const f of files){
             console.log('Uploading file:', f.name);
@@ -796,17 +971,17 @@
             let title = fileName||'Untitled';
             if(titleInput){ title = (files.length===1) ? titleInput : `${titleInput} — ${fileName}`; }
             
-            const newArt = { id: undefined, src, title, date: dateStr, badge: badgeStr };
+            const newArt = { id: undefined, src, title, date: dateStr, badge: badgeStr, description: descriptionStr };
             console.log('Adding new artwork:', newArt.title, 'URL:', src);
             ARTWORKS.unshift(newArt);
           }
           
           ARTWORKS = dedupeArtworks(ARTWORKS);
           saveArtworks(ARTWORKS);
-          admTitle.value=''; admDate.value=''; admFile.value=''; admBadge.value='';
+          admTitle.value=''; admDate.value=''; admFile.value=''; admBadge.value=''; admDescription.value='';
           applyToolbarState(); renderAdminList();
           
-          alert(`Successfully uploaded ${files.length} image(s)! They are now visible to all visitors.`);
+          alert(`Successfully uploaded ${files.length} image(s)! They are visible during this session. Note: Images reset to defaults when page is refreshed.`);
         } catch (error) {
           console.error('Upload error:', error);
           alert('Upload failed: ' + error.message);
@@ -822,6 +997,7 @@
       const urlImage = document.getElementById('urlImage');
       const urlDate = document.getElementById('urlDate');
       const urlBadge = document.getElementById('urlBadge');
+      const urlDescription = document.getElementById('urlDescription');
 
       urlForm?.addEventListener('submit', (e)=>{
         e.preventDefault(); tryPlay('click');
@@ -830,6 +1006,7 @@
         const imageUrl = urlImage.value.trim();
         const date = urlDate.value || new Date().toISOString().slice(0,10);
         const badge = urlBadge.value.trim() || undefined;
+        const description = urlDescription.value.trim() || undefined;
         
         if(!title || !imageUrl) {
           alert('Please enter both title and image URL.');
@@ -849,7 +1026,8 @@
           src: imageUrl, 
           title: title, 
           date: date, 
-          badge: badge 
+          badge: badge,
+          description: description
         };
         
         console.log('Adding artwork from URL:', newArt);
@@ -865,11 +1043,12 @@
         urlImage.value = '';
         urlDate.value = '';
         urlBadge.value = '';
+        urlDescription.value = '';
         
         applyToolbarState(); 
         renderAdminList();
         
-        alert(`✅ Added "${title}" to gallery! It's now visible to all visitors.`);
+        alert(`✅ Added "${title}" to gallery! It's visible during this session. Copy the shareable URL below to share your gallery. Note: Images reset to defaults when page is refreshed.`);
       });
 
       document.addEventListener('keydown',(e)=>{
@@ -963,12 +1142,13 @@
       const toggleBtn=document.getElementById('themeToggle');
       function paintBtn(){ if(toggleBtn){ toggleBtn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark'; } }
       function apply(val){ document.body.classList.toggle('dark', !!val); if(toggleBtn){ toggleBtn.setAttribute('aria-pressed', String(!!val)); } paintBtn(); }
-      function load(){ const saved=localStorage.getItem(KEY); if(saved===null){ apply(mq.matches); } else { apply(saved==='1'); } }
+      function load(){ 
+        // Always start with light mode - no persistence
+        apply(false); 
+      }
       load();
-      function hasExplicit(){ return localStorage.getItem(PREF)==='1' || localStorage.getItem(PREF)==='0'; }
-      mq.addEventListener('change', e=>{ if(!hasExplicit()){ apply(e.matches); } });
-      if(toggleBtn){ toggleBtn.addEventListener('click', ()=>{ const next=!document.body.classList.contains('dark'); apply(next); localStorage.setItem(KEY,next?'1':'0'); localStorage.setItem(PREF,'1'); tryPlay('click'); }); }
-      document.addEventListener('keydown', (e)=>{ if(e.ctrlKey && e.shiftKey && (e.key==='D' || e.key==='d')){ const next=!document.body.classList.contains('dark'); apply(next); localStorage.setItem(KEY,next?'1':'0'); localStorage.setItem(PREF,'1'); } });
+      if(toggleBtn){ toggleBtn.addEventListener('click', ()=>{ const next=!document.body.classList.contains('dark'); apply(next); tryPlay('click'); }); }
+      document.addEventListener('keydown', (e)=>{ if(e.ctrlKey && e.shiftKey && (e.key==='D' || e.key==='d')){ const next=!document.body.classList.contains('dark'); apply(next); } });
     })();
 
     // ===== Self-tests =====
