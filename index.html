@@ -1817,7 +1817,7 @@
           const missileSpeed = 0.5; // Much slower
           
           // Left side big missile
-          const leftMissileX = 20;
+          const leftMissileX = 15;
           const leftMissileY = (Date.now() * missileSpeed) % (h + 100);
           
           // Draw big missile body
@@ -1833,7 +1833,7 @@
           ctx.fillRect(leftMissileX, leftMissileY + 20, 6, 12);
           
           // Right side big missile
-          const rightMissileX = w - 30;
+          const rightMissileX = w - 21;
           const rightMissileY = (Date.now() * missileSpeed + 100) % (h + 100);
           
           // Draw big missile body
@@ -1858,7 +1858,7 @@
               ctx.fillStyle='#ffff00'; // Yellow text
               // Center the text on the line
               const textWidth = ctx.measureText(line).width;
-              const textX = (w - textWidth) / 2;
+              const textX = Math.round((w - textWidth) / 2);
               ctx.fillText(line, textX, y);
             }
           });
