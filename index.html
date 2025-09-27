@@ -1722,95 +1722,132 @@
       step();
     })();
 
-    // ===== Matrix animation (pauses when tab hidden) =====
-    (function matrixAnim(){
+    // ===== Typewriter + NES Explosion Animation =====
+    (function typewriterExplosion(){
       const canvas=document.getElementById('matrixCanvas');
       if(reduceMotion){ canvas.style.display='none'; return; }
       const ctx=canvas.getContext('2d');
-      let fontSize=14, columns=0, drops=[];
       
-      // Ultra retro terminal characters and symbols
-      const terminalChars = [
-        // Classic ASCII art blocks
-        '█','▓','▒','░','▄','▀','▌','▐','■','□','▪','▫','●','○','◆','◇','▲','▼','◄','►',
-        // Retro symbols
-        '★','☆','※','§','¶','†','‡','•','·','°','±','×','÷','∞','≈','≠','≤','≥','√','∑',
-        // Terminal/Code symbols
-        '!','@','#','$','%','^','&','*','(',')','-','_','=','+','[',']','{','}','|','\\',
-        // Binary and hex (more emphasis)
-        '0','1','A','B','C','D','E','F',
-        // Classic computer symbols
-        '◊','◈','◉','◎','◯','◮','◭','◬','◫','◪','◩','◨','◧','◦','◥','◤','◣','◢','◡','◠',
-        // Retro gaming symbols
-        '♦','♠','♣','♥','♤','♧','♡','♢','♩','♪','♫','♬','♭','♮','♯'
-      ];
+      let w, h, fontSize = 14;
+      let textLines = [];
+      let currentLine = 0;
+      let currentChar = 0;
+      let animationPhase = 'typewriting'; // 'typewriting' or 'exploding'
+      let explosionProgress = 0;
+      let startTime = Date.now();
+      let typewriterSpeed = 50; // ms per character
+      let lastTypeTime = 0;
+      
+      // The target text to reveal
+      const targetText = "truly free wen bored";
+      
+      // CMD-style random characters for typewriter
+      const cmdChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
       
       function resize(){ 
-        canvas.width=document.getElementById('desktop').clientWidth; 
-        canvas.height=document.getElementById('desktop').clientHeight; 
-        columns=Math.floor(canvas.width*1.0/fontSize); 
-        drops=Array(columns).fill(0).map(()=>({
-          y: Math.random() * canvas.height,
-          speed: Math.random() * 1.5 + 0.5,
-          opacity: Math.random() * 0.9 + 0.1,
-          color: Math.random() > 0.6 ? '#00ff00' : (Math.random() > 0.3 ? '#00cc00' : '#00aa00'),
-          size: Math.random() > 0.8 ? 16 : 14,
-          glow: Math.random() > 0.7
-        })); 
+        w = canvas.width = document.getElementById('desktop').clientWidth; 
+        h = canvas.height = document.getElementById('desktop').clientHeight; 
+        fontSize = Math.max(10, Math.min(16, w / 80));
+      }
+      
+      function generateRandomLine() {
+        const lineLength = Math.floor(w / fontSize) - 2;
+        let line = '';
+        for(let i = 0; i < lineLength; i++) {
+          line += cmdChars[Math.floor(Math.random() * cmdChars.length)];
+        }
+        return line;
       }
       
       function draw(){ 
         if(document.visibilityState==='hidden'){ requestAnimationFrame(draw); return; } 
         
-        // Retro fade effect with scanlines
-        ctx.fillStyle='rgba(0,0,0,0.12)'; 
-        ctx.fillRect(0,0,canvas.width,canvas.height);
+        const now = Date.now();
         
-        // Add scanlines for CRT effect
-        ctx.fillStyle='rgba(0,255,0,0.02)';
-        for(let i=0; i<canvas.height; i+=2) {
-          ctx.fillRect(0,i,canvas.width,1);
-        }
-        
-        for(let i=0;i<drops.length;i++){ 
-          const drop = drops[i];
-          const text=terminalChars[Math.floor(Math.random()*terminalChars.length)]; 
-          const x=i*fontSize; 
-          const y=drop.y;
-          
-          // Set font size
-          ctx.font=drop.size+'px "Courier New", monospace';
-          
-          // Enhanced glow effect for retro feel
-          if(drop.glow) {
-            ctx.shadowColor=drop.color;
-            ctx.shadowBlur=3;
-          } else {
-            ctx.shadowBlur=0;
+        if(animationPhase === 'typewriting') {
+          // Typewriter effect - add characters one by one
+          if(now - lastTypeTime > typewriterSpeed) {
+            if(textLines.length === 0 || textLines[textLines.length - 1].length >= Math.floor(w / fontSize) - 2) {
+              // Start new line
+              textLines.push('');
+            }
+            
+            const currentLineIndex = textLines.length - 1;
+            const line = textLines[currentLineIndex];
+            const lineLength = Math.floor(w / fontSize) - 2;
+            
+            if(line.length < lineLength) {
+              textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
+            }
+            
+            lastTypeTime = now;
           }
           
-          ctx.fillStyle=drop.color;
-          ctx.globalAlpha=drop.opacity;
-          ctx.fillText(text,x,y); 
+          // Clear canvas
+          ctx.fillStyle='rgba(0,0,0,0.02)'; 
+          ctx.fillRect(0,0,w,h);
           
-          // Reset shadow and alpha
-          ctx.shadowBlur=0;
-          ctx.globalAlpha=1;
+          // Set font
+          ctx.font=fontSize+'px "Courier New", monospace';
           
-          if(y>canvas.height && Math.random()>0.975){ 
-            drop.y=0; 
-            drop.speed=Math.random() * 1.5 + 0.5;
-            drop.opacity=Math.random() * 0.9 + 0.1;
-            drop.color=Math.random() > 0.6 ? '#00ff00' : (Math.random() > 0.3 ? '#00cc00' : '#00aa00');
-            drop.size=Math.random() > 0.8 ? 16 : 14;
-            drop.glow=Math.random() > 0.7;
-          } 
-          drop.y += drop.speed;
-        } 
+          // Draw all lines
+          textLines.forEach((line, index) => {
+            const y = (index + 1) * fontSize;
+            if(y < h) {
+              ctx.fillStyle='#ffff00'; // Yellow text
+              ctx.fillText(line, 10, y);
+            }
+          });
+          
+          // Check if we should start explosion (after 1 minute or screen is full)
+          if(now - startTime > 60000 || textLines.length * fontSize > h) {
+            animationPhase = 'exploding';
+            explosionProgress = 0;
+          }
+          
+        } else if(animationPhase === 'exploding') {
+          // NES-style explosion effect
+          explosionProgress += 0.02;
+          
+          // Clear screen with explosion effect
+          ctx.fillStyle='rgba(0,0,0,0.1)'; 
+          ctx.fillRect(0,0,w,h);
+          
+          // Draw explosion particles
+          for(let i = 0; i < 100; i++) {
+            const angle = (i / 100) * Math.PI * 2;
+            const distance = explosionProgress * 200;
+            const x = w/2 + Math.cos(angle) * distance;
+            const y = h/2 + Math.sin(angle) * distance;
+            
+            ctx.fillStyle = `rgba(255, ${255 - explosionProgress * 100}, 0, ${1 - explosionProgress})`;
+            ctx.fillRect(x, y, 4, 4);
+          }
+          
+          // Draw the target text in the center with explosion effect
+          if(explosionProgress > 0.3) {
+            const textWidth = ctx.measureText(targetText).width;
+            const textX = (w - textWidth) / 2;
+            const textY = h / 2;
+            
+            // Text with explosion glow
+            ctx.shadowColor = '#ffff00';
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = '#ffff00';
+            ctx.font = 'bold 24px "Courier New", monospace';
+            ctx.fillText(targetText, textX, textY);
+            
+            // Reset shadow
+            ctx.shadowBlur = 0;
+          }
+        }
+        
         requestAnimationFrame(draw); 
       }
       
-      window.addEventListener('resize',resize); resize(); draw();
+      window.addEventListener('resize',resize); 
+      resize(); 
+      draw();
     })();
 
     // ===== Dark Mode (button + shortcut) =====
