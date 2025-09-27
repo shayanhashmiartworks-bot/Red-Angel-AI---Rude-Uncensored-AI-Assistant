@@ -1753,7 +1753,7 @@
       }
       
       function generateRandomLine() {
-        const lineLength = Math.floor(w / fontSize) - 2;
+        const lineLength = Math.floor(w / fontSize);
         let line = '';
         for(let i = 0; i < lineLength; i++) {
           line += cmdChars[Math.floor(Math.random() * cmdChars.length)];
@@ -1770,14 +1770,14 @@
           // Typewriter effect - add characters one by one
           if(now - lastTypeTime > typewriterSpeed) {
             // Always keep adding lines to ensure full coverage
-            if(textLines.length === 0 || textLines[textLines.length - 1].length >= Math.floor(w / fontSize) - 2) {
+            if(textLines.length === 0 || textLines[textLines.length - 1].length >= Math.floor(w / fontSize)) {
               // Start new line
               textLines.push('');
             }
             
             const currentLineIndex = textLines.length - 1;
             const line = textLines[currentLineIndex];
-            const lineLength = Math.floor(w / fontSize) - 2;
+            const lineLength = Math.floor(w / fontSize);
             
             if(line.length < lineLength) {
               textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
@@ -1813,7 +1813,7 @@
             const y = (index + 1) * fontSize;
             if(y < h) {
               ctx.fillStyle='#ffff00'; // Yellow text
-              ctx.fillText(line, 10, y);
+              ctx.fillText(line, 0, y); // Start from x=0 to cover full width
             }
           });
           
