@@ -1781,7 +1781,7 @@
             ctx.font = fontSize + 'px "Courier New", monospace';
             const currentWidth = ctx.measureText(line).width;
             
-            if(currentWidth < w - 20) { // 20px margin for safety
+            if(currentWidth < w - 5) { // 5px margin for perfect alignment
               textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
             } else {
               // Start new line when current line is full
