@@ -1735,8 +1735,9 @@
       let animationPhase = 'typewriting'; // 'typewriting' or 'exploding'
       let explosionProgress = 0;
       let startTime = Date.now();
-      let typewriterSpeed = 20; // ms per character - faster to cover page in 1 minute
+      let typewriterSpeed = 5; // ms per character - extremely fast
       let lastTypeTime = 0;
+      let maxLines = 0; // Track maximum lines to keep filling
       
       // The target text to reveal
       const targetText = "truly free wen bored";
@@ -1748,6 +1749,7 @@
         w = canvas.width = document.getElementById('desktop').clientWidth; 
         h = canvas.height = document.getElementById('desktop').clientHeight; 
         fontSize = Math.max(10, Math.min(16, w / 80));
+        maxLines = Math.floor(h / fontSize) + 10; // Extra lines to ensure full coverage
       }
       
       function generateRandomLine() {
@@ -1767,22 +1769,23 @@
         if(animationPhase === 'typewriting') {
           // Typewriter effect - add characters one by one
           if(now - lastTypeTime > typewriterSpeed) {
-            const linesNeeded = Math.floor(h / fontSize);
+            // Always keep adding lines to ensure full coverage
+            if(textLines.length === 0 || textLines[textLines.length - 1].length >= Math.floor(w / fontSize) - 2) {
+              // Start new line
+              textLines.push('');
+            }
             
-            // Only add new lines if we haven't filled the screen yet
-            if(textLines.length < linesNeeded) {
-              if(textLines.length === 0 || textLines[textLines.length - 1].length >= Math.floor(w / fontSize) - 2) {
-                // Start new line
-                textLines.push('');
-              }
-              
-              const currentLineIndex = textLines.length - 1;
-              const line = textLines[currentLineIndex];
-              const lineLength = Math.floor(w / fontSize) - 2;
-              
-              if(line.length < lineLength) {
-                textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
-              }
+            const currentLineIndex = textLines.length - 1;
+            const line = textLines[currentLineIndex];
+            const lineLength = Math.floor(w / fontSize) - 2;
+            
+            if(line.length < lineLength) {
+              textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
+            }
+            
+            // Remove old lines to prevent memory issues, but keep enough to fill screen
+            if(textLines.length > maxLines) {
+              textLines.shift(); // Remove first line
             }
             
             lastTypeTime = now;
@@ -1814,13 +1817,8 @@
             }
           });
           
-          // Check if we should start explosion (after 1 minute or screen is full)
-          // Calculate how many lines we need to fill the screen
-          const linesNeeded = Math.floor(h / fontSize);
-          if(now - startTime > 60000 || textLines.length >= linesNeeded) {
-            animationPhase = 'exploding';
-            explosionProgress = 0;
-          }
+          // Keep typewriting forever - no explosion for now
+          // The typewriter will run continuously and cover the entire screen
           
         } else if(animationPhase === 'exploding') {
           // NES-style explosion effect
