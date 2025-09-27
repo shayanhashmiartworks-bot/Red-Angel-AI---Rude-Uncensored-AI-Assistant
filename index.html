@@ -1800,6 +1800,78 @@
         return line;
       }
       
+      // Retro character animations
+      function drawRetroCharacters(ctx, w, h, now) {
+        // Mobile optimization - fewer characters on mobile
+        if(window.mobileOptimized && Math.random() > 0.7) return;
+        
+        const charSize = window.mobileOptimized ? 10 : 12;
+        const leftPadding = 15;
+        const rightPadding = w - 15;
+        const centerX = w / 2;
+        const textPadding = 40; // Space around text
+        
+        // Mario character (left side)
+        const marioX = leftPadding + 5;
+        const marioSpeed = window.mobileOptimized ? 0.2 : 0.3;
+        const marioY = (now * marioSpeed) % (h - 50) + 30;
+        const marioFrame = Math.floor(now / (window.mobileOptimized ? 300 : 200)) % 4; // 4-frame animation
+        
+        // Draw Mario
+        ctx.fillStyle = '#ff0000'; // Red hat
+        ctx.fillRect(marioX, marioY, charSize, 4);
+        ctx.fillStyle = '#ffdbac'; // Skin
+        ctx.fillRect(marioX + 2, marioY + 4, 8, 6);
+        ctx.fillStyle = '#0000ff'; // Blue overalls
+        ctx.fillRect(marioX + 1, marioY + 10, 10, 6);
+        ctx.fillStyle = '#8B4513'; // Brown shoes
+        ctx.fillRect(marioX + 2, marioY + 16, 8, 3);
+        
+        // Mario running animation
+        if(marioFrame % 2 === 0) {
+          // Legs running
+          ctx.fillStyle = '#ffdbac';
+          ctx.fillRect(marioX + 1, marioY + 12, 2, 4);
+          ctx.fillRect(marioX + 7, marioY + 12, 2, 4);
+        }
+        
+        // Metal Gear soldier (right side)
+        const soldierX = rightPadding - 15;
+        const soldierSpeed = window.mobileOptimized ? 0.15 : 0.25;
+        const soldierY = (now * soldierSpeed) % (h - 50) + 30;
+        const soldierFrame = Math.floor(now / (window.mobileOptimized ? 400 : 300)) % 3; // 3-frame animation
+        
+        // Draw soldier
+        ctx.fillStyle = '#228B22'; // Green uniform
+        ctx.fillRect(soldierX, soldierY, charSize, 12);
+        ctx.fillStyle = '#ffdbac'; // Skin
+        ctx.fillRect(soldierX + 2, soldierY + 2, 8, 6);
+        ctx.fillStyle = '#000000'; // Helmet
+        ctx.fillRect(soldierX + 1, soldierY, 10, 3);
+        ctx.fillStyle = '#8B4513'; // Boots
+        ctx.fillRect(soldierX + 2, soldierY + 12, 8, 3);
+        
+        // Soldier weapon
+        ctx.fillStyle = '#696969';
+        ctx.fillRect(soldierX + 12, soldierY + 4, 8, 2);
+        
+        // Fighting animation
+        if(soldierFrame === 1) {
+          // Shooting pose
+          ctx.fillStyle = '#ff0000';
+          ctx.fillRect(soldierX + 20, soldierY + 5, 3, 1);
+        }
+        
+        // Character interaction - they meet in the middle
+        if(Math.abs(marioX - soldierX) < 30) {
+          // Draw explosion when they meet
+          ctx.fillStyle = '#ffff00';
+          ctx.fillRect(centerX - 5, Math.min(marioY, soldierY) - 5, 10, 10);
+          ctx.fillStyle = '#ff0000';
+          ctx.fillRect(centerX - 3, Math.min(marioY, soldierY) - 3, 6, 6);
+        }
+      }
+      
       function draw(){ 
         if(document.visibilityState==='hidden'){ requestAnimationFrame(draw); return; } 
         
@@ -1904,6 +1976,9 @@
           
           // Keep typewriting forever - no explosion for now
           // The typewriter will run continuously and cover the entire screen
+          
+          // Retro character animations in padding areas
+          drawRetroCharacters(ctx, w, h, now);
           
         } else if(animationPhase === 'exploding') {
           // NES-style explosion effect
