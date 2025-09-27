@@ -1770,17 +1770,22 @@
           // Typewriter effect - add characters one by one
           if(now - lastTypeTime > typewriterSpeed) {
             // Always keep adding lines to ensure full coverage
-            if(textLines.length === 0 || textLines[textLines.length - 1].length >= Math.floor(w / fontSize)) {
-              // Start new line
+            if(textLines.length === 0) {
               textLines.push('');
             }
             
             const currentLineIndex = textLines.length - 1;
             const line = textLines[currentLineIndex];
-            const lineLength = Math.floor(w / fontSize);
             
-            if(line.length < lineLength) {
+            // Check if current line fills the width by measuring text
+            ctx.font = fontSize + 'px "Courier New", monospace';
+            const currentWidth = ctx.measureText(line).width;
+            
+            if(currentWidth < w - 20) { // 20px margin for safety
               textLines[currentLineIndex] += cmdChars[Math.floor(Math.random() * cmdChars.length)];
+            } else {
+              // Start new line when current line is full
+              textLines.push('');
             }
             
             // Remove old lines to prevent memory issues, but keep enough to fill screen
@@ -1811,7 +1816,7 @@
           // Draw all typewriter lines
           textLines.forEach((line, index) => {
             const y = (index + 1) * fontSize;
-            if(y < h) {
+            if(y < h && line.length > 0) {
               ctx.fillStyle='#ffff00'; // Yellow text
               ctx.fillText(line, 0, y); // Start from x=0 to cover full width
             }
