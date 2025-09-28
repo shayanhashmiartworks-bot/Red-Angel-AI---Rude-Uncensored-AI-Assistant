@@ -679,6 +679,38 @@
     // API base URL - Netlify Functions
     const API_BASE = window.location.origin;
     
+    // Debug API base URL
+    console.log('🌐 API_BASE detected:', API_BASE);
+    console.log('🌐 Window location:', {
+      origin: window.location.origin,
+      host: window.location.host,
+      hostname: window.location.hostname,
+      protocol: window.location.protocol,
+      port: window.location.port
+    });
+    
+    // Test Netlify function connectivity
+    async function testConnectivity() {
+      try {
+        console.log('🧪 Testing Netlify function connectivity...');
+        const response = await fetch(`${API_BASE}/.netlify/functions/test`);
+        if (response.ok) {
+          const result = await response.json();
+          console.log('✅ Connectivity test successful:', result);
+          return true;
+        } else {
+          console.error('❌ Connectivity test failed:', response.status);
+          return false;
+        }
+      } catch (error) {
+        console.error('❌ Connectivity test error:', error);
+        return false;
+      }
+    }
+    
+    // Run connectivity test on page load
+    testConnectivity();
+    
     // Cache for artworks to reduce API calls
     let artworksCache = null;
     let cacheTimestamp = 0;
@@ -745,58 +777,78 @@
       renderGallery(ARTWORKS);
     }
     
-    // Add artwork to server
+    // Add artwork to server with multiple endpoint fallbacks
     async function addArtwork(artwork) {
-      try {
-        console.log('🚀 Upload attempt - API_BASE:', API_BASE);
-        console.log('🚀 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
-        console.log('🚀 User Agent:', navigator.userAgent);
-        console.log('🚀 Is Mobile:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+      // Try multiple API endpoints for better mobile compatibility
+      const apiEndpoints = [
+        `${API_BASE}/.netlify/functions/add-artwork`,
+        `${API_BASE}/api/add-artwork`,
+        `/.netlify/functions/add-artwork`
+      ];
+      
+      let lastError = null;
+      
+      for (let i = 0; i < apiEndpoints.length; i++) {
+        const endpoint = apiEndpoints[i];
         
-        const response = await fetch(`${API_BASE}/.netlify/functions/add-artwork`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            title: artwork.title,
-            url: artwork.src,
-            description: artwork.description,
-            badge: artwork.badge
-          })
-        });
+        try {
+          console.log(`🚀 Upload attempt ${i + 1}/${apiEndpoints.length} - Endpoint:`, endpoint);
+          console.log('🚀 API_BASE:', API_BASE);
+          console.log('🚀 User Agent:', navigator.userAgent);
+          console.log('🚀 Is Mobile:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+          
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: artwork.title,
+              url: artwork.src,
+              description: artwork.description,
+              badge: artwork.badge
+            })
+          });
         
-        console.log('📡 Upload response status:', response.status);
-        console.log('📡 Upload response headers:', Object.fromEntries(response.headers.entries()));
-        
-        if (response.ok) {
-          const result = await response.json();
-          console.log('✅ Upload successful:', result);
-          // Invalidate cache and reload artworks
-          artworksCache = null;
-          await loadArtworks(true);
-          return result;
-        } else {
-          const errorText = await response.text();
-          console.error('❌ Upload failed:', response.status, errorText);
-          throw new Error(`Upload failed: ${response.status} - ${errorText}`);
+          console.log('📡 Upload response status:', response.status);
+          console.log('📡 Upload response headers:', Object.fromEntries(response.headers.entries()));
+          
+          if (response.ok) {
+            const result = await response.json();
+            console.log('✅ Upload successful with endpoint:', endpoint);
+            // Invalidate cache and reload artworks
+            artworksCache = null;
+            await loadArtworks(true);
+            return result;
+          } else {
+            const errorText = await response.text();
+            console.error('❌ Upload failed with endpoint:', endpoint, response.status, errorText);
+            throw new Error(`Upload failed: ${response.status} - ${errorText}`);
+          }
+        } catch (error) {
+          console.error(`❌ Upload error with endpoint ${endpoint}:`, error);
+          lastError = error;
+          
+          // If this isn't the last endpoint, try the next one
+          if (i < apiEndpoints.length - 1) {
+            console.log(`🔄 Trying next endpoint...`);
+            continue;
+          }
         }
-      } catch (error) {
-        console.error('❌ Upload error details:', error);
-        console.error('❌ Error name:', error.name);
-        console.error('❌ Error message:', error.message);
-        console.error('❌ Error stack:', error.stack);
-        
-        // Provide more helpful error messages for mobile
-        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          throw new Error('🚀 Server not available yet: The Netlify functions are still deploying. Please wait 1-2 minutes and try again. If the problem persists, try refreshing the page.');
-        } else if (error.message.includes('CORS')) {
-          throw new Error('Network error: Cross-origin request blocked. Please try refreshing the page.');
-        } else if (error.message.includes('Server not available')) {
-          throw new Error('🚀 Server not available yet: The Netlify functions are still deploying. Please wait 1-2 minutes and try again.');
-        } else {
-          throw new Error(`Upload failed: ${error.message}`);
-        }
+      }
+      
+      // If we get here, all endpoints failed
+      console.error('❌ All upload endpoints failed:', lastError);
+      
+      // Provide more helpful error messages for mobile
+      if (lastError.name === 'TypeError' && lastError.message.includes('Failed to fetch')) {
+        throw new Error('🚀 Server not available yet: The Netlify functions are still deploying. Please wait 1-2 minutes and try again. If the problem persists, try refreshing the page.');
+      } else if (lastError.message.includes('CORS')) {
+        throw new Error('Network error: Cross-origin request blocked. Please try refreshing the page.');
+      } else if (lastError.message.includes('Server not available')) {
+        throw new Error('🚀 Server not available yet: The Netlify functions are still deploying. Please wait 1-2 minutes and try again.');
+      } else {
+        throw new Error(`Upload failed after trying all endpoints: ${lastError.message}`);
       }
     }
     
