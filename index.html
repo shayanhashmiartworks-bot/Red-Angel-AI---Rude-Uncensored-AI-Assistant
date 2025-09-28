@@ -1997,7 +1997,7 @@
           } else if (error.message.includes('CORS')) {
             errorMessage = '🔒 Security Error: ' + error.message + '\n\nTry refreshing the page and uploading again.';
           } else if (error.message.includes('Failed to fetch')) {
-            errorMessage = '🚀 Server not available yet: The Netlify functions are still deploying.\n\n⏳ Please wait 1-2 minutes and try again. Once deployed, artwork will be saved to the server automatically.';
+            errorMessage = '📱 Mobile Network Issue: Try switching to WiFi or refresh the page and try again.';
           }
           
           alert('Upload failed: ' + errorMessage);
@@ -2053,27 +2053,8 @@
         console.log('🌐 API_BASE:', API_BASE);
         console.log('🔗 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
         
-        // Retry mechanism for mobile uploads
-        let retryCount = 0;
-        const maxRetries = 2;
-        
-        const attemptUpload = async () => {
-          try {
-            await addArtwork(newArt);
-            console.log('✅ Upload successful on attempt:', retryCount + 1);
-          } catch (error) {
-            retryCount++;
-            if (retryCount <= maxRetries && error.message.includes('Failed to fetch')) {
-              console.log(`🔄 Retry ${retryCount}/${maxRetries} for mobile upload...`);
-              await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
-              return attemptUpload();
-            } else {
-              throw error; // Re-throw if max retries exceeded or different error
-            }
-          }
-        };
-        
-        attemptUpload().then(() => {
+        // Simple mobile upload - try direct approach first
+        addArtwork(newArt).then(() => {
           console.log('✅ Artwork added to server successfully');
           // Reload artworks from server
           console.log('🔄 Reloading artworks from server...');
