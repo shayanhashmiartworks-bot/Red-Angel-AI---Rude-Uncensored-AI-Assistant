@@ -1,6 +1,6 @@
-import { neon } from '@netlify/neon';
+import fs from 'fs';
 
-const sql = neon(); // automatically uses env NETLIFY_DATABASE_URL
+const DATA_FILE = '/tmp/artworks.json';
 
 export async function handler(event, context) {
   // Handle CORS preflight
@@ -41,13 +41,30 @@ export async function handler(event, context) {
       };
     }
 
-    // Delete artwork from database
-    const result = await sql`
-      DELETE FROM artworks 
-      WHERE id = ${id}
-    `;
+    // Read existing artworks
+    let artworks = [];
+    try {
+      if (fs.existsSync(DATA_FILE)) {
+        const data = fs.readFileSync(DATA_FILE, 'utf8');
+        artworks = JSON.parse(data);
+      }
+    } catch (readError) {
+      console.error('Error reading artworks:', readError);
+      return {
+        statusCode: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ error: 'Failed to read artworks' })
+      };
+    }
 
-    if (result.length === 0) {
+    // Find and remove artwork
+    const originalLength = artworks.length;
+    artworks = artworks.filter(artwork => artwork.id !== id);
+
+    if (artworks.length === originalLength) {
       return {
         statusCode: 404,
         headers: {
@@ -55,6 +72,22 @@ export async function handler(event, context) {
           'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({ error: 'Artwork not found' })
+      };
+    }
+
+    // Save updated artworks
+    try {
+      fs.writeFileSync(DATA_FILE, JSON.stringify(artworks, null, 2));
+      console.log('Artwork deleted successfully:', id);
+    } catch (writeError) {
+      console.error('Error saving artworks after deletion:', writeError);
+      return {
+        statusCode: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ error: 'Failed to save changes' })
       };
     }
 
