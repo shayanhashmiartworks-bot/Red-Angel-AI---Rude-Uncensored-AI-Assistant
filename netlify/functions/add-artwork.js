@@ -1,7 +1,3 @@
-import { neon } from '@netlify/neon';
-
-const sql = neon(); // automatically uses env NETLIFY_DATABASE_URL
-
 export async function handler(event, context) {
   // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
@@ -41,12 +37,15 @@ export async function handler(event, context) {
       };
     }
 
-    // Insert new artwork into database
-    const [newArtwork] = await sql`
-      INSERT INTO artworks (title, url, description, badge, created_at)
-      VALUES (${title}, ${url}, ${description || ''}, ${badge || ''}, NOW())
-      RETURNING id, title, url, description, badge, created_at
-    `;
+    // For now, just return success until database is set up
+    const newArtwork = {
+      id: Date.now().toString(),
+      title,
+      url,
+      description: description || '',
+      badge: badge || '',
+      created_at: new Date().toISOString()
+    };
 
     return {
       statusCode: 201,
