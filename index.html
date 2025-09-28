@@ -918,20 +918,40 @@
     async function uploadImageToHosting(file) {
       console.log('📤 Uploading image:', file.name, 'Size:', file.size, 'bytes');
       
-      // For now, we'll use a data URL approach that works across browsers
-      // This creates a permanent data URL that can be shared
+      // Mobile-friendly file handling with fallbacks
       return new Promise((resolve, reject) => {
+        // Check if FileReader is available
+        if (!window.FileReader) {
+          reject(new Error('FileReader not supported on this device'));
+          return;
+        }
+        
         const reader = new FileReader();
+        
+        // Mobile-specific error handling
         reader.onload = () => {
           const dataUrl = reader.result;
           console.log('✅ Image converted to data URL, length:', dataUrl.length);
+          console.log('📱 Mobile upload - FileReader success');
           resolve(dataUrl);
         };
-        reader.onerror = () => {
-          console.error('❌ Failed to read file');
-          reject(new Error('Failed to read file'));
+        
+        reader.onerror = (e) => {
+          console.error('❌ Mobile FileReader error:', e);
+          reject(new Error('Failed to read file on mobile device. Try using a different image or browser.'));
         };
-        reader.readAsDataURL(file);
+        
+        reader.onabort = () => {
+          console.error('❌ Mobile FileReader aborted');
+          reject(new Error('File reading was cancelled'));
+        };
+        
+        try {
+          reader.readAsDataURL(file);
+        } catch (error) {
+          console.error('❌ Mobile FileReader exception:', error);
+          reject(new Error('Mobile browser cannot read this file type. Try a different image format.'));
+        }
       });
     }
 
@@ -1923,6 +1943,30 @@
         e.preventDefault(); tryPlay('click');
         const files = Array.from(admFile.files||[]);
         if(files.length===0){ alert('Select one or more images.'); return; }
+        
+        // Mobile file validation
+        console.log('📱 Mobile upload - Files selected:', files.length);
+        for(let i = 0; i < files.length; i++) {
+          const file = files[i];
+          console.log(`📱 File ${i+1}:`, {
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            lastModified: file.lastModified
+          });
+          
+          // Check file size (mobile browsers have limits)
+          if(file.size > 10 * 1024 * 1024) { // 10MB limit
+            alert(`File "${file.name}" is too large (${Math.round(file.size/1024/1024)}MB). Please use images under 10MB.`);
+            return;
+          }
+          
+          // Check file type
+          if(!file.type.startsWith('image/')) {
+            alert(`File "${file.name}" is not an image. Please select image files only.`);
+            return;
+          }
+        }
         
         // Show upload progress
         const submitBtn = adminForm.querySelector('button[type="submit"]');
