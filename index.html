@@ -1880,11 +1880,11 @@
         if(files.length===0){ alert('Select one or more images.'); return; }
         
         // Check file sizes and warn about large files
-        const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB limit for server
+        const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB limit
         const largeFiles = files.filter(f => f.size > MAX_FILE_SIZE);
         if(largeFiles.length > 0) {
           const largeFileNames = largeFiles.map(f => `${f.name} (${getFileSizeMB(f)}MB)`).join('\n');
-          if(!confirm(`⚠️ Large files detected:\n${largeFileNames}\n\nServer can only handle files under 2MB. These will be heavily compressed.\n\nContinue?`)) {
+          if(!confirm(`⚠️ Large files detected:\n${largeFileNames}\n\nThese will be compressed automatically, but may take longer to upload.\n\nContinue?`)) {
             return;
           }
         }
@@ -1909,28 +1909,22 @@
             if(isImageFile(f)) {
               console.log('Optimizing image:', f.name);
               try {
-                // Use aggressive compression to stay under 2MB server limit
+                // Use more aggressive compression for larger files
                 const fileSizeMB = parseFloat(getFileSizeMB(f));
-                let maxWidth = 800, maxHeight = 800, quality = 0.6;
+                let maxWidth = 1200, maxHeight = 1200, quality = 0.8;
                 
-                if(fileSizeMB > 10) {
-                  // Extremely large files: maximum compression
-                  maxWidth = 600;
-                  maxHeight = 600;
-                  quality = 0.4;
-                  console.log('Using maximum compression for very large file');
-                } else if(fileSizeMB > 5) {
-                  // Very large files: heavy compression
-                  maxWidth = 700;
-                  maxHeight = 700;
-                  quality = 0.5;
-                  console.log('Using heavy compression for large file');
-                } else if(fileSizeMB > 2) {
-                  // Large files: aggressive compression
+                if(fileSizeMB > 5) {
+                  // Very large files: more aggressive compression
                   maxWidth = 800;
                   maxHeight = 800;
                   quality = 0.6;
                   console.log('Using aggressive compression for large file');
+                } else if(fileSizeMB > 2) {
+                  // Large files: moderate compression
+                  maxWidth = 1000;
+                  maxHeight = 1000;
+                  quality = 0.7;
+                  console.log('Using moderate compression for large file');
                 }
                 
                 const optimizedDataUrl = await optimizeImage(f, maxWidth, maxHeight, quality);
@@ -1938,16 +1932,6 @@
                 const response = await fetch(optimizedDataUrl);
                 const blob = await response.blob();
                 processedFile = new File([blob], f.name, { type: 'image/jpeg' });
-                
-                // Final check: if still too large, compress more aggressively
-                if (processedFile.size > MAX_FILE_SIZE) {
-                  console.log('Still too large, applying maximum compression...');
-                  const finalOptimizedDataUrl = await optimizeImage(f, 600, 600, 0.4);
-                  const finalResponse = await fetch(finalOptimizedDataUrl);
-                  const finalBlob = await finalResponse.blob();
-                  processedFile = new File([finalBlob], f.name, { type: 'image/jpeg' });
-                }
-                
                 console.log('Image optimized:', f.name, `${getFileSizeMB(f)}MB → ${getFileSizeMB(processedFile)}MB`);
               } catch(error) {
                 console.warn('Image optimization failed, using original:', error);
