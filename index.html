@@ -1837,8 +1837,10 @@
               console.log('Artwork added to server successfully');
             } catch (error) {
               console.error('Failed to add artwork to server:', error);
-              alert('Failed to add artwork to server. Please try again.');
-              continue;
+              
+              // Fallback: Save locally
+              ARTWORKS.unshift(newArt);
+              console.log('Artwork saved locally as fallback');
             }
           }
           
@@ -1901,9 +1903,36 @@
         // Add to server instead of localStorage
         addArtwork(newArt).then(() => {
           console.log('Artwork added to server successfully');
+          // Show success message
+          const submitBtn = adminForm.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = '✅ Added Successfully!';
+          submitBtn.style.background = 'linear-gradient(#93d17b, #54a848)';
+          setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+          }, 2000);
         }).catch(error => {
           console.error('Failed to add artwork to server:', error);
-          alert('Failed to add artwork to server. Please try again.');
+          
+          // Fallback: Save locally
+          ARTWORKS.unshift(newArt);
+          ARTWORKS = dedupeArtworks(ARTWORKS);
+          saveArtworks(ARTWORKS);
+          renderGallery(ARTWORKS);
+          
+          // Show helpful error message
+          const submitBtn = adminForm.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = '⚠️ Saved Locally';
+          submitBtn.style.background = 'linear-gradient(#ffaa00, #ff8800)';
+          setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+          }, 3000);
+          
+          // Show detailed error
+          alert('Server not ready yet. Artwork saved locally only.\n\nThis will work for all visitors once deployed to Netlify with Neon database.');
         });
         ARTWORKS = dedupeArtworks(ARTWORKS);
         console.log('ARTWORKS after dedupe:', ARTWORKS.length, 'items');
