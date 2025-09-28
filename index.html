@@ -791,25 +791,8 @@
     }
     
     function saveArtworks(arr){ 
-      console.log('💾 Saving artworks...', arr);
-      try{ 
-        // Don't save to localStorage - just update URL hash for sharing
-        console.log('✅ Artworks updated in current session:', arr.length, 'items');
-        
-        // Update the URL hash so it's shareable to all visitors
-        updateUrlHash(arr);
-        
-        // Force reload the gallery
-        ARTWORKS = dedupeArtworks(arr);
-        applyToolbarState();
-        
-        // Update page title with new artwork count
-        updatePageTitle();
-        
-        console.log('🔄 Gallery reloaded with', ARTWORKS.length, 'items');
-      }catch(e){
-        console.error('Error updating artworks:', e);
-      }
+      // This function is now disabled - all saving goes through server
+      console.log('💾 Server-only mode: Local saving disabled');
     }
 
     function updateUrlHash(artworks) {
@@ -1838,12 +1821,11 @@
             }
           }
           
-          ARTWORKS = dedupeArtworks(ARTWORKS);
-          saveArtworks(ARTWORKS);
+          // Clear form
           admTitle.value=''; admDate.value=''; admFile.value=''; admBadge.value=''; admDescription.value='';
           applyToolbarState(); renderAdminList();
           
-          alert(`Successfully uploaded ${files.length} image(s)! They are visible during this session. Note: Images reset to defaults when page is refreshed.`);
+          alert(`Successfully uploaded ${files.length} image(s) to server! They are now visible to all visitors.`);
         } catch (error) {
           console.error('Upload error:', error);
           alert('Upload failed: ' + error.message);
