@@ -1843,7 +1843,7 @@
           admTitle.value=''; admDate.value=''; admFile.value=''; admBadge.value=''; admDescription.value='';
           applyToolbarState(); renderAdminList();
           
-          alert(`Successfully uploaded ${files.length} image(s) to server! They are now visible to all visitors.`);
+          alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\nSuccessfully uploaded ${files.length} image(s) to server! They are now visible to all visitors.`);
         } catch (error) {
           console.error('Upload error:', error);
           alert('Upload failed: ' + error.message);
@@ -1914,6 +1914,9 @@
             submitBtn.textContent = originalText;
             submitBtn.style.background = '';
           }, 2000);
+          
+          // Show satanic alert
+          alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\n✅ URL uploaded to server! It's now visible to all visitors.`);
         }).catch(error => {
           console.error('❌ Failed to add artwork to server:', error);
           console.error('❌ Full error details:', error);
@@ -1941,7 +1944,7 @@
         applyToolbarState(); 
         renderAdminList();
         
-        alert(`✅ Added "${title}" to gallery! It's visible during this session. Copy the shareable URL below to share your gallery. Note: Images reset to defaults when page is refreshed.`);
+          alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\n✅ Added "${title}" to gallery! It's visible during this session. Copy the shareable URL below to share your gallery. Note: Images reset to defaults when page is refreshed.`);
       });
 
       document.addEventListener('keydown',(e)=>{
