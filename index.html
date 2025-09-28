@@ -789,9 +789,11 @@
         
         // Provide more helpful error messages for mobile
         if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          throw new Error('Network error: Please check your internet connection and try again. If the problem persists, try refreshing the page.');
+          throw new Error('🚀 Server not available yet: The Netlify functions are still deploying. Please wait 1-2 minutes and try again. If the problem persists, try refreshing the page.');
         } else if (error.message.includes('CORS')) {
           throw new Error('Network error: Cross-origin request blocked. Please try refreshing the page.');
+        } else if (error.message.includes('Server not available')) {
+          throw new Error('🚀 Server not available yet: The Netlify functions are still deploying. Please wait 1-2 minutes and try again.');
         } else {
           throw new Error(`Upload failed: ${error.message}`);
         }
@@ -1936,12 +1938,14 @@
           
           // More helpful error messages for mobile
           let errorMessage = error.message;
-          if (error.message.includes('Network error')) {
+          if (error.message.includes('Server not available yet')) {
+            errorMessage = '🚀 ' + error.message + '\n\n⏳ Deployment Status: Netlify functions are still deploying.\n\nPlease wait 1-2 minutes and try again. Once deployed, artwork will be saved to the server automatically.';
+          } else if (error.message.includes('Network error')) {
             errorMessage = '📱 Mobile Upload Issue: ' + error.message + '\n\nTry:\n1. Check your internet connection\n2. Refresh the page\n3. Try again';
           } else if (error.message.includes('CORS')) {
             errorMessage = '🔒 Security Error: ' + error.message + '\n\nTry refreshing the page and uploading again.';
           } else if (error.message.includes('Failed to fetch')) {
-            errorMessage = '🌐 Connection Error: ' + error.message + '\n\nThis might be a mobile network issue. Try:\n1. Switch to WiFi\n2. Refresh the page\n3. Try again';
+            errorMessage = '🚀 Server not available yet: The Netlify functions are still deploying.\n\n⏳ Please wait 1-2 minutes and try again. Once deployed, artwork will be saved to the server automatically.';
           }
           
           alert('Upload failed: ' + errorMessage);
