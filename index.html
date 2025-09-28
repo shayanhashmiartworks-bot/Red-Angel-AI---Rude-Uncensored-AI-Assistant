@@ -9,45 +9,19 @@
   <meta name="author" content="Shayz" />
   <meta name="robots" content="index, follow" />
   
-  <!-- Favicon - MAXIMUM SIZE for desktop and mobile -->
-  <link rel="icon" type="image/png" sizes="512x512" href="favicon/android-chrome-512x512.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-  <link rel="manifest" href="favicon/site.webmanifest">
-  
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
-  <meta property="og:title" content="boredm — Shayz Digital Art Portfolio" />
-  <meta property="og:description" content="🎨 A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks. Explore grunge-style illustrations, digital art, and creative designs in a nostalgic desktop environment." />
+  <meta property="og:title" content="boredm" />
+  <meta property="og:description" content="boredm - A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks. Explore grunge-style illustrations and digital art." />
   <meta property="og:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:site_name" content="boredm" />
-  <meta property="og:locale" content="en_US" />
   
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
-  <meta name="twitter:title" content="boredm — Shayz Digital Art Portfolio" />
-  <meta name="twitter:description" content="🎨 A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks. Explore grunge-style illustrations and digital art." />
-  <meta name="twitter:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
-  <meta name="twitter:creator" content="@boredm404" />
-  <meta name="twitter:site" content="@boredm404" />
-  
-  <!-- Additional Social Media -->
-  <meta name="theme-color" content="#2c6ccb" />
-  <meta name="msapplication-TileColor" content="#2c6ccb" />
-  <meta name="msapplication-TileImage" content="favicon/android-chrome-192x192.png" />
-  
-  <!-- Pinterest -->
-  <meta name="pinterest-rich-pin" content="true" />
-  <meta property="article:author" content="Shayz" />
-  <meta property="article:section" content="Digital Art" />
-  <meta property="article:tag" content="digital art, portfolio, grunge art, Windows XP, Shayz" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta property="twitter:title" content="boredm" />
+  <meta property="twitter:description" content="boredm - A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks." />
+  <meta property="twitter:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
   
   <!-- Additional SEO -->
   <link rel="canonical" href="https://shayanhashmiartworks-bot.github.io/boredm/" />
@@ -208,11 +182,6 @@
     .thumb .frame{position:relative;border:1px solid #8a8a8a;border-radius:4px;background:linear-gradient(#fefefe,#f2f2f2);overflow:hidden}
     .thumb .pic{width:100%;aspect-ratio:4/3;display:block;object-fit:cover}
     .thumb .badge{position:absolute;top:6px;left:6px;background:#e11d48;color:#fff;font-size:11px;padding:2px 6px;border-radius:10px;border:1px solid rgba(0,0,0,.2)}
-    .thumb .like-btn{position:absolute;top:6px;right:6px;background:rgba(255,255,255,0.9);border:1px solid rgba(0,0,0,.2);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s ease;font-size:14px;color:#666}
-    .thumb .like-btn:hover{background:#fff;transform:scale(1.1);box-shadow:0 2px 8px rgba(0,0,0,.2)}
-    .thumb .like-btn.liked{color:#e11d48;background:rgba(225,29,72,0.1);border-color:#e11d48}
-    .thumb .like-btn.liked:hover{background:rgba(225,29,72,0.2)}
-    .thumb .like-count{font-size:10px;color:#888;margin-top:4px;display:flex;align-items:center;gap:2px}
     .thumb .overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:stretch;background:linear-gradient(transparent 55%,rgba(0,0,0,.55));color:#fff;opacity:0;transition:opacity .15s ease;padding:8px}
     .thumb:hover .overlay{opacity:1}
     .thumb .overlay .meta{font-size:12px;line-height:1.2;display:flex;gap:8px;align-items:center;width:100%}
@@ -282,18 +251,6 @@
     @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0.3}}
     .fade-out{animation:fadeOut .4s ease forwards}
     @keyframes fadeOut{to{opacity:0;visibility:hidden}}
-    
-    /* Loading animations */
-    @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-    @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-    .loading-spinner{animation:spin 1s linear infinite;display:inline-block}
-    
-    /* Heart animations */
-    @keyframes heartBeat{0%,100%{transform:scale(1)}25%{transform:scale(1.2)}50%{transform:scale(1.1)}75%{transform:scale(1.15)}}
-    @keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
-    .like-btn.animating{animation:heartBeat 0.6s ease-in-out}
-    .like-btn.just-liked{animation:heartPop 0.4s ease-in-out}
 
     /* ===== Mobile Responsive Design ===== */
     @media (max-width:768px){
@@ -722,38 +679,6 @@
     // API base URL - Netlify Functions
     const API_BASE = window.location.origin;
     
-    // Debug API base URL
-    console.log('🌐 API_BASE detected:', API_BASE);
-    console.log('🌐 Window location:', {
-      origin: window.location.origin,
-      host: window.location.host,
-      hostname: window.location.hostname,
-      protocol: window.location.protocol,
-      port: window.location.port
-    });
-    
-    // Test Netlify function connectivity
-    async function testConnectivity() {
-      try {
-        console.log('🧪 Testing Netlify function connectivity...');
-        const response = await fetch(`${API_BASE}/.netlify/functions/test`);
-        if (response.ok) {
-          const result = await response.json();
-          console.log('✅ Connectivity test successful:', result);
-          return true;
-        } else {
-          console.error('❌ Connectivity test failed:', response.status);
-          return false;
-        }
-      } catch (error) {
-        console.error('❌ Connectivity test error:', error);
-        return false;
-      }
-    }
-    
-    // Run connectivity test on page load
-    testConnectivity();
-    
     // Cache for artworks to reduce API calls
     let artworksCache = null;
     let cacheTimestamp = 0;
@@ -823,12 +748,6 @@
     // Add artwork to server
     async function addArtwork(artwork) {
       try {
-        console.log('🚀 Upload attempt - API_BASE:', API_BASE);
-        console.log('🚀 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
-        
-        // Add small delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
         const response = await fetch(`${API_BASE}/.netlify/functions/add-artwork`, {
           method: 'POST',
           headers: {
@@ -842,43 +761,27 @@
           })
         });
         
-        console.log('📡 Upload response status:', response.status);
-        
         if (response.ok) {
           const result = await response.json();
-          console.log('✅ Upload successful:', result);
           // Invalidate cache and reload artworks
           artworksCache = null;
           await loadArtworks(true);
           return result;
         } else {
-          const errorText = await response.text();
-          console.error('❌ Upload failed:', response.status, errorText);
-          throw new Error(`Upload failed: ${response.status} - ${errorText}`);
+          throw new Error('Failed to add artwork');
         }
       } catch (error) {
-        console.error('❌ Upload error details:', error);
-        
-        // Provide helpful error messages
-        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          throw new Error('Server not available. Please deploy to Netlify first.');
-        } else {
-          throw new Error(`Upload failed: ${error.message}`);
-        }
+        console.error('Error adding artwork:', error);
+        throw error;
       }
     }
     
     // Delete artwork from server
     async function deleteArtwork(id) {
       try {
-        console.log('🗑️ Delete attempt - API_BASE:', API_BASE);
-        console.log('🗑️ Delete URL:', `${API_BASE}/.netlify/functions/delete-artwork?id=${id}`);
-        
         const response = await fetch(`${API_BASE}/.netlify/functions/delete-artwork?id=${id}`, {
           method: 'DELETE'
         });
-        
-        console.log('📡 Delete response status:', response.status);
         
         if (response.ok) {
           // Invalidate cache and reload artworks
@@ -886,19 +789,11 @@
           await loadArtworks(true);
           return true;
         } else {
-          const errorText = await response.text();
-          console.error('❌ Delete failed:', response.status, errorText);
-          throw new Error(`Delete failed: ${response.status} - ${errorText}`);
+          throw new Error('Failed to delete artwork');
         }
       } catch (error) {
-        console.error('❌ Delete error details:', error);
-        
-        // Provide helpful error messages for mobile
-        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          throw new Error('Network error: Please check your internet connection and try again.');
-        } else {
-          throw new Error(`Delete failed: ${error.message}`);
-        }
+        console.error('Error deleting artwork:', error);
+        throw error;
       }
     }
     // Gallery will be initialized at the end of the script
@@ -934,40 +829,20 @@
     async function uploadImageToHosting(file) {
       console.log('📤 Uploading image:', file.name, 'Size:', file.size, 'bytes');
       
-      // Mobile-friendly file handling with fallbacks
+      // For now, we'll use a data URL approach that works across browsers
+      // This creates a permanent data URL that can be shared
       return new Promise((resolve, reject) => {
-        // Check if FileReader is available
-        if (!window.FileReader) {
-          reject(new Error('FileReader not supported on this device'));
-          return;
-        }
-        
         const reader = new FileReader();
-        
-        // Mobile-specific error handling
         reader.onload = () => {
           const dataUrl = reader.result;
           console.log('✅ Image converted to data URL, length:', dataUrl.length);
-          console.log('📱 Mobile upload - FileReader success');
           resolve(dataUrl);
         };
-        
-        reader.onerror = (e) => {
-          console.error('❌ Mobile FileReader error:', e);
-          reject(new Error('Failed to read file on mobile device. Try using a different image or browser.'));
+        reader.onerror = () => {
+          console.error('❌ Failed to read file');
+          reject(new Error('Failed to read file'));
         };
-        
-        reader.onabort = () => {
-          console.error('❌ Mobile FileReader aborted');
-          reject(new Error('File reading was cancelled'));
-        };
-        
-        try {
-          reader.readAsDataURL(file);
-        } catch (error) {
-          console.error('❌ Mobile FileReader exception:', error);
-          reject(new Error('Mobile browser cannot read this file type. Try a different image format.'));
-        }
+        reader.readAsDataURL(file);
       });
     }
 
@@ -1465,19 +1340,7 @@
         const likeBtn = card.querySelector('.like-btn');
         const heartEl = likeBtn.querySelector('.heart');
         const countEl = likeBtn.querySelector('.count');
-        function paintLike(){ 
-          const liked=isLiked(full); 
-          heartEl.textContent = liked ? '❤️' : '🤍'; 
-          likeBtn.setAttribute('aria-pressed', String(liked)); 
-          countEl.textContent = String(getCount(full)); 
-          likeBtn.classList.remove('pop', 'animating', 'just-liked'); 
-          void likeBtn.offsetWidth; 
-          if(liked) {
-            likeBtn.classList.add('just-liked', 'liked');
-          } else {
-            likeBtn.classList.remove('liked');
-          }
-        }
+        function paintLike(){ const liked=isLiked(full); heartEl.textContent = liked ? '❤️' : '🤍'; likeBtn.setAttribute('aria-pressed', String(liked)); countEl.textContent = String(getCount(full)); likeBtn.classList.remove('pop'); void likeBtn.offsetWidth; likeBtn.classList.add('pop'); }
         likeBtn.addEventListener('click', (e)=>{ e.stopPropagation(); tryPlay('click'); const liked=isLiked(full); setLiked(full, !liked); paintLike(); if(currentSort==='liked'){ sortLikedBtn.click(); } });
 
         function collapse(target){
@@ -1902,7 +1765,7 @@
         if (!password) return false;
         
         try {
-          const response = await fetch(`${API_BASE}/.netlify/functions/auth-admin`, {
+          const response = await fetch('/.netlify/functions/auth-admin', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -1972,40 +1835,10 @@
         const files = Array.from(admFile.files||[]);
         if(files.length===0){ alert('Select one or more images.'); return; }
         
-        // Mobile file validation
-        console.log('📱 Mobile upload - Files selected:', files.length);
-        for(let i = 0; i < files.length; i++) {
-          const file = files[i];
-          console.log(`📱 File ${i+1}:`, {
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            lastModified: file.lastModified
-          });
-          
-          // Check file size (mobile browsers have limits)
-          if(file.size > 10 * 1024 * 1024) { // 10MB limit
-            alert(`File "${file.name}" is too large (${Math.round(file.size/1024/1024)}MB). Please use images under 10MB.`);
-            return;
-          }
-          
-          // Check file type
-          if(!file.type.startsWith('image/')) {
-            alert(`File "${file.name}" is not an image. Please select image files only.`);
-            return;
-          }
-        }
-        
-        // Show upload progress with animation
+        // Show upload progress
         const submitBtn = adminForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = '⏳ Optimizing...';
-        submitBtn.disabled = true;
-        
-        // Add loading animation to button
-        submitBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff6b6b)';
-        submitBtn.style.backgroundSize = '400% 400%';
-        submitBtn.style.animation = 'gradientShift 2s ease infinite';
+        submitBtn.textContent = 'Optimizing & Uploading...';
         submitBtn.disabled = true;
         
         try {
@@ -2065,25 +1898,10 @@
           alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\nSuccessfully uploaded ${files.length} image(s) to server! They are now visible to all visitors.`);
         } catch (error) {
           console.error('Upload error:', error);
-          
-          // More helpful error messages for mobile
-          let errorMessage = error.message;
-          if (error.message.includes('Server not available yet')) {
-            errorMessage = '🚀 ' + error.message + '\n\n⏳ Deployment Status: Netlify functions are still deploying.\n\nPlease wait 1-2 minutes and try again. Once deployed, artwork will be saved to the server automatically.';
-          } else if (error.message.includes('Network error')) {
-            errorMessage = '📱 Mobile Upload Issue: ' + error.message + '\n\nTry:\n1. Check your internet connection\n2. Refresh the page\n3. Try again';
-          } else if (error.message.includes('CORS')) {
-            errorMessage = '🔒 Security Error: ' + error.message + '\n\nTry refreshing the page and uploading again.';
-          } else if (error.message.includes('Failed to fetch')) {
-            errorMessage = '📱 Mobile Network Issue: Try switching to WiFi or refresh the page and try again.';
-          }
-          
-          alert('Upload failed: ' + errorMessage);
+          alert('Upload failed: ' + error.message);
         } finally {
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
-          submitBtn.style.background = '';
-          submitBtn.style.animation = '';
         }
       });
 
@@ -2128,31 +1946,25 @@
         
         console.log('Adding artwork from URL:', newArt);
         
-        // Add to server with retry mechanism for mobile
+        // Add to server
         console.log('🚀 Attempting to add artwork to server:', newArt);
         console.log('🌐 API_BASE:', API_BASE);
         console.log('🔗 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
         
-        // Update progress message
-        submitBtn.textContent = '🚀 Uploading to server...';
-        
-        // Simple mobile upload - try direct approach first
         addArtwork(newArt).then(() => {
           console.log('✅ Artwork added to server successfully');
-          submitBtn.textContent = '✅ Success! Reloading...';
-          
           // Reload artworks from server
           console.log('🔄 Reloading artworks from server...');
           loadArtworks();
           
           // Show success message
+          const submitBtn = adminForm.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
           submitBtn.textContent = '✅ Added Successfully!';
           submitBtn.style.background = 'linear-gradient(#93d17b, #54a848)';
           setTimeout(() => {
             submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
             submitBtn.style.background = '';
-            submitBtn.style.animation = '';
           }, 2000);
           
           // Show satanic alert
@@ -2695,7 +2507,7 @@
         if (!password) return false;
         
         try {
-          const response = await fetch(`${API_BASE}/.netlify/functions/auth-admin`, {
+          const response = await fetch('/.netlify/functions/auth-admin', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
