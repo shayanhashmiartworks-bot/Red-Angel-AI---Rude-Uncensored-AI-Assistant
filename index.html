@@ -561,7 +561,7 @@
 
     <section id="contactWindow" class="window" style="left:54%;top:12%;width:420px;height:300px">
       <div class="titlebar" data-drag-handle>
-        <div class="title">🎭 Socials — Shayz</div>
+        <div class="title">🎭 Socials — Boredm</div>
         <div class="controls"><div class="btn" data-minimize title="Minimize">–</div><div class="btn" data-maximize title="Maximize">⬜</div><div class="btn" data-close title="Close">×</div></div>
       </div>
       <div class="content">
@@ -654,6 +654,7 @@
     <div style="display:flex;gap:8px;align-items:center">
     <button class="sound-btn" id="soundToggle" aria-pressed="false" title="Toggle sounds">🔇 Sound Off</button>
     <button class="sound-btn" id="themeToggle" aria-pressed="false" title="Toggle dark mode">🌙 Dark</button>
+    <button class="sound-btn" id="adminToggle" title="Admin Panel - Upload/Delete Images">🔒 Admin</button>
     </div>
     <div class="tasklist" id="tasklist" aria-label="Open windows"></div>
     <div class="clock" id="clock">--:--</div>
@@ -1722,10 +1723,10 @@
     applyToolbarState();
     restoreState();
 
-    // ===== Admin logic (hidden access) =====
+    // ===== Secure Admin logic (hidden access) =====
     (function admin(){
-      const ADMIN_KEY = 'shayz2024!';
-      let adminUnlocked=false;
+      let adminToken = null;
+      let tokenExpiry = null;
       let adminTimeout;
       const adminWin=document.getElementById('adminWindow');
       const adminForm=document.getElementById('adminForm');
@@ -1736,8 +1737,14 @@
       const admDescription=document.getElementById('admDescription');
       const adminList=document.getElementById('adminList');
 
+      // Check if we have a valid session token
+      function isTokenValid() {
+        return adminToken && tokenExpiry && Date.now() < tokenExpiry;
+      }
+      
       function lockAdmin(){
-        adminUnlocked = false;
+        adminToken = null;
+        tokenExpiry = null;
         adminWin.style.display='none';
         adminWin.style.visibility='hidden';
         clearTimeout(adminTimeout);
@@ -1750,6 +1757,38 @@
         // Auto-lock after 10 minutes of inactivity
         clearTimeout(adminTimeout);
         adminTimeout = setTimeout(lockAdmin, 10 * 60 * 1000);
+      }
+      
+      // Authenticate with server
+      async function authenticateAdmin() {
+        const password = prompt('🔒 Enter Admin Password:');
+        if (!password) return false;
+        
+        try {
+          const response = await fetch('/.netlify/functions/auth-admin', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password: password })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            // Store session token
+            adminToken = result.token;
+            tokenExpiry = result.expires;
+            return true;
+          } else {
+            alert('❌ Incorrect password. Access denied.');
+            return false;
+          }
+        } catch (error) {
+          console.error('Authentication error:', error);
+          alert('❌ Authentication failed. Please try again.');
+          return false;
+        }
       }
       function renderAdminList(){
         adminList.innerHTML='';
@@ -1958,21 +1997,20 @@
         renderAdminList();
       });
 
-      document.addEventListener('keydown',(e)=>{
+      document.addEventListener('keydown', async (e)=>{
         if(e.ctrlKey && e.shiftKey && (e.key==='A' || e.key==='a')){
           e.preventDefault();
-          if(!adminUnlocked){ 
-            const input=prompt('Enter admin password:'); 
-            if(input===ADMIN_KEY){ 
-              adminUnlocked=true; 
-              openAdmin();
-            } else { 
-              alert('Incorrect password. Access denied.'); 
-              return; 
-            } 
-          } else {
-            openAdmin();
+          
+          // Check if we have a valid session token
+          if (!isTokenValid()) {
+            // Need to authenticate
+            const authenticated = await authenticateAdmin();
+            if (!authenticated) {
+              return; // Authentication failed
+            }
           }
+          
+          openAdmin();
         }
       });
 
@@ -2449,12 +2487,95 @@
       document.addEventListener('keydown', (e)=>{ if(e.ctrlKey && e.shiftKey && (e.key==='D' || e.key==='d')){ const next=!document.body.classList.contains('dark'); apply(next); } });
     })();
 
+    // ===== Secure Admin Panel with Server-Side Authentication =====
+    (function adminToggle(){
+      const adminBtn = document.getElementById('adminToggle');
+      const adminWindow = document.getElementById('adminWindow');
+      
+      // Session management
+      let adminToken = null;
+      let tokenExpiry = null;
+      
+      // Check if we have a valid session token
+      function isTokenValid() {
+        return adminToken && tokenExpiry && Date.now() < tokenExpiry;
+      }
+      
+      // Authenticate with server
+      async function authenticateAdmin() {
+        const password = prompt('🔒 Enter Admin Password:');
+        if (!password) return false;
+        
+        try {
+          const response = await fetch('/.netlify/functions/auth-admin', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password: password })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            // Store session token
+            adminToken = result.token;
+            tokenExpiry = result.expires;
+            return true;
+          } else {
+            alert('❌ Incorrect password. Access denied.');
+            return false;
+          }
+        } catch (error) {
+          console.error('Authentication error:', error);
+          alert('❌ Authentication failed. Please try again.');
+          return false;
+        }
+      }
+      
+      if(adminBtn && adminWindow) {
+        adminBtn.addEventListener('click', async () => {
+          tryPlay('click');
+          
+          // Check if admin window is currently visible
+          const isVisible = adminWindow.style.display !== 'none' && adminWindow.style.visibility !== 'hidden';
+          
+          if(isVisible) {
+            // Hide admin window
+            adminWindow.style.display = 'none';
+            adminWindow.style.visibility = 'hidden';
+            adminBtn.textContent = '🔒 Admin';
+            // Clear session when closing
+            adminToken = null;
+            tokenExpiry = null;
+          } else {
+            // Check if we have a valid session token
+            if (!isTokenValid()) {
+              // Need to authenticate
+              const authenticated = await authenticateAdmin();
+              if (!authenticated) {
+                return; // Authentication failed
+              }
+            }
+            
+            // Show admin window
+            adminWindow.style.display = 'block';
+            adminWindow.style.visibility = 'visible';
+            adminBtn.textContent = '🔓 Close';
+            focusWindow(adminWindow);
+            saveStateDebounced();
+          }
+        });
+      }
+    })();
+
     // ===== Self-tests =====
     (function runSelfTests(){
       try {
         console.assert(typeof soundEnabled==='boolean','Test: soundEnabled initialized early');
         console.assert(document.getElementById('themeToggle'),'Test: theme toggle exists');
         console.assert(document.getElementById('soundToggle'),'Test: sound toggle exists');
+        console.assert(document.getElementById('adminToggle'),'Test: admin toggle exists');
         console.assert(document.getElementById('splashTitle').textContent.trim().toLowerCase()==='boredm — shayz','Test: splash title updated');
         console.assert(typeof renderGallery==='function','Test: renderGallery defined');
         console.assert(document.getElementById('gallery') instanceof HTMLElement,'Test: gallery host exists');
