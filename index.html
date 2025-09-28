@@ -693,39 +693,31 @@
         }
       ];
       
-      // Check if we're running locally (file://) or on a server
-      const isLocalFile = window.location.protocol === 'file:';
-      
-      if (isLocalFile) {
-        console.log('📁 Running locally - using fallback data');
-        ARTWORKS_DEFAULT = fallbackArtworks;
-      } else {
-        try {
-          const response = await fetch(`${API_BASE}/.netlify/functions/get-artworks`);
-          console.log('📡 Response status:', response.status);
+      try {
+        const response = await fetch(`${API_BASE}/.netlify/functions/get-artworks`);
+        console.log('📡 Response status:', response.status);
+        
+        if (response.ok) {
+          const artworks = await response.json();
+          console.log('📋 Loaded artworks from server:', artworks.length);
           
-          if (response.ok) {
-            const artworks = await response.json();
-            console.log('📋 Loaded artworks from server:', artworks.length);
-            
-            ARTWORKS_DEFAULT = artworks.map(artwork => ({
-              src: artwork.url,
-              title: artwork.title,
-              date: new Date(artwork.created_at || artwork.timestamp).toISOString().split('T')[0],
-              badge: artwork.badge || '',
-              description: artwork.description || '',
-              id: artwork.id
-            }));
-            
-            console.log('✅ Mapped artworks:', ARTWORKS_DEFAULT.length);
-          } else {
-            console.warn('⚠️ Server not available, using fallback data');
-            ARTWORKS_DEFAULT = fallbackArtworks;
-          }
-        } catch (error) {
-          console.warn('⚠️ Server error, using fallback data:', error.message);
+          ARTWORKS_DEFAULT = artworks.map(artwork => ({
+            src: artwork.url,
+            title: artwork.title,
+            date: new Date(artwork.created_at || artwork.timestamp).toISOString().split('T')[0],
+            badge: artwork.badge || '',
+            description: artwork.description || '',
+            id: artwork.id
+          }));
+          
+          console.log('✅ Mapped artworks:', ARTWORKS_DEFAULT.length);
+        } else {
+          console.error('❌ Server not available:', response.statusText);
           ARTWORKS_DEFAULT = fallbackArtworks;
         }
+      } catch (error) {
+        console.error('❌ Server error:', error.message);
+        ARTWORKS_DEFAULT = fallbackArtworks;
       }
       
       console.log('🎨 Rendering gallery with', ARTWORKS_DEFAULT.length, 'artworks');
@@ -1841,10 +1833,8 @@
               console.log('Artwork added to server successfully');
             } catch (error) {
               console.error('Failed to add artwork to server:', error);
-              
-              // Fallback: Save locally
-              ARTWORKS.unshift(newArt);
-              console.log('Artwork saved locally as fallback');
+              alert('Server not available. Please deploy to Netlify first.\n\nOnce deployed, artworks will be saved to the server and visible to all visitors.');
+              continue;
             }
           }
           
@@ -1920,24 +1910,18 @@
         }).catch(error => {
           console.error('Failed to add artwork to server:', error);
           
-          // Fallback: Save locally
-          ARTWORKS.unshift(newArt);
-          ARTWORKS = dedupeArtworks(ARTWORKS);
-          saveArtworks(ARTWORKS);
-          renderGallery(ARTWORKS);
-          
-          // Show helpful error message
+          // Show error message - no local fallback
           const submitBtn = adminForm.querySelector('button[type="submit"]');
           const originalText = submitBtn.textContent;
-          submitBtn.textContent = '⚠️ Saved Locally';
-          submitBtn.style.background = 'linear-gradient(#ffaa00, #ff8800)';
+          submitBtn.textContent = '❌ Server Error';
+          submitBtn.style.background = 'linear-gradient(#ff6666, #cc0000)';
           setTimeout(() => {
             submitBtn.textContent = originalText;
             submitBtn.style.background = '';
           }, 3000);
           
           // Show detailed error
-          alert('Server not ready yet. Artwork saved locally only.\n\nThis will work for all visitors once deployed to Netlify with Neon database.');
+          alert('Server not available. Please deploy to Netlify first.\n\nOnce deployed, artworks will be saved to the server and visible to all visitors.');
         });
         
         // Clear form
