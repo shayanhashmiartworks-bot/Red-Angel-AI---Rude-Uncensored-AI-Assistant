@@ -1282,6 +1282,9 @@
     function renderGallery(items){
       gallery.innerHTML='';
       const io = null; // disable lazy observer to avoid blank cards with data URLs
+      
+      // Update filtered array to match the items being rendered
+      filtered = [...items];
 
       items.forEach((art)=>{
         artId(art);
