@@ -864,58 +864,21 @@
     async function uploadImageToHosting(file) {
       console.log('📤 Uploading image:', file.name, 'Size:', file.size, 'bytes');
       
-      // Check file size - warn if too large
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        console.warn('⚠️ Large file detected:', getFileSizeMB(file), 'MB');
-        alert(`⚠️ Large file detected: ${getFileSizeMB(file)}MB\n\nLarge files may cause upload issues. Consider compressing the image first.`);
-      }
-      
-      // Use Imgur API for reliable hosting
-      try {
-        const formData = new FormData();
-        formData.append('image', file);
-        
-        console.log('🌐 Uploading to Imgur...');
-        const response = await fetch('https://api.imgur.com/3/image', {
-          method: 'POST',
-          headers: {
-            'Authorization': 'Client-ID 546c25a59c58ad7' // Public client ID for anonymous uploads
-          },
-          body: formData
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          const imageUrl = data.data.link;
-          console.log('✅ Image uploaded to Imgur:', imageUrl);
-          return imageUrl;
-        } else {
-          console.error('❌ Imgur upload failed:', response.status);
-          throw new Error(`Imgur upload failed: ${response.status}`);
-        }
-      } catch (error) {
-        console.error('❌ Image upload error:', error);
-        
-        // Fallback to data URL for small images only
-        if (file.size < 1024 * 1024) { // Only for files under 1MB
-          console.log('🔄 Falling back to data URL...');
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-              const dataUrl = reader.result;
-              console.log('✅ Image converted to data URL, length:', dataUrl.length);
-              resolve(dataUrl);
-            };
-            reader.onerror = () => {
-              console.error('❌ Failed to read file');
-              reject(new Error('Failed to read file'));
-            };
-            reader.readAsDataURL(file);
-          });
-        } else {
-          throw new Error('Image too large for fallback. Please use a smaller image or try again.');
-        }
-      }
+      // For now, we'll use a data URL approach that works across browsers
+      // This creates a permanent data URL that can be shared
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const dataUrl = reader.result;
+          console.log('✅ Image converted to data URL, length:', dataUrl.length);
+          resolve(dataUrl);
+        };
+        reader.onerror = () => {
+          console.error('❌ Failed to read file');
+          reject(new Error('Failed to read file'));
+        };
+        reader.readAsDataURL(file);
+      });
     }
 
     function dedupeArtworks(arr){
@@ -1907,6 +1870,16 @@
         const files = Array.from(admFile.files||[]);
         if(files.length===0){ alert('Select one or more images.'); return; }
         
+        // Check file sizes and warn about large files
+        const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB limit
+        const largeFiles = files.filter(f => f.size > MAX_FILE_SIZE);
+        if(largeFiles.length > 0) {
+          const largeFileNames = largeFiles.map(f => `${f.name} (${getFileSizeMB(f)}MB)`).join('\n');
+          if(!confirm(`⚠️ Large files detected:\n${largeFileNames}\n\nThese will be compressed automatically, but may take longer to upload.\n\nContinue?`)) {
+            return;
+          }
+        }
+        
         // Show upload progress
         const submitBtn = adminForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
@@ -1927,12 +1900,30 @@
             if(isImageFile(f)) {
               console.log('Optimizing image:', f.name);
               try {
-                const optimizedDataUrl = await optimizeImage(f, 1200, 1200, 0.8);
+                // Use more aggressive compression for larger files
+                const fileSizeMB = parseFloat(getFileSizeMB(f));
+                let maxWidth = 1200, maxHeight = 1200, quality = 0.8;
+                
+                if(fileSizeMB > 5) {
+                  // Very large files: more aggressive compression
+                  maxWidth = 800;
+                  maxHeight = 800;
+                  quality = 0.6;
+                  console.log('Using aggressive compression for large file');
+                } else if(fileSizeMB > 2) {
+                  // Large files: moderate compression
+                  maxWidth = 1000;
+                  maxHeight = 1000;
+                  quality = 0.7;
+                  console.log('Using moderate compression for large file');
+                }
+                
+                const optimizedDataUrl = await optimizeImage(f, maxWidth, maxHeight, quality);
                 // Convert data URL back to blob for upload
                 const response = await fetch(optimizedDataUrl);
                 const blob = await response.blob();
                 processedFile = new File([blob], f.name, { type: 'image/jpeg' });
-                console.log('Image optimized:', f.name, `(${getFileSizeMB(processedFile)}MB)`);
+                console.log('Image optimized:', f.name, `${getFileSizeMB(f)}MB → ${getFileSizeMB(processedFile)}MB`);
               } catch(error) {
                 console.warn('Image optimization failed, using original:', error);
               }

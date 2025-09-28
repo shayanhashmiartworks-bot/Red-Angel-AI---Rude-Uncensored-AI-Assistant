@@ -1,5 +1,7 @@
 // JSONBin implementation for persistent storage
 export async function handler(event, context) {
+  // Set longer timeout for large files
+  context.callbackWaitsForEmptyEventLoop = false;
   // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -91,7 +93,7 @@ export async function handler(event, context) {
     artworks.unshift(newArtwork);
     console.log('📋 Total artworks after adding:', artworks.length);
 
-    // Save back to JSONBin
+    // Save back to JSONBin with timeout
     const saveData = { artworks: artworks };
     console.log('💾 Saving to JSONBin:', JSON.stringify(saveData, null, 2));
     
@@ -101,7 +103,8 @@ export async function handler(event, context) {
         'X-Master-Key': API_KEY,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(saveData)
+      body: JSON.stringify(saveData),
+      signal: AbortSignal.timeout(30000) // 30 second timeout
     });
 
     console.log('📡 JSONBin PUT response status:', saveResponse.status);
