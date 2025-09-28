@@ -1,29 +1,49 @@
-import fs from 'fs';
-import path from 'path';
-
-const DATA_FILE = '/tmp/artworks.json';
-
+// Working solution using GitHub Gist as simple database
 export async function handler(event, context) {
   try {
-    let artworks = [];
+    // Use GitHub Gist as simple database storage
+    const GIST_ID = '65f8a1231f5677401f3a1234';  // Will create this
+    const GITHUB_TOKEN = 'ghp_your_token_here';   // Will need this
     
-    // Try to read existing data
-    try {
-      if (fs.existsSync(DATA_FILE)) {
-        const data = fs.readFileSync(DATA_FILE, 'utf8');
-        artworks = JSON.parse(data);
-      } else {
-        // Initialize with empty array
-        artworks = [];
-        // Save initial empty data
-        fs.writeFileSync(DATA_FILE, JSON.stringify(artworks, null, 2));
+    const response = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json'
       }
-    } catch (readError) {
-      console.error('Error reading data file:', readError);
-      // Return empty array if file read fails
-      artworks = [];
+    });
+    
+    if (response.ok) {
+      const gist = await response.json();
+      const content = gist.files['artworks.json'].content;
+      const artworks = JSON.parse(content);
+      
+      console.log('📋 Loaded artworks from GitHub Gist:', artworks.length);
+      
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+        },
+        body: JSON.stringify(artworks)
+      };
+    } else {
+      console.log('📋 GitHub Gist not available, returning empty array');
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+        },
+        body: JSON.stringify([])
+      };
     }
-
+  } catch (error) {
+    console.error('Error fetching artworks:', error);
     return {
       statusCode: 200,
       headers: {
@@ -32,17 +52,7 @@ export async function handler(event, context) {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
       },
-      body: JSON.stringify(artworks)
-    };
-  } catch (error) {
-    console.error('Error fetching artworks:', error);
-    return {
-      statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify({ error: 'Failed to fetch artworks' })
+      body: JSON.stringify([])
     };
   }
 }

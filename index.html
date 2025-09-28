@@ -681,18 +681,6 @@
     async function loadArtworks() {
       console.log('🔄 Loading artworks from server...');
       
-      // Fallback data for when server isn't available
-      const fallbackArtworks = [
-        {
-          src: 'https://i.pinimg.com/73x/72/9a/b5/729ab5d311956865a8b7778490ca506e.jpg',
-          title: 'me noice',
-          date: '2025-01-15',
-          badge: 'NEW',
-          description: 'A beautiful artwork showcasing artistic talent',
-          id: '1'
-        }
-      ];
-      
       try {
         console.log('🌐 API_BASE:', API_BASE);
         console.log('🔗 Fetching from:', `${API_BASE}/.netlify/functions/get-artworks`);
@@ -798,9 +786,10 @@
       return a.id || (a.id = (a.title||'untitled')+'|'+String(a.date||'')+'|'+String(a.src).slice(0,64)); 
     }
     
-    function saveArtworks(arr){ 
+    function saveArtworks(arr){
       // This function is now disabled - all saving goes through server
       console.log('💾 Server-only mode: Local saving disabled');
+      // All saving now happens through addArtwork() API function
     }
 
     function updateUrlHash(artworks) {
