@@ -1,23 +1,23 @@
-// Working solution using GitHub Gist as simple database
+// JSONBin implementation for persistent storage
 export async function handler(event, context) {
   try {
-    // Use GitHub Gist as simple database storage
-    const GIST_ID = '65f8a1231f5677401f3a1234';  // Will create this
-    const GITHUB_TOKEN = 'ghp_your_token_here';   // Will need this
+    // JSONBin configuration
+    const BIN_ID = '65f8a1231f5677401f3a1234'; // Replace with your actual bin ID
+    const API_KEY = '$2a$10$your-jsonbin-api-key-here'; // Replace with your actual API key
     
-    const response = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+    console.log('📋 Fetching artworks from JSONBin...');
+    
+    const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
       headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+        'X-Master-Key': API_KEY,
+        'Content-Type': 'application/json'
       }
     });
     
     if (response.ok) {
-      const gist = await response.json();
-      const content = gist.files['artworks.json'].content;
-      const artworks = JSON.parse(content);
-      
-      console.log('📋 Loaded artworks from GitHub Gist:', artworks.length);
+      const data = await response.json();
+      const artworks = data.record || [];
+      console.log('✅ Loaded artworks from JSONBin:', artworks.length);
       
       return {
         statusCode: 200,
@@ -30,7 +30,7 @@ export async function handler(event, context) {
         body: JSON.stringify(artworks)
       };
     } else {
-      console.log('📋 GitHub Gist not available, returning empty array');
+      console.error('❌ JSONBin error:', response.status, response.statusText);
       return {
         statusCode: 200,
         headers: {
@@ -43,7 +43,7 @@ export async function handler(event, context) {
       };
     }
   } catch (error) {
-    console.error('Error fetching artworks:', error);
+    console.error('❌ Error fetching artworks:', error);
     return {
       statusCode: 200,
       headers: {

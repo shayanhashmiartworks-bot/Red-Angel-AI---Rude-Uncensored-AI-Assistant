@@ -1,4 +1,4 @@
-// Simple working solution - just return success for now
+// JSONBin implementation for persistent storage
 export async function handler(event, context) {
   // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
@@ -38,6 +38,27 @@ export async function handler(event, context) {
       };
     }
 
+    // JSONBin configuration
+    const BIN_ID = '65f8a1231f5677401f3a1234'; // Replace with your actual bin ID
+    const API_KEY = '$2a$10$your-jsonbin-api-key-here'; // Replace with your actual API key
+
+    console.log('📝 Adding artwork to JSONBin:', title);
+
+    // First, get existing artworks
+    const getResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      headers: {
+        'X-Master-Key': API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    let artworks = [];
+    if (getResponse.ok) {
+      const data = await getResponse.json();
+      artworks = data.record || [];
+    }
+
+    // Create new artwork
     const newArtwork = {
       id: Date.now().toString(),
       title,
@@ -47,20 +68,42 @@ export async function handler(event, context) {
       created_at: new Date().toISOString()
     };
 
-    // For now, just return success - we'll implement proper database
-    console.log('📝 Artwork would be saved:', newArtwork.title);
-    console.log('⚠️ Note: Need to implement proper database for persistence');
+    // Add to artworks array
+    artworks.unshift(newArtwork);
 
-    return {
-      statusCode: 201,
+    // Save back to JSONBin
+    const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'X-Master-Key': API_KEY,
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ success: true, artwork: newArtwork })
-    };
+      body: JSON.stringify(artworks)
+    });
+
+    if (saveResponse.ok) {
+      console.log('✅ Artwork saved to JSONBin successfully:', newArtwork.title);
+      return {
+        statusCode: 201,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ success: true, artwork: newArtwork })
+      };
+    } else {
+      console.error('❌ Failed to save to JSONBin:', saveResponse.status);
+      return {
+        statusCode: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ error: 'Failed to save artwork' })
+      };
+    }
   } catch (error) {
-    console.error('Error adding artwork:', error);
+    console.error('❌ Error adding artwork:', error);
     return {
       statusCode: 500,
       headers: {

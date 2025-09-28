@@ -1,7 +1,4 @@
-import fs from 'fs';
-
-const DATA_FILE = '/tmp/artworks.json';
-
+// JSONBin implementation for persistent storage
 export async function handler(event, context) {
   // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
@@ -41,26 +38,35 @@ export async function handler(event, context) {
       };
     }
 
-    // Read existing artworks
-    let artworks = [];
-    try {
-      if (fs.existsSync(DATA_FILE)) {
-        const data = fs.readFileSync(DATA_FILE, 'utf8');
-        artworks = JSON.parse(data);
+    // JSONBin configuration
+    const BIN_ID = '65f8a1231f5677401f3a1234'; // Replace with your actual bin ID
+    const API_KEY = '$2a$10$your-jsonbin-api-key-here'; // Replace with your actual API key
+
+    console.log('🗑️ Deleting artwork from JSONBin:', id);
+
+    // First, get existing artworks
+    const getResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      headers: {
+        'X-Master-Key': API_KEY,
+        'Content-Type': 'application/json'
       }
-    } catch (readError) {
-      console.error('Error reading artworks:', readError);
+    });
+
+    if (!getResponse.ok) {
       return {
-        statusCode: 500,
+        statusCode: 404,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify({ error: 'Failed to read artworks' })
+        body: JSON.stringify({ error: 'Artworks not found' })
       };
     }
 
-    // Find and remove artwork
+    const data = await getResponse.json();
+    let artworks = data.record || [];
+
+    // Filter out the artwork to delete
     const originalLength = artworks.length;
     artworks = artworks.filter(artwork => artwork.id !== id);
 
@@ -75,32 +81,39 @@ export async function handler(event, context) {
       };
     }
 
-    // Save updated artworks
-    try {
-      fs.writeFileSync(DATA_FILE, JSON.stringify(artworks, null, 2));
-      console.log('Artwork deleted successfully:', id);
-    } catch (writeError) {
-      console.error('Error saving artworks after deletion:', writeError);
+    // Save back to JSONBin
+    const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'X-Master-Key': API_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(artworks)
+    });
+
+    if (saveResponse.ok) {
+      console.log('✅ Artwork deleted from JSONBin successfully:', id);
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ success: true })
+      };
+    } else {
+      console.error('❌ Failed to delete from JSONBin:', saveResponse.status);
       return {
         statusCode: 500,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify({ error: 'Failed to save changes' })
+        body: JSON.stringify({ error: 'Failed to delete artwork' })
       };
     }
-
-    return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify({ success: true })
-    };
   } catch (error) {
-    console.error('Error deleting artwork:', error);
+    console.error('❌ Error deleting artwork:', error);
     return {
       statusCode: 500,
       headers: {
