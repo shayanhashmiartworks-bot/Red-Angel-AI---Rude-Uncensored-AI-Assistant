@@ -723,6 +723,7 @@
       
       // Update the global ARTWORKS variable
       ARTWORKS = ARTWORKS_DEFAULT;
+      console.log('🔄 Updated global ARTWORKS:', ARTWORKS.length, 'items');
       
       // Wait for gallery element to be available
       const gallery = document.getElementById('gallery');
@@ -1740,6 +1741,7 @@
       function renderAdminList(){
         adminList.innerHTML='';
         console.log('Rendering admin list with', ARTWORKS.length, 'artworks');
+        console.log('ARTWORKS array:', ARTWORKS);
         ARTWORKS.forEach((a,i)=>{
           const row=document.createElement('div');
           row.style.display='grid'; row.style.gridTemplateColumns='1fr auto'; row.style.alignItems='center'; row.style.gap='8px';
