@@ -684,6 +684,27 @@
     let cacheTimestamp = 0;
     const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes cache
 
+    // Retry function for API calls to handle cold starts
+    async function retryApiCall(apiCall, maxRetries = 3, delay = 1000) {
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          const result = await apiCall();
+          return result;
+        } catch (error) {
+          console.log(`🔄 Attempt ${attempt}/${maxRetries} failed:`, error.message);
+          
+          if (attempt === maxRetries) {
+            throw error; // Last attempt failed
+          }
+          
+          // Wait before retrying (exponential backoff)
+          const waitTime = delay * Math.pow(2, attempt - 1);
+          console.log(`⏳ Waiting ${waitTime}ms before retry...`);
+          await new Promise(resolve => setTimeout(resolve, waitTime));
+        }
+      }
+    }
+
     // Load artworks from server with caching
     async function loadArtworks(forceRefresh = false) {
       console.log('🔄 Loading artworks from server...');
@@ -701,34 +722,37 @@
         console.log('🌐 API_BASE:', API_BASE);
         console.log('🔗 Fetching from:', `${API_BASE}/.netlify/functions/get-artworks`);
         
-        const response = await fetch(`${API_BASE}/.netlify/functions/get-artworks`);
+        const response = await retryApiCall(async () => {
+          const res = await fetch(`${API_BASE}/.netlify/functions/get-artworks`);
+          if (!res.ok) {
+            throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+          }
+          return res;
+        });
+        
         console.log('📡 Response status:', response.status);
         
-        if (response.ok) {
-          const artworks = await response.json();
-          console.log('📋 Loaded artworks from server:', artworks.length);
-          
-          ARTWORKS_DEFAULT = artworks.map(artwork => ({
-            src: artwork.url,
-            title: artwork.title,
-            date: new Date(artwork.created_at || artwork.timestamp).toISOString().split('T')[0],
-            badge: artwork.badge || '',
-            description: artwork.description || '',
-            id: artwork.id
-          }));
-          
-          // Cache the results
-          artworksCache = ARTWORKS_DEFAULT;
-          cacheTimestamp = now;
-          console.log('💾 Cached artworks for 5 minutes');
-          
-        } else {
-          console.error('❌ Server not available:', response.status);
-          ARTWORKS_DEFAULT = [];
-        }
+        const artworks = await response.json();
+        console.log('📋 Loaded artworks from server:', artworks.length);
+        
+        ARTWORKS_DEFAULT = artworks.map(artwork => ({
+          src: artwork.url,
+          title: artwork.title,
+          date: new Date(artwork.created_at || artwork.timestamp).toISOString().split('T')[0],
+          badge: artwork.badge || '',
+          description: artwork.description || '',
+          id: artwork.id
+        }));
+        
+        // Cache the results
+        artworksCache = ARTWORKS_DEFAULT;
+        cacheTimestamp = now;
+        console.log('💾 Cached artworks for 5 minutes');
+        
       } catch (error) {
-        console.error('❌ Server error:', error.message);
+        console.error('❌ Server error after retries:', error.message);
         ARTWORKS_DEFAULT = [];
+        // Don't show error alert for gallery loading - just use empty array
       }
       
       // Update the global ARTWORKS variable
@@ -745,52 +769,63 @@
       renderGallery(ARTWORKS);
     }
     
-    // Add artwork to server
+    // Add artwork to server with retry logic
     async function addArtwork(artwork) {
       try {
-        const response = await fetch(`${API_BASE}/.netlify/functions/add-artwork`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            title: artwork.title,
-            url: artwork.src,
-            description: artwork.description,
-            badge: artwork.badge
-          })
+        const response = await retryApiCall(async () => {
+          const res = await fetch(`${API_BASE}/.netlify/functions/add-artwork`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: artwork.title,
+              url: artwork.src,
+              description: artwork.description,
+              badge: artwork.badge
+            })
+          });
+          
+          if (!res.ok) {
+            throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+          }
+          return res;
         });
         
-        if (response.ok) {
-          const result = await response.json();
-          // Invalidate cache and reload artworks
-          artworksCache = null;
-          await loadArtworks(true);
-          return result;
-        } else {
-          throw new Error('Failed to add artwork');
-        }
+        const result = await response.json();
+        // Invalidate cache and reload artworks
+        artworksCache = null;
+        await loadArtworks(true);
+        return result;
       } catch (error) {
         console.error('Error adding artwork:', error);
         throw error;
       }
     }
+
+    // Alias for the retry function (used in admin panel)
+    async function addArtworkWithRetry(artwork) {
+      return addArtwork(artwork);
+    }
     
-    // Delete artwork from server
+    // Delete artwork from server with retry logic
     async function deleteArtwork(id) {
       try {
-        const response = await fetch(`${API_BASE}/.netlify/functions/delete-artwork?id=${id}`, {
-          method: 'DELETE'
+        const response = await retryApiCall(async () => {
+          const res = await fetch(`${API_BASE}/.netlify/functions/delete-artwork?id=${id}`, {
+            method: 'DELETE'
+          });
+          
+          if (!res.ok) {
+            throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+          }
+          return res;
         });
         
-        if (response.ok) {
-          // Invalidate cache and reload artworks
-          artworksCache = null;
-          await loadArtworks(true);
-          return true;
-        } else {
-          throw new Error('Failed to delete artwork');
-        }
+        // Invalidate cache and reload artworks
+        artworksCache = null;
+        await loadArtworks(true);
+        return true;
       } catch (error) {
         console.error('Error deleting artwork:', error);
         throw error;
@@ -1882,11 +1917,11 @@
             
             // Add to server instead of localStorage
             try {
-              await addArtwork(newArt);
+              await addArtworkWithRetry(newArt);
               console.log('Artwork added to server successfully');
             } catch (error) {
-              console.error('Failed to add artwork to server:', error);
-              alert('Server not available. Please deploy to Netlify first.\n\nOnce deployed, artworks will be saved to the server and visible to all visitors.');
+              console.error('Failed to add artwork to server after retries:', error);
+              alert('⚠️ Upload failed. The server is temporarily unavailable.\n\nThis usually happens when the server is starting up. Please try again in a few seconds.\n\nYour artwork has been saved locally and will sync when the server is ready.');
               continue;
             }
           }
