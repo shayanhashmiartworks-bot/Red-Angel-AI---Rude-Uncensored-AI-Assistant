@@ -1765,8 +1765,8 @@
                 // Reload artworks from server
                 await loadArtworks();
                 renderGallery(ARTWORKS);
-                applyToolbarState(); 
-                renderAdminList();
+              applyToolbarState(); 
+              renderAdminList();
                 alert('Artwork deleted permanently from server!');
               } catch (error) {
                 console.error('❌ Failed to delete from server:', error);
