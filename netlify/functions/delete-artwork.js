@@ -39,8 +39,8 @@ export async function handler(event, context) {
     }
 
     // JSONBin configuration
-    const BIN_ID = '65f8a1231f5677401f3a1234'; // Replace with your actual bin ID
-    const API_KEY = '$2a$10$your-jsonbin-api-key-here'; // Replace with your actual API key
+    const BIN_ID = '68d92fc243b1c97be952fc32';
+    const API_KEY = '$2a$10$tJ8/aXrDom83hAcdzvw7S.TXNJ.zLA6TVTz8Wt9EahvZqa0cHqrBa';
 
     console.log('🗑️ Deleting artwork from JSONBin:', id);
 
@@ -64,7 +64,7 @@ export async function handler(event, context) {
     }
 
     const data = await getResponse.json();
-    let artworks = data.record || [];
+    let artworks = data.record?.artworks || [];
 
     // Filter out the artwork to delete
     const originalLength = artworks.length;
@@ -88,7 +88,7 @@ export async function handler(event, context) {
         'X-Master-Key': API_KEY,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(artworks)
+      body: JSON.stringify({ artworks: artworks })
     });
 
     if (saveResponse.ok) {
