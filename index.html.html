@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>boredm</title>
+  <meta name="description" content="boredm - A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks. Explore grunge-style illustrations, digital art, and creative designs in a nostalgic desktop environment." />
+  <meta name="keywords" content="boredm, digital art, portfolio, Shayz, grunge art, digital illustration, creative design, Windows XP theme, art gallery, online portfolio" />
+  <meta name="author" content="Shayz" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta property="og:title" content="boredm" />
+  <meta property="og:description" content="boredm - A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks. Explore grunge-style illustrations and digital art." />
+  <meta property="og:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta property="twitter:title" content="boredm" />
+  <meta property="twitter:description" content="boredm - A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks." />
+  <meta property="twitter:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
+  
+  <!-- Additional SEO -->
+  <link rel="canonical" href="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta name="theme-color" content="#1b4ea3" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="boredm" />
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "boredm",
+    "description": "A unique Windows XP-themed digital art portfolio showcasing Shayz's creative artworks",
+    "url": "https://shayanhashmiartworks-bot.github.io/boredm/",
+    "author": {
+      "@type": "Person",
+      "name": "Shayz",
+      "url": "https://shayanhashmiartworks-bot.github.io/boredm/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Shayz"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://shayanhashmiartworks-bot.github.io/boredm/?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  
+  <style>
+    /* ===== Base ===== */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Tahoma,Verdana,Segoe UI,system-ui,-apple-system,sans-serif;color:#000;overflow:hidden}
+
+    /* ===== Desktop + Matrix Canvas ===== */
+    .desktop{position:relative;width:100%;height:calc(100% - 40px);background:linear-gradient(#66a3ff 0%,#5d9bff 35%,#7ac7ff 66%,#a7e0ff 100%);background-repeat:no-repeat;background-size:cover;overflow:hidden;opacity:0;transition:opacity .6s ease}
+    .desktop.ready{opacity:1}
+    #matrixCanvas{position:absolute;inset:0;z-index:0;opacity:.18;pointer-events:none}
+
+    /* ===== Taskbar ===== */
+    .taskbar{position:fixed;left:0;right:0;bottom:0;height:40px;display:flex;align-items:center;gap:8px;padding:4px 8px;background:linear-gradient(#2c6ccb,#1b4ea3);box-shadow:0 -1px 0 #0b2e6b inset,0 -2px 0 #0f3d86 inset;border-top:1px solid #0b2e6b;color:#fff;user-select:none;z-index:9998}
+    .start-btn{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;background:linear-gradient(#93d17b,#54a848);border:1px solid #1b6d10;border-radius:6px;box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2);font-weight:700;cursor:pointer;color:#fff;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 2s ease-in-out infinite alternate}
+    .start-btn:hover{transform:translateY(-1px) rotate(1deg);box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 3px 0 rgba(0,0,0,.3);animation:wobbleHover 1.5s ease-in-out infinite alternate}
+    .start-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .6s ease}
+    .start-btn:hover::before{left:100%}
+    .start-btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2);animation:none}
+    .sound-btn{display:inline-flex;align-items:center;gap:6px;height:28px;margin-left:6px;padding:0 10px;background:linear-gradient(#f0f0f0,#d7d7d7);border:1px solid #6b6b6b;border-radius:6px;box-shadow:0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2);color:#000;cursor:pointer;font-weight:600;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 2.5s ease-in-out infinite alternate}
+    .sound-btn:hover{transform:translateY(-1px) rotate(-0.5deg);box-shadow:0 1px 0 #fff inset,0 3px 0 rgba(0,0,0,.3);animation:wobbleHover 2s ease-in-out infinite alternate}
+    .sound-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,0,0,.1),transparent);transition:left .4s ease}
+    .sound-btn:hover::before{left:100%}
+    .sound-btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2);animation:none}
+    #themeToggle{margin-left:2px}
+    .tasklist{display:flex;gap:6px;align-items:center;flex:1;overflow-x:auto}
+    .task{min-width:160px;max-width:240px;height:30px;padding:0 10px;display:flex;align-items:center;gap:8px;border-radius:4px;cursor:pointer;background:linear-gradient(#e3efff,#c6dbff);border:1px solid #7aa2e6;color:#000;box-shadow:0 1px 0 #fff inset;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative;transition:all .2s ease;animation:wobble 3s ease-in-out infinite alternate}
+    .task:hover{transform:translateY(-1px) rotate(0.5deg);box-shadow:0 1px 0 #fff inset,0 2px 4px rgba(0,0,0,.2);animation:wobbleHover 2.5s ease-in-out infinite alternate}
+    .task::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transition:left .5s ease}
+    .task:hover::before{left:100%}
+    .task:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset;animation:none}
+    .clock{margin-left:auto;min-width:80px;text-align:right;font-weight:600;position:relative;overflow:hidden}
+    .clock::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:clockScan 4s infinite}
+    
+    @keyframes clockScan{0%{left:-100%}50%{left:100%}100%{left:100%}}
+    
+    /* ===== Nintendo/Metal Gear Wobble Animations ===== */
+    @keyframes wobble{
+      0%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      25%{transform:rotate(0.5deg) translateX(1px) translateY(-1px)}
+      50%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      75%{transform:rotate(-0.5deg) translateX(-1px) translateY(1px)}
+      100%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+    }
+    
+    @keyframes wobbleHover{
+      0%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      25%{transform:rotate(1deg) translateX(2px) translateY(-2px)}
+      50%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      75%{transform:rotate(-1deg) translateX(-2px) translateY(2px)}
+      100%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+    }
+
+    /* ===== Windows ===== */
+    .window{position:absolute;min-width:320px;min-height:200px;background:#ece9d8;border:1px solid #0f3d86;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.25);overflow:hidden;z-index:1;transition:all .3s ease;animation:wobble 4s ease-in-out infinite alternate}
+    .window:hover{box-shadow:0 8px 20px rgba(0,0,0,.35);transform:translateY(-2px) rotate(0.5deg);animation:wobbleHover 3s ease-in-out infinite alternate}
+    .titlebar{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 8px;cursor:move;user-select:none;background:linear-gradient(180deg,#3a6ea5 0%,#2b5797 50%,#244a87 100%);color:#fff;font-weight:700;text-shadow:0 1px 0 rgba(0,0,0,.35);position:relative;overflow:hidden}
+    .titlebar::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);animation:titlebarScan 6s infinite}
+    
+    @keyframes titlebarScan{0%{left:-100%}50%{left:100%}100%{left:100%}}
+    .titlebar .controls{display:flex;gap:4px}
+    .btn{width:18px;height:18px;border-radius:3px;display:grid;place-items:center;cursor:pointer;background:linear-gradient(#f0f0f0,#cccccc);border:1px solid #6b6b6b;box-shadow:0 1px 0 #fff inset;font-size:12px;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 3.5s ease-in-out infinite alternate}
+    .btn:hover{filter:brightness(1.05);transform:translateY(-1px) rotate(1deg);box-shadow:0 1px 0 #fff inset,0 2px 4px rgba(0,0,0,.2);animation:wobbleHover 3s ease-in-out infinite alternate}
+    .btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .3s ease}
+    .btn:hover::before{left:100%}
+    .btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset;animation:none}
+    .window .content{padding:10px;height:calc(100% - 28px);overflow:auto;background:transparent}
+    .resizer{position:absolute;right:4px;bottom:4px;width:14px;height:14px;cursor:nwse-resize;background:linear-gradient(135deg,#fff 0%,#cfcfcf 60%,#9c9c9c 100%);border:1px solid #6b6b6b;border-radius:3px;box-shadow:0 1px 0 #fff inset;opacity:.9}
+    .resizer::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 2px,rgba(0,0,0,.15) 2px 4px);border-radius:3px}
+
+    /* ===== Shortcuts ===== */
+    .shortcut{position:absolute;display:grid;place-items:center;width:90px;text-align:center;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);font-size:12px;cursor:pointer;z-index:1}
+    .shortcut .icon{width:42px;height:42px;margin-bottom:6px;border-radius:8px;background:rgba(255,255,255,.9);display:grid;place-items:center;color:#1b4ea3;font-weight:800}
+
+    /* ===== Start Menu ===== */
+    .start-menu{position:fixed;left:8px;bottom:44px;width:260px;display:none;flex-direction:column;border:1px solid #0f3d86;border-radius:8px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:9999}
+    .start-header{background:linear-gradient(#2c6ccb,#1b4ea3);color:#fff;padding:10px 12px;font-weight:700}
+    .start-body{background:#ece9d8;padding:8px;display:grid;gap:6px}
+    .start-item{padding:8px;border-radius:6px;background:#fff;border:1px solid #b5b5b5;cursor:pointer}
+
+    /* ===== Explorer / Gallery cards ===== */
+    .explorer-toolbar{display:flex;gap:8px;align-items:center;padding:6px;margin:0 0 8px 0;background:linear-gradient(#f7f7f7,#e5e5e5);border:1px solid #b5b5b5;border-radius:4px;box-shadow:0 1px 0 #fff inset;position:relative;z-index:100}
+    .explorer-toolbar .tool{padding:4px 8px;border:1px solid #b5b5b5;border-radius:3px;background:#fff;cursor:pointer;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 4.5s ease-in-out infinite alternate}
+    .explorer-toolbar .tool:hover{transform:translateY(-1px) rotate(0.5deg);box-shadow:0 2px 4px rgba(0,0,0,.1);animation:wobbleHover 3.5s ease-in-out infinite alternate}
+    .explorer-toolbar .tool::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,0,0,.05),transparent);transition:left .4s ease}
+    .explorer-toolbar .tool:hover::before{left:100%}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .gallery.grid-view{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+    .gallery.list-view{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+    .thumb{position:relative;background:#fff;border:1px solid #b5b5b5;border-radius:6px;padding:8px;box-shadow:0 1px 0 #fff inset,0 2px 6px rgba(0,0,0,.05);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;overflow:hidden;animation:wobble 5s ease-in-out infinite alternate}
+    .thumb:hover{transform:translateY(-2px) rotate(1deg);box-shadow:0 2px 10px rgba(0,0,0,.15);animation:wobbleHover 4s ease-in-out infinite alternate}
+    .thumb::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s ease;z-index:1}
+    .thumb:hover::before{left:100%}
+    .thumb .frame{position:relative;border:1px solid #8a8a8a;border-radius:4px;background:linear-gradient(#fefefe,#f2f2f2);overflow:hidden}
+    .thumb .pic{width:100%;aspect-ratio:4/3;display:block;object-fit:cover}
+    .thumb .badge{position:absolute;top:6px;left:6px;background:#e11d48;color:#fff;font-size:11px;padding:2px 6px;border-radius:10px;border:1px solid rgba(0,0,0,.2)}
+    .thumb .overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:stretch;background:linear-gradient(transparent 55%,rgba(0,0,0,.55));color:#fff;opacity:0;transition:opacity .15s ease;padding:8px}
+    .thumb:hover .overlay{opacity:1}
+    .thumb .overlay .meta{font-size:12px;line-height:1.2;display:flex;gap:8px;align-items:center;width:100%}
+    .thumb .row{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px}
+    .thumb .title{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .thumb .sub{opacity:.75}
+    .skeleton{background:linear-gradient(90deg,#eaeaea,#f5f5f5,#eaeaea);background-size:200% 100%;animation:shimmer 1s linear infinite}
+    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+    /* Toolbar: split button + menu + clear */
+    .tool-group{display:inline-flex;align-items:center;gap:6px}
+    .split-btn{display:inline-flex;align-items:center}
+    .split-btn .primary{border-top-right-radius:0;border-bottom-right-radius:0}
+    .split-btn .caret{border-left:0;border-top-left-radius:0;border-bottom-left-radius:0;width:28px;display:grid;place-items:center}
+    .menu{position:absolute;top:40px;left:6px;display:none;flex-direction:column;background:#fff;border:1px solid #b5b5b5;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.2);overflow:hidden;z-index:1000;min-width:160px;color:#000}
+    .menu .item{padding:6px 10px;cursor:pointer;border-bottom:1px solid #eee}
+    .menu .item:last-child{border-bottom:none}
+    .menu .item:hover{background:#e6f0ff}
+    .tool.pressed{background:linear-gradient(#d9e8ff,#c6dbff)}
+    .clear-btn{padding:4px 8px;border:1px solid #b5b5b5;border-radius:3px;background:#fff;cursor:pointer}
+
+    /* Like button (heart-only + counter) */
+    .like-btn{margin-left:auto;border:1px solid #b5b5b5;border-radius:999px;padding:2px 8px;background:#fff;display:inline-flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+    .like-btn .heart{font-size:14px;display:inline-block}
+    .like-btn .count{font-weight:700;font-size:12px}
+    .like-btn[aria-pressed="true"]{background:#ffe6ea;border-color:#e11d48;color:#b91c1c}
+    .like-btn.pop{animation:pop .2s ease}
+    @keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+    /* Inline expand */
+    .thumb:focus{outline:none}
+    .thumb.expanded{grid-column:span 2}
+    .expanded-view{margin-top:8px;border:1px solid #b5b5b5;border-radius:4px;overflow:hidden;height:0;transition:height .25s ease}
+    .expanded-inner{background:#fff;position:relative}
+    .expanded-inner img{width:100%;display:block;opacity:0;transform:scale(.985);transition:opacity .22s ease, transform .22s ease}
+    .expanded-inner.loaded img{opacity:1;transform:scale(1)}
+    .chip-close{position:absolute;top:8px;right:8px;background:#1b4ea3;color:#fff;border:1px solid #0f3d86;border-radius:12px;padding:2px 8px;font-size:12px;cursor:pointer}
+
+    /* ===== Full-screen Image Viewer ===== */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:0;z-index:9997;cursor:grab}
+    .lightbox:active{cursor:grabbing}
+    .viewer{background:#ece9d8;width:100vw;height:100vh;border:none;border-radius:0;box-shadow:none;display:flex;flex-direction:column;position:relative}
+    .viewer .toolbar{background:linear-gradient(#f7f7f7,#e5e5e5);border-bottom:1px solid #b5b5b5;padding:8px;display:flex;gap:8px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:10}
+    .viewer .stage{flex:1;display:flex;align-items:center;justify-content:center;background:#000;position:relative;overflow:hidden;cursor:grab;padding-bottom:120px} /* Add padding for mobile info */
+    .viewer .stage:active{cursor:grabbing}
+    .viewer img{max-width:none;max-height:none;transition:transform 0.1s ease;user-select:none;pointer-events:none}
+    .viewer .info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff;padding:20px;z-index:10;padding-bottom:40px} /* Extra padding for mobile */
+    .viewer .info h3{margin:0 0 8px 0;font-size:18px;font-weight:700}
+    .viewer .info p{margin:0;font-size:14px;opacity:0.9;line-height:1.4}
+    .viewer .controls{position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:10}
+    .viewer .control-btn{width:40px;height:40px;background:rgba(0,0,0,0.7);border:1px solid #666;border-radius:6px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background 0.2s}
+    .viewer .control-btn:hover{background:rgba(0,0,0,0.9)}
+    .viewer .zoom-info{position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.7);color:#fff;padding:8px 12px;border-radius:4px;font-size:12px;z-index:10}
+
+    /* ===== Boot splash ===== */
+    #splash{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:10000}
+    #splashInner{color:#fff;text-align:center;min-width:320px}
+    #splashTitle{font-weight:700;font-size:22px;margin-bottom:14px}
+    #splashBar{width:320px;height:24px;border:2px solid #00ff00;margin:0 auto;background:#000;overflow:hidden;border-radius:0;box-shadow:inset 0 0 10px #00ff00,0 0 20px rgba(0,255,0,0.5);position:relative}
+    #splashBar::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(90deg,transparent 0px,transparent 4px,rgba(0,255,0,0.1) 4px,rgba(0,255,0,0.1) 8px);animation:progressScan 0.5s linear infinite}
+    #splashFill{width:0;height:100%;background:linear-gradient(90deg,#00ff00,#00cc00,#00ff00);border-radius:0;transition:width .3s ease;box-shadow:0 0 15px #00ff00,inset 0 0 10px rgba(255,255,255,0.3);position:relative;overflow:hidden}
+    #splashFill::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.3) 50%,transparent 100%);animation:fillShine 1s linear infinite}
+    #splashText{margin-top:20px;font-size:14px;color:#00ff00;text-shadow:0 0 5px #00ff00;animation:blink 1s infinite}
+    
+    @keyframes progressScan{0%{transform:translateX(-8px)}100%{transform:translateX(0px)}}
+    @keyframes fillShine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0.3}}
+    .fade-out{animation:fadeOut .4s ease forwards}
+    @keyframes fadeOut{to{opacity:0;visibility:hidden}}
+
+    /* ===== Mobile Responsive Design ===== */
+    @media (max-width:768px){
+      /* Desktop and windows */
+      .desktop{padding:4px}
+      .window{min-width:280px;max-width:calc(100vw - 8px);left:4px !important;top:4px !important;width:calc(100vw - 8px) !important;height:calc(100vh - 48px) !important}
+      .window.maximized{left:0 !important;top:0 !important;width:100vw !important;height:calc(100vh - 36px) !important}
+      
+      /* Taskbar - Mobile simplified */
+      .taskbar{height:36px;padding:4px 8px;gap:8px;display:flex;align-items:center;justify-content:space-between}
+      .start-btn{height:32px;padding:0 12px;font-size:13px;min-width:70px;display:flex;align-items:center;justify-content:center}
+      .sound-btn{height:28px;padding:0 10px;font-size:12px;min-width:60px;display:flex;align-items:center;justify-content:center}
+      .tasklist{display:none} /* Hide task list on mobile */
+      .task{display:none} /* Hide individual tasks on mobile */
+      .clock{display:none} /* Hide clock on mobile */
+      
+      /* Group sound and theme buttons */
+      .taskbar > div:not(.tasklist):not(.clock){display:flex;gap:8px;align-items:center}
+      
+      /* Gallery */
+      .gallery{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;padding:4px}
+      .gallery.grid-view{grid-template-columns:repeat(2,1fr);gap:6px;padding:4px}
+      .gallery.list-view{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+      .thumb{padding:6px}
+      .thumb .pic{aspect-ratio:4/3}
+      .thumb .title{font-size:11px}
+      .thumb .sub{font-size:10px}
+      
+      /* Toolbar - PC style but compact */
+      .explorer-toolbar{padding:6px;gap:6px;display:flex;align-items:center;flex-wrap:wrap}
+      .explorer-toolbar .tool{padding:4px 8px;font-size:12px;min-height:28px;display:flex;align-items:center}
+      .explorer-toolbar input{font-size:12px;padding:4px 8px;min-height:28px;flex:1;min-width:120px}
+      .explorer-toolbar .tool-group{display:flex;align-items:center;gap:4px}
+      .explorer-toolbar .split-btn{display:flex;align-items:center}
+      .explorer-toolbar .split-btn .primary{min-width:60px}
+      .explorer-toolbar .split-btn .caret{min-width:24px}
+      .explorer-toolbar .clear-btn{min-width:24px;padding:4px 6px}
+      
+      /* Shortcuts */
+      .shortcut{width:70px;font-size:10px}
+      .shortcut .icon{width:32px;height:32px;font-size:14px}
+      
+      /* Start menu */
+      .start-menu{width:220px;left:4px;bottom:40px}
+      .start-item{padding:6px;font-size:12px}
+      
+      /* Admin panel */
+      .window .content{padding:8px}
+      .window .content input, .window .content textarea, .window .content button{padding:6px;font-size:12px;margin-bottom:6px}
+      
+      /* Full-screen viewer - Mobile optimized */
+      .viewer .toolbar{padding:6px;gap:4px;position:fixed;top:0;left:0;right:0;z-index:10001}
+      .viewer .toolbar .tool{padding:4px 8px;font-size:11px}
+      .viewer .stage{padding-bottom:140px;padding-top:50px} /* Space for toolbar and info */
+      .viewer .info{position:fixed;bottom:0;left:0;right:0;z-index:10001;padding:15px;padding-bottom:60px} /* Fixed position for mobile */
+      .viewer .info h3{font-size:16px;margin-bottom:6px}
+      .viewer .info p{font-size:12px;line-height:1.3}
+      .viewer .controls{right:12px;gap:6px;z-index:10001}
+      .viewer .control-btn{width:36px;height:36px;font-size:14px}
+      .viewer .zoom-info{top:60px;right:12px;padding:6px 8px;font-size:11px;z-index:10001}
+    }
+    
+    @media (max-width:480px){
+      /* Extra small screens - maintain PC look but smaller */
+      .desktop{padding:2px}
+      .window{left:2px !important;top:2px !important;width:calc(100vw - 4px) !important;height:calc(100vh - 40px) !important}
+      .window.maximized{left:0 !important;top:0 !important;width:100vw !important;height:calc(100vh - 32px) !important}
+      
+      /* Taskbar - Extra small screens simplified */
+      .taskbar{height:32px;padding:3px 6px;gap:6px;display:flex;align-items:center;justify-content:space-between}
+      .start-btn{height:30px;padding:0 10px;font-size:12px;min-width:60px;display:flex;align-items:center;justify-content:center}
+      .sound-btn{height:26px;padding:0 8px;font-size:11px;min-width:50px;display:flex;align-items:center;justify-content:center}
+      .tasklist{display:none} /* Hide task list on mobile */
+      .task{display:none} /* Hide individual tasks on mobile */
+      .clock{display:none} /* Hide clock on mobile */
+      
+      /* Group sound and theme buttons */
+      .taskbar > div:not(.tasklist):not(.clock){display:flex;gap:6px;align-items:center}
+      
+      /* Gallery */
+      .gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}
+      .gallery.grid-view{grid-template-columns:repeat(2,1fr);gap:4px}
+      .gallery.list-view{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+      .thumb{padding:4px}
+      .thumb .title{font-size:10px}
+      .thumb .sub{font-size:9px}
+      
+      /* Toolbar - compact PC style */
+      .explorer-toolbar{padding:4px;gap:4px;flex-wrap:wrap}
+      .explorer-toolbar .tool{padding:3px 6px;font-size:11px;min-height:26px}
+      .explorer-toolbar input{font-size:11px;padding:3px 6px;min-height:26px;min-width:100px}
+      .explorer-toolbar .split-btn .primary{min-width:50px}
+      .explorer-toolbar .split-btn .caret{min-width:20px}
+      .explorer-toolbar .clear-btn{min-width:20px;padding:3px 4px}
+      
+      /* Shortcuts */
+      .shortcut{width:60px;font-size:9px}
+      .shortcut .icon{width:28px;height:28px;font-size:12px}
+      
+      /* Start menu */
+      .start-menu{width:200px;left:2px;bottom:36px}
+      .start-item{padding:4px;font-size:11px}
+      
+      /* Viewer - Extra small screens */
+      .viewer .toolbar{padding:4px;gap:3px;position:fixed;top:0;left:0;right:0;z-index:10001}
+      .viewer .toolbar .tool{padding:3px 6px;font-size:10px}
+      .viewer .stage{padding-bottom:120px;padding-top:45px}
+      .viewer .info{position:fixed;bottom:0;left:0;right:0;z-index:10001;padding:12px;padding-bottom:50px}
+      .viewer .info h3{font-size:14px;margin-bottom:4px}
+      .viewer .info p{font-size:11px;line-height:1.2}
+      .viewer .control-btn{width:32px;height:32px;font-size:12px}
+      .viewer .zoom-info{top:50px;right:8px;padding:4px 6px;font-size:10px;z-index:10001}
+    }
+
+    /* ===== Mobile-specific styles - maintain PC look ===== */
+    body.mobile .desktop{padding:4px;min-height:100vh;overflow-x:hidden}
+    body.mobile .window{max-width:calc(100vw - 8px);left:4px !important;top:4px !important;width:calc(100vw - 8px) !important;max-height:calc(100vh - 60px);overflow-y:auto}
+    body.mobile .gallery{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+    body.mobile .gallery.grid-view{grid-template-columns:repeat(2,1fr);gap:6px}
+    body.mobile .gallery.list-view{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+    body.mobile .thumb{padding:6px}
+    body.mobile .explorer-toolbar{padding:6px;gap:6px;display:flex;align-items:center;flex-wrap:wrap}
+    body.mobile .explorer-toolbar .tool{padding:4px 8px;font-size:12px;min-height:28px}
+    body.mobile .explorer-toolbar input{font-size:12px;padding:4px 8px;min-height:28px;flex:1;min-width:120px}
+    body.mobile .shortcut{width:70px;font-size:10px}
+    body.mobile .shortcut .icon{width:32px;height:32px;font-size:14px}
+    body.mobile .start-menu{width:220px;left:4px;bottom:40px}
+    body.mobile .start-item{padding:6px;font-size:12px}
+    body.mobile .taskbar{height:36px;padding:4px 8px;gap:8px;display:flex;align-items:center;justify-content:space-between}
+    body.mobile .start-btn{height:32px;padding:0 12px;font-size:13px;min-width:70px;display:flex;align-items:center;justify-content:center}
+    body.mobile .sound-btn{height:28px;padding:0 10px;font-size:12px;min-width:60px;display:flex;align-items:center;justify-content:center}
+    body.mobile .tasklist{display:none} /* Hide task list on mobile */
+    body.mobile .task{display:none} /* Hide individual tasks on mobile */
+    body.mobile .clock{display:none} /* Hide clock on mobile */
+    
+    /* Group sound and theme buttons on mobile */
+    body.mobile .taskbar > div:not(.tasklist):not(.clock){display:flex;gap:8px;align-items:center}
+    
+    /* Mobile viewer fixes */
+    body.mobile .viewer .toolbar{position:fixed;top:0;left:0;right:0;z-index:10001;padding:6px;gap:4px}
+    body.mobile .viewer .stage{padding-bottom:140px;padding-top:50px}
+    body.mobile .viewer .info{position:fixed;bottom:0;left:0;right:0;z-index:10001;padding:15px;padding-bottom:60px}
+    body.mobile .viewer .controls{right:12px;gap:6px;z-index:10001}
+    body.mobile .viewer .zoom-info{top:60px;right:12px;z-index:10001}
+    
+    /* Additional mobile fixes */
+    body.mobile *{box-sizing:border-box}
+    body.mobile .gallery{min-height:200px}
+    body.mobile .thumb{min-height:120px}
+    body.mobile .explorer-toolbar{min-height:40px}
+    body.mobile .taskbar{position:fixed;bottom:0;left:0;right:0;z-index:1000}
+    
+    /* Mobile animation optimizations */
+    body.mobile .start-btn,
+    body.mobile .sound-btn,
+    body.mobile .task,
+    body.mobile .btn,
+    body.mobile .explorer-toolbar .tool,
+    body.mobile .thumb {
+      animation-duration: 3s; /* Slower wobble on mobile */
+      transition-duration: 0.3s; /* Smoother transitions */
+    }
+    
+    /* Mobile touch feedback */
+    body.mobile .start-btn:active,
+    body.mobile .sound-btn:active,
+    body.mobile .btn:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+    
+    /* Mobile canvas optimizations */
+    body.mobile #matrixCanvas {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+
+    /* ===== Dark Mode Overrides ===== */
+    body.dark{color:#e5e7eb}
+    body.dark .desktop{background:linear-gradient(#0f2027,#203a43,#2c5364)}
+    body.dark #matrixCanvas{opacity:.25}
+    body.dark .taskbar{background:linear-gradient(#111827,#1f2937);box-shadow:0 -1px 0 #0b1220 inset,0 -2px 0 #0e1a2b inset;border-top:1px solid #0e1a2b;color:#e5e7eb}
+    body.dark .start-btn{background:linear-gradient(#2563eb,#1d4ed8);border-color:#1d4ed8;color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 0 0 1px rgba(0,0,0,.3) inset,0 2px 0 rgba(0,0,0,.35)}
+    body.dark .sound-btn{background:linear-gradient(#374151,#1f2937);border-color:#4b5563;color:#e5e7eb;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 2px 0 rgba(0,0,0,.35)}
+    body.dark .window{background:#1c1f24;border-color:#334155;color:#e5e7eb;box-shadow:0 6px 16px rgba(0,0,0,.55)}
+    body.dark .titlebar{background:linear-gradient(#374151,#1f2937);color:#fff;text-shadow:none}
+    body.dark .resizer{background:linear-gradient(135deg,#3b3b3b 0%,#2b3b3b 60%,#1e1e1e 100%);border-color:#4b5563}
+    body.dark .shortcut{color:#e5e7eb}
+    body.dark .shortcut .icon{background:rgba(255,255,255,.12);color:#9ec1ff}
+    body.dark .start-menu{border-color:#334155;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+    body.dark .start-header{background:linear-gradient(#111827,#1f2937)}
+    body.dark .start-body{background:#0f172a}
+    body.dark .start-item{background:#111827;border-color:#374151;color:#e5e7eb}
+    body.dark .explorer-toolbar{background:linear-gradient(#1f2937,#111827);border-color:#334155;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+    body.dark .explorer-toolbar .tool{background:#0b1220;border-color:#374151;color:#e5e7eb}
+    body.dark .thumb{background:#0b1220;border-color:#374151;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 2px 6px rgba(0,0,0,.25)}
+    body.dark .thumb .frame{border-color:#475569;background:linear-gradient(#0f172a,#111827)}
+    body.dark .thumb .badge{background:#dc2626;border-color:rgba(0,0,0,.3)}
+    body.dark .thumb .overlay{background:linear-gradient(transparent 55%,rgba(0,0,0,.7))}
+    body.dark .viewer{background:#111827;border-color:#334155}
+    body.dark .viewer .toolbar{background:linear-gradient(#1f2937,#111827);border-color:#334155;color:#e5e7eb}
+    body.dark .viewer .stage{background:#0b1220}
+    body.dark .menu{background:#0b1220;border-color:#374151;box-shadow:0 6px 16px rgba(0,0,0,.45)}
+    body.dark .menu .item{border-bottom:1px solid #1f2937;color:#e5e7eb}
+    body.dark .menu .item:hover{background:#1f2937}
+    body.dark .clear-btn{background:#0b1220;border-color:#374151;color:#e5e7eb}
+    body.dark .tool.pressed{background:linear-gradient(#203a5a,#1b2e4a)}
+
+    /* ===== Reduced motion ===== */
+    @media (prefers-reduced-motion: reduce){
+      .desktop{transition:none}
+      .skeleton{animation:none}
+      .like-btn.pop{animation:none}
+      .expanded-view{transition:none}
+      .expanded-inner img{transition:none}
+      .fade-out{animation:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- Boot Splash -->
+  <div id="splash" role="status" aria-label="Boot splash">
+    <div id="splashInner">
+      <div id="splashTitle">boredm — shayz</div>
+      <div id="splashBar"><div id="splashFill"></div></div>
+      <div id="splashText">INITIALIZING SYSTEM...</div>
+    </div>
+  </div>
+
+  <div class="desktop" id="desktop" role="application" aria-label="Windows XP themed desktop background">
+    <canvas id="matrixCanvas" aria-hidden="true"></canvas>
+
+    <!-- Shortcuts -->
+    <div class="shortcut" style="left:16px;top:16px" data-open="aboutWindow"><div class="icon">i</div><div>About Me</div></div>
+    <div class="shortcut" style="left:16px;top:96px" data-open="galleryWindow"><div class="icon">🎨</div><div>Artwork</div></div>
+    <div class="shortcut" style="left:16px;top:176px" data-open="contactWindow"><div class="icon">@</div><div>Contact</div></div>
+
+    <!-- Windows -->
+    <section id="aboutWindow" class="window" style="left:12%;top:10%;width:420px;height:320px">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">🧑‍🎨 About — Shayz</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">–</div><div class="btn" data-maximize title="Maximize">⬜</div><div class="btn" data-close title="Close">×</div></div>
+      </div>
+      <div class="content">
+        <p>Hello world! I'm Shayz — I like to create something on a page or maybe canvas or digitally when I'm bored and I just upload and showcase what I create here.</p>
+      </div>
+      <div class="resizer"></div>
+    </section>
+
+    <section id="galleryWindow" class="window" style="left:26%;top:18%;width:780px;height:520px">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">🗂️ My Artwork — Explorer</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">–</div><div class="btn" data-maximize title="Maximize">⬜</div><div class="btn" data-close title="Close">×</div></div>
+      </div>
+      <div class="content">
+        <div class="explorer-toolbar">
+          <div class="tool-group">
+            <div class="split-btn" id="sortSplit">
+              <button class="tool primary" id="sortCurrent" aria-haspopup="menu" aria-expanded="false" title="Sort by">Newest</button>
+              <button class="tool caret" id="sortOpen" aria-label="Open sort menu">▾</button>
+            </div>
+            <div class="menu" id="sortMenu" role="menu" aria-hidden="true">
+              <div class="item" role="menuitemradio" data-sort="name" aria-checked="false">Name</div>
+              <div class="item" role="menuitemradio" data-sort="date" aria-checked="true">Newest</div>
+              <div class="item" role="menuitemradio" data-sort="liked" aria-checked="false">Most Liked</div>
+            </div>
+          </div>
+          <button class="tool" id="viewToggle" title="Toggle grid/list view">⊞ Grid</button>
+          <input class="tool" id="searchBox" placeholder="Search…" aria-label="Search artworks" />
+          <button class="clear-btn" id="clearSearch" title="Clear search">×</button>
+          <button class="tool" id="toolbarReset" title="Reset filters">🧹 Reset</button>
+          <span style="margin-left:auto;font-size:12px;opacity:.8">Tip: Click a card to expand inline. Tap ❤ to like.</span>
+        </div>
+        <div class="gallery" id="gallery" role="list"></div>
+      </div>
+      <div class="resizer"></div>
+    </section>
+
+    <section id="contactWindow" class="window" style="left:54%;top:12%;width:420px;height:300px">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">✉️ Contact — Shayz</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">–</div><div class="btn" data-maximize title="Maximize">⬜</div><div class="btn" data-close title="Close">×</div></div>
+      </div>
+      <div class="content">
+        <p><strong>Email:</strong> <a href="mailto:boredm404@gmail.com">boredm404@gmail.com</a></p>
+        <p><strong>Twitter:</strong> <a href="https://x.com/boredm404" target="_blank" rel="noreferrer noopener">@boredm404</a></p>
+        <p><strong>Instagram:</strong> <a href="https://instagram.com/boredm404" target="_blank" rel="noreferrer noopener">@boredm404</a></p>
+      </div>
+      <div class="resizer"></div>
+    </section>
+
+    <!-- Admin (hidden) -->
+    <section id="adminWindow" class="window" style="left:38%;top:14%;width:520px;height:440px;display:none;visibility:hidden">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">🔒 Admin — Upload Artwork</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">–</div><div class="btn" data-maximize title="Maximize">⬜</div><div class="btn" data-close title="Close">×</div></div>
+      </div>
+      <div class="content">
+        <form id="adminForm" style="display:grid;gap:8px;margin-bottom:10px">
+          <input class="tool" id="admTitle" placeholder="Title (optional; used for single upload or as prefix)" />
+          <input class="tool" id="admDate" type="date" placeholder="Date (optional)" />
+          <input class="tool" id="admBadge" placeholder="Badge (e.g. NEW) — optional" />
+          <textarea class="tool" id="admDescription" placeholder="Description/Artist Notes (optional)" rows="3" style="resize:vertical;min-height:60px"></textarea>
+          <input class="tool" id="admFile" type="file" accept="image/*" multiple />
+          <button class="tool" type="submit">Upload Images</button>
+        </form>
+        
+        <div style="border-top:1px solid #ccc;padding-top:8px;margin-bottom:10px">
+          <h4 style="margin:0 0 8px 0;font-size:14px">🌐 Add Image URLs (Permanent for All Visitors)</h4>
+          <form id="urlForm" style="display:grid;gap:8px">
+          <input class="tool" id="urlTitle" placeholder="Image Title" required />
+          <input class="tool" id="urlImage" placeholder="Image URL (from Pinterest, Imgur, etc.)" required />
+            <input class="tool" id="urlDate" type="date" placeholder="Date (optional)" />
+            <input class="tool" id="urlBadge" placeholder="Badge (e.g. NEW) — optional" />
+          <textarea class="tool" id="urlDescription" placeholder="Description/Artist Notes (optional)" rows="3" style="resize:vertical;min-height:60px"></textarea>
+            <button class="tool" type="submit" style="background:#2196F3;color:white">➕ Add Image URL</button>
+          </form>
+          <div style="font-size:12px;opacity:.8;margin-top:8px">
+            <strong>✅ Simple & Clean:</strong> No APIs needed! Just paste image URLs and they appear!<br>
+            <strong>🔄 Session Only:</strong> Images reset to defaults when page is refreshed<br>
+            <strong>🔗 Shareable:</strong> Copy the URL below to share your gallery with others<br>
+            <strong>💡 How to get image URLs:</strong><br>
+            • Pinterest: Right-click image → "Copy image address"<br>
+            • Imgur: Right-click image → "Copy image address"<br>
+            • Any site: Right-click image → "Copy image address"
+          </div>
+          <div style="font-size:12px;opacity:.8;margin-top:8px;padding:8px;background:#f0f0f0;border-radius:4px">
+            <strong>🔗 Share Your Gallery:</strong><br>
+            <span id="shareUrl" style="word-break:break-all;color:#1b4ea3">Loading...</span><br>
+            <button onclick="navigator.clipboard.writeText(document.getElementById('shareUrl').textContent); alert('URL copied!')" style="margin-top:4px;padding:2px 6px;font-size:11px">📋 Copy URL</button>
+          </div>
+        </div>
+        <div id="adminList" style="display:grid;gap:6px"></div>
+      </div>
+      <div class="resizer"></div>
+    </section>
+
+    <!-- Full-screen Image Viewer -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full-screen image viewer">
+      <div class="viewer">
+        <div class="toolbar">
+          <button id="prevBtn" class="tool">⟨ Prev</button>
+          <button id="nextBtn" class="tool">Next ⟩</button>
+          <button id="zoomInBtn" class="tool">🔍+</button>
+          <button id="zoomOutBtn" class="tool">🔍-</button>
+          <button id="resetZoomBtn" class="tool">⌂</button>
+          <div style="margin-left:auto;font-size:12px;opacity:.8" id="viewerCaption">&nbsp;</div>
+          <button id="viewerClose" class="tool">× Close</button>
+      </div>
+        <div class="stage" id="viewerStage">
+          <img id="viewerImg" alt="Artwork" />
+        </div>
+        <div class="info" id="viewerInfo">
+          <h3 id="viewerTitle"></h3>
+          <p id="viewerDescription"></p>
+        </div>
+        <div class="controls">
+          <button class="control-btn" id="zoomInControl" title="Zoom In">+</button>
+          <button class="control-btn" id="zoomOutControl" title="Zoom Out">-</button>
+          <button class="control-btn" id="resetZoomControl" title="Reset Zoom">⌂</button>
+        </div>
+        <div class="zoom-info" id="zoomInfo">100%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar" aria-label="Taskbar">
+    <button class="start-btn" id="startBtn" aria-expanded="false" aria-controls="startMenu">Start</button>
+    <div style="display:flex;gap:8px;align-items:center">
+    <button class="sound-btn" id="soundToggle" aria-pressed="false" title="Toggle sounds">🔇 Sound Off</button>
+    <button class="sound-btn" id="themeToggle" aria-pressed="false" title="Toggle dark mode">🌙 Dark</button>
+    </div>
+    <div class="tasklist" id="tasklist" aria-label="Open windows"></div>
+    <div class="clock" id="clock">--:--</div>
+  </div>
+
+  <!-- Start Menu -->
+  <div id="startMenu" class="start-menu" role="menu" aria-hidden="true">
+    <div class="start-header">Welcome, Shayz</div>
+    <div class="start-body">
+      <div class="start-item" data-open="galleryWindow">🖼️ Open Gallery</div>
+      <div class="start-item" data-open="aboutWindow">🧑‍🎨 About Me</div>
+      <div class="start-item" data-open="contactWindow">✉️ Contact</div>
+      <div class="start-item" id="resetLayout">🧹 Reset Layout</div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Default gallery with sample artwork =====
+    const ARTWORKS_DEFAULT = [
+      { 
+        src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDQwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRjVGNUY1Ii8+Cjx0ZXh0IHg9IjUwIiB5PSI0MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2NjY2Ij5EQVkgMTY8L3RleHQ+Cjx0ZXh0IHg9IjMwMCIgeT0iNDAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY2NjY2NiI+R1JVTkdZPC90ZXh0Pgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjQwIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMyIvPgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjI1IiBmaWxsPSIjMDAwMDAwIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjE1MCIgcj0iMTUiIGZpbGw9IiMwMDAwMDAiLz4KPHBhdGggZD0iTTE2MCAxMDAgQzE2MCA4MCAyMDAgODAgMjAwIDgwIEMyNDAgODAgMjQwIDEwMCAyNDAgMTAwIEwyNDAgMTIwIEwxNjAgMTIwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMTIwIEwyNDAgMTIwIEwyNDAgMTQwIEwxNjAgMTQwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMTQwIEwyNDAgMTQwIEwyNDAgMTYwIEwxNjAgMTYwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMTYwIEwyNDAgMTYwIEwyNDAgMTgwIEwxNjAgMTgwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMTgwIEwyNDAgMTgwIEwyNDAgMjAwIEwxNjAgMjAwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMjAwIEwyNDAgMjAwIEwyNDAgMjIwIEwxNjAgMjIwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMjIwIEwyNDAgMjIwIEwyNDAgMjQwIEwxNjAgMjQwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMjQwIEwyNDAgMjQwIEwyNDAgMjYwIEwxNjAgMjYwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMjYwIEwyNDAgMjYwIEwyNDAgMjgwIEwxNjAgMjgwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMjgwIEwyNDAgMjgwIEwyNDAgMzAwIEwxNjAgMzAwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMzAwIEwyNDAgMzAwIEwyNDAgMzIwIEwxNjAgMzIwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMzIwIEwyNDAgMzIwIEwyNDAgMzQwIEwxNjAgMzQwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMzQwIEwyNDAgMzQwIEwyNDAgMzYwIEwxNjAgMzYwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMzYwIEwyNDAgMzYwIEwyNDAgMzgwIEwxNjAgMzgwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgMzgwIEwyNDAgMzgwIEwyNDAgNDAwIEwxNjAgNDAwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgNDAwIEwyNDAgNDAwIEwyNDAgNDIwIEwxNjAgNDIwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0xNjAgNDIwIEwyNDAgNDIwIEwyNDAgNDQwIEwxNjAgNDQwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+Cjx0ZXh0IHg9IjM0MCIgeT0iNDYwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM2NjY2NjYiPuKdpDwvdGV4dD4KPC9zdmc+', 
+        title: 'me noice', 
+        date: '2025-01-15', 
+        badge: 'NEW',
+        description: 'A monochrome, grunge-style digital illustration featuring a disembodied, bloodshot eyeball wearing a wide-brimmed hat, positioned above a headless torso dressed in a collared shirt and jacket. The artwork has a distressed, sketchy aesthetic with black lines and splatters on a textured light beige background.'
+      },
+      { 
+        src: 'https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg', 
+        title: 'me guistas ?', 
+        date: '2025-01-15', 
+        badge: '',
+        description: ''
+      }
+    ];
+    const ART_KEY='xp_artworks_v2';
+    // URL-based approach - store gallery data in URL hash for permanent sharing
+    // This ensures all visitors see the same gallery content
+    function artId(a){ return a.id || (a.id = (a.title||'untitled')+'|'+String(a.date||'')+'|'+String(a.src).slice(0,64)); }
+    function loadArtworks(){
+      console.log('🔄 Loading artworks...');
+      
+      // Always start fresh - clear ALL existing data
+      localStorage.clear();
+      window.location.hash = '';
+      
+      console.log('📋 Starting with empty gallery (fresh start)');
+      return ARTWORKS_DEFAULT.slice();
+    }
+    function saveArtworks(arr){ 
+      console.log('💾 Saving artworks...', arr);
+      try{ 
+        // Don't save to localStorage - just update URL hash for sharing
+        console.log('✅ Artworks updated in current session:', arr.length, 'items');
+        
+        // Update the URL hash so it's shareable to all visitors
+        updateUrlHash(arr);
+        
+        // Force reload the gallery
+        ARTWORKS = dedupeArtworks(arr);
+        applyToolbarState();
+        
+        // Update page title with new artwork count
+        updatePageTitle();
+        
+        console.log('🔄 Gallery reloaded with', ARTWORKS.length, 'items');
+      }catch(e){
+        console.error('Error updating artworks:', e);
+      }
+    }
+
+    function updateUrlHash(artworks) {
+      try {
+        const data = {
+          artworks: artworks,
+          timestamp: new Date().toISOString(),
+          version: '1.0'
+        };
+        const encoded = btoa(JSON.stringify(data));
+        const newUrl = window.location.origin + window.location.pathname + '#' + encoded;
+        
+        // Update the URL without reloading the page
+        window.history.replaceState(null, null, newUrl);
+        console.log('🔗 Updated URL hash with gallery data');
+      } catch (e) {
+        console.error('❌ Failed to update URL hash:', e);
+      }
+    }
+
+    // Upload image to permanent hosting service
+    async function uploadImageToHosting(file) {
+      console.log('📤 Uploading image:', file.name, 'Size:', file.size, 'bytes');
+      
+      // For now, we'll use a data URL approach that works across browsers
+      // This creates a permanent data URL that can be shared
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const dataUrl = reader.result;
+          console.log('✅ Image converted to data URL, length:', dataUrl.length);
+          resolve(dataUrl);
+        };
+        reader.onerror = () => {
+          console.error('❌ Failed to read file');
+          reject(new Error('Failed to read file'));
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function dedupeArtworks(arr){
+      const seen=new Set();
+      const out=[];
+      for(const a of arr){ const key=artId(a); if(a && key && !seen.has(key)){ seen.add(key); out.push(a); } }
+      return out;
+    }
+    let ARTWORKS = dedupeArtworks(loadArtworks());
+
+    function thumbUrl(url, w){
+      try{ const u=new URL(url); if(u.searchParams.has('w')){ u.searchParams.set('w', String(w)); } else { u.searchParams.append('w', String(w)); } return u.toString(); }
+      catch{ return url; }
+    }
+    
+    // ===== Image Optimization =====
+    function optimizeImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.8) {
+      return new Promise((resolve) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        
+        img.onload = function() {
+          // Calculate new dimensions maintaining aspect ratio
+          let { width, height } = img;
+          const aspectRatio = width / height;
+          
+          if (width > maxWidth) {
+            width = maxWidth;
+            height = width / aspectRatio;
+          }
+          if (height > maxHeight) {
+            height = maxHeight;
+            width = height * aspectRatio;
+          }
+          
+          // Set canvas dimensions
+          canvas.width = width;
+          canvas.height = height;
+          
+          // Draw and compress image
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Convert to optimized data URL
+          const optimizedDataUrl = canvas.toDataURL('image/jpeg', quality);
+          resolve(optimizedDataUrl);
+        };
+        
+        img.src = URL.createObjectURL(file);
+      });
+    }
+    
+    function isImageFile(file) {
+      return file.type.startsWith('image/');
+    }
+    
+    function getFileSizeMB(file) {
+      return (file.size / (1024 * 1024)).toFixed(2);
+    }
+
+    function escHtml(s){
+      return String(s||'')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
+    }
+
+    // ===== Sounds (WebAudio — defined early to avoid TDZ) =====
+    const SOUND_KEY='xp_sound_enabled_v1';
+    let soundEnabled = true; // Start with sound ON by default
+    const soundToggle = document.getElementById('soundToggle');
+    
+    // Background music
+    let backgroundMusic = null;
+    let isMusicPlaying = false;
+
+    // Reduced motion flag
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let audioCtx = null;
+    function ensureCtx(){
+      if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+      if(audioCtx.state==='suspended'){ audioCtx.resume(); }
+      return audioCtx;
+    }
+    function tone({freq=440,duration=0.08,type='sine',from=0.12,to=0.0001,attack=0.005,decay=0.02}){
+      if(!soundEnabled) return;
+      const ctx=ensureCtx();
+      const o=ctx.createOscillator();
+      const g=ctx.createGain();
+      o.type=type; o.frequency.value=freq;
+      const now=ctx.currentTime;
+      g.gain.cancelScheduledValues(now);
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(from, now+attack);
+      g.gain.exponentialRampToValueAtTime(to, now+duration);
+      o.connect(g).connect(ctx.destination);
+      o.start(now); o.stop(now+duration+decay);
+    }
+    function sweep({from=880,to=220,duration=0.18,type='sawtooth'}){
+      if(!soundEnabled) return;
+      const ctx=ensureCtx();
+      const o=ctx.createOscillator();
+      const g=ctx.createGain();
+      const now=ctx.currentTime;
+      o.type=type; o.frequency.setValueAtTime(from, now); o.frequency.exponentialRampToValueAtTime(to, now+duration);
+      g.gain.setValueAtTime(0.12, now); g.gain.exponentialRampToValueAtTime(0.0001, now+duration);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now+duration+0.05);
+    }
+    const SFX = { click:()=>tone({freq:650,duration:0.06,type:'square'}), boot:()=>{ tone({freq:523.25,duration:0.09}); setTimeout(()=>tone({freq:659.25,duration:0.09}),80); setTimeout(()=>tone({freq:783.99,duration:0.12}),160); }, close:()=>sweep({from:600,to:180,duration:0.12}) };
+    // Background music functions
+    function initBackgroundMusic() {
+      if (backgroundMusic) return;
+      
+      backgroundMusic = new Audio('sounds/z3r0-8bitSyndrome.wav');
+      backgroundMusic.loop = true;
+      backgroundMusic.volume = 0.3; // 30% volume
+      backgroundMusic.preload = 'auto';
+      
+      // Handle music events
+      backgroundMusic.addEventListener('canplaythrough', () => {
+        if (soundEnabled && !isMusicPlaying) {
+          playBackgroundMusic();
+        }
+      });
+      
+      backgroundMusic.addEventListener('loadeddata', () => {
+        // Start playing immediately when data is loaded
+        if (soundEnabled && !isMusicPlaying) {
+          playBackgroundMusic();
+        }
+      });
+      
+      backgroundMusic.addEventListener('error', (e) => {
+        console.warn('Background music failed to load:', e);
+      });
+      
+      // Fallback: try to start music after 1 second if not already playing
+      setTimeout(() => {
+        if (soundEnabled && !isMusicPlaying && backgroundMusic) {
+          playBackgroundMusic();
+        }
+      }, 1000);
+    }
+    
+    function playBackgroundMusic() {
+      if (!backgroundMusic || isMusicPlaying || !soundEnabled) return;
+      
+      try {
+        backgroundMusic.currentTime = 0;
+        backgroundMusic.play().then(() => {
+          isMusicPlaying = true;
+          console.log('🎵 Background music started!');
+        }).catch(e => {
+          console.warn('Background music play failed:', e);
+        });
+      } catch (e) {
+        console.warn('Background music error:', e);
+      }
+    }
+    
+    function stopBackgroundMusic() {
+      if (!backgroundMusic || !isMusicPlaying) return;
+      
+      try {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+        isMusicPlaying = false;
+        console.log('🔇 Background music stopped!');
+      } catch (e) {
+        console.warn('Background music stop error:', e);
+      }
+    }
+
+    function updateSoundToggle(){ 
+      soundToggle.setAttribute('aria-pressed', String(soundEnabled)); 
+      soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔇 Sound Off'; 
+    }
+    // Initialize with sound ON by default
+    updateSoundToggle();
+    function tryPlay(name){ if(!soundEnabled) return; const fn = SFX[name]; try{ fn && fn(); }catch{} }
+    soundToggle.addEventListener('click', ()=>{ 
+      soundEnabled = !soundEnabled; 
+      updateSoundToggle(); 
+      if(soundEnabled) {
+        tryPlay('click');
+        playBackgroundMusic();
+      } else {
+        stopBackgroundMusic();
+      }
+    });
+
+    // unlock audio on first gesture
+    let unlocked=false; function unlockOnce(){ 
+      if(unlocked) return; 
+      unlocked=true; 
+      try{ 
+        ensureCtx(); 
+        if(soundEnabled) tryPlay('boot'); 
+        // Also try to start background music on first user interaction
+        if(soundEnabled && !isMusicPlaying) {
+          playBackgroundMusic();
+        }
+      }catch{} 
+      document.removeEventListener('pointerdown', unlockOnce); 
+      document.removeEventListener('keydown', unlockOnce); 
+    }
+    document.addEventListener('pointerdown', unlockOnce); 
+    document.addEventListener('keydown', unlockOnce);
+
+      // ===== Retro Boot Soundtrack =====
+      let bootAudio = null;
+      let isBootPlaying = false;
+      
+      const createRetroBootSound = () => {
+        const ctx = ensureCtx();
+        const sampleRate = ctx.sampleRate;
+        const duration = 8; // 8 seconds
+        const buffer = ctx.createBuffer(1, sampleRate * duration, sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        // Retro boot sequence melody (8-bit style)
+        const bootSequence = [
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.2}, // A4
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 165, duration: 0.4}, // E3
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.4}, // A4
+          {freq: 523, duration: 0.2}, // C5
+          {freq: 440, duration: 0.2}, // A4
+          {freq: 330, duration: 0.4}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.4}, // A4
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 165, duration: 0.6}, // E3
+          // System ready beep
+          {freq: 880, duration: 0.1}, // A5
+          {freq: 0, duration: 0.1},   // Silence
+          {freq: 880, duration: 0.1}, // A5
+          {freq: 0, duration: 0.1},   // Silence
+          {freq: 880, duration: 0.2}, // A5
+        ];
+        
+        let time = 0;
+        for (let i = 0; i < bootSequence.length; i++) {
+          const note = bootSequence[i];
+          const noteSamples = Math.floor(note.duration * sampleRate);
+          const frequency = note.freq;
+          
+          for (let j = 0; j < noteSamples && time < data.length; j++) {
+            if (frequency > 0) {
+              // Square wave with 8-bit distortion
+              const wave = Math.sin(2 * Math.PI * frequency * time / sampleRate);
+              data[time] = wave > 0 ? 0.15 : -0.15;
+            } else {
+              data[time] = 0; // Silence
+            }
+            time++;
+          }
+        }
+        
+        return buffer;
+      };
+
+      const playBootSound = () => {
+        if (isBootPlaying || !soundEnabled) return;
+        
+        try {
+          const ctx = ensureCtx();
+          const buffer = createRetroBootSound();
+          const source = ctx.createBufferSource();
+          source.buffer = buffer;
+          source.connect(ctx.destination);
+          source.start();
+          
+          bootAudio = { ctx, source };
+          isBootPlaying = true;
+          
+          source.onended = () => {
+            isBootPlaying = false;
+            bootAudio = null;
+          };
+          
+          console.log('🎵 Retro boot sound started!');
+        } catch (e) {
+          console.warn('Failed to play boot sound:', e);
+        }
+      };
+
+    // ===== Likes (per-visitor, with counters) =====
+    const LIKED_KEY = 'xp_art_liked_set_v1';
+    const LIKECOUNT_KEY = 'xp_art_like_counts_v1';
+    let likedSet = new Set();
+    let likeCounts = {};
+    // Don't load likes from localStorage - always start fresh
+    function getCount(src){ return Math.max(0, Number(likeCounts[src]||0)); }
+    function setCount(src, n){ likeCounts[src]=Math.max(0, Number(n||0)); }
+    function isLiked(src){ return likedSet.has(src); }
+    function setLiked(src, val){
+      const was = likedSet.has(src);
+      if(val && !was){ likedSet.add(src); setCount(src, getCount(src)+1); }
+      if(!val && was){ likedSet.delete(src); setCount(src, getCount(src)-1); }
+      // Don't save likes to localStorage - always start fresh
+    }
+
+    // ===== Window manager & persistence =====
+    const zStack={current:10};
+    const windows=[...document.querySelectorAll('.window')];
+    const DEFAULTS={};
+    windows.forEach(win=>{const id=win.id; if(!id) return; DEFAULTS[id]={left:win.style.left,top:win.style.top,width:win.style.width,height:win.style.height,display:'block'};});
+    const tasklist=document.getElementById('tasklist');
+    const STATE_KEY='xp_portfolio_state_v1';
+    let saveTimer;
+    function getState(){ return {} }
+    function saveState(){ 
+      // Don't save state - always start fresh
+      console.log('State changes not persisted - will reset on refresh');
+    }
+    function saveStateDebounced(){ 
+      // Don't save state - always start fresh
+      console.log('State changes not persisted - will reset on refresh');
+    }
+    function restoreState(){ 
+      // Always start with default layout - no persistence
+      windows.forEach(win=>{ 
+        const d=DEFAULTS[win.id]; 
+        if(!d) return; 
+        win.style.left=d.left; 
+        win.style.top=d.top; 
+        win.style.width=d.width; 
+        win.style.height=d.height; 
+        win.style.display=d.display; 
+        win.dataset.maximized='0'; 
+      }); 
+      const primary=document.getElementById('galleryWindow')||document.getElementById('aboutWindow'); 
+      if(primary){ 
+        primary.style.display='block'; 
+        focusWindow(primary); 
+      } 
+    }
+
+    function focusWindow(win){ windows.forEach(w=>w.style.zIndex=Math.max(1,parseInt(w.style.zIndex)||1)); win.style.zIndex=++zStack.current; ensureTaskItem(win); }
+    function ensureTaskItem(win){ 
+      const id=win.id; 
+      if(!id) return; 
+      if(id === 'adminWindow') return; // Don't show admin window in taskbar 
+      let item=tasklist.querySelector(`[data-task='${id}']`); 
+      const title=win.querySelector('.titlebar .title')?.textContent?.trim()||id; 
+      if(!item){ 
+        item=document.createElement('div'); 
+        item.className='task'; 
+        item.dataset.task=id; 
+        item.innerHTML=`<span style="overflow:hidden;text-overflow:ellipsis">${title}</span>`; 
+        item.addEventListener('click',()=>{ 
+          win.style.display='block'; 
+          focusWindow(win); 
+          saveStateDebounced(); 
+        }); 
+        tasklist.appendChild(item); 
+      } 
+    }
+    function minimizeWindow(win){ win.style.display='none'; saveStateDebounced(); }
+    function closeWindow(win){ win.style.display='none'; saveStateDebounced(); }
+
+    windows.forEach(win=>{
+      win.addEventListener('mousedown',()=>focusWindow(win));
+      const minimize=win.querySelector('[data-minimize]');
+      const closeBtn=win.querySelector('[data-close]');
+      const maxBtn=win.querySelector('[data-maximize]');
+      minimize?.addEventListener('click',e=>{ e.stopPropagation(); minimizeWindow(win); tryPlay('click'); });
+      closeBtn?.addEventListener('click',e=>{ e.stopPropagation(); closeWindow(win); SFX.close(); });
+      let maximized=(win.dataset.maximized==='1'); let prev={};
+      maxBtn?.addEventListener('click',e=>{ e.stopPropagation(); if(!maximized){ const rect=win.getBoundingClientRect(); prev={left:win.style.left,top:win.style.top,width:win.style.width||rect.width+'px',height:win.style.height||rect.height+'px'}; win.style.left='0'; win.style.top='0'; win.style.width='100%'; win.style.height='calc(100% - 40px)'; win.dataset.maximized='1'; } else { Object.assign(win.style,prev); win.dataset.maximized='0'; } maximized=!maximized; saveStateDebounced(); tryPlay('click'); });
+      const handle=win.querySelector('[data-drag-handle]'); let offsetX=0,offsetY=0,dragging=false;
+      handle.addEventListener('mousedown',e=>{ dragging=true; focusWindow(win); const rect=win.getBoundingClientRect(); offsetX=e.clientX-rect.left; offsetY=e.clientY-rect.top; document.body.style.userSelect='none'; });
+      window.addEventListener('mousemove',e=>{ if(!dragging) return; const maxX=window.innerWidth-60; const maxY=window.innerHeight-80; win.style.left=Math.min(Math.max(0,e.clientX-offsetX),maxX)+'px'; win.style.top=Math.min(Math.max(0,e.clientY-offsetY),maxY)+'px'; });
+      window.addEventListener('mouseup',()=>{ dragging=false; document.body.style.userSelect=''; saveStateDebounced(); });
+      ensureTaskItem(win);
+      if(!win.querySelector('.resizer')){ const res=document.createElement('div'); res.className='resizer'; res.setAttribute('aria-hidden','true'); win.appendChild(res); }
+    });
+
+    document.querySelectorAll('.shortcut, .start-item').forEach(sc=>{
+      sc.addEventListener('click',()=>{ tryPlay('click'); const id=sc.getAttribute('data-open'); if(id){ const win=document.getElementById(id); if(win){ win.style.display='block'; focusWindow(win); saveStateDebounced(); } } });
+    });
+
+    const startBtn=document.getElementById('startBtn');
+    const startMenu=document.getElementById('startMenu');
+    startBtn.addEventListener('click',()=>{ tryPlay('click'); const open=startMenu.style.display==='flex'; startMenu.style.display=open?'none':'flex'; startBtn.setAttribute('aria-expanded',String(!open)); startMenu.setAttribute('aria-hidden',String(open)); });
+    window.addEventListener('click',e=>{ if(!startMenu.contains(e.target) && e.target!==startBtn){ const wasOpen=startMenu.style.display==='flex'; startMenu.style.display='none'; if(wasOpen){ startBtn.setAttribute('aria-expanded','false'); startMenu.setAttribute('aria-hidden','true'); } } });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && startMenu.style.display==='flex'){ startMenu.style.display='none'; startBtn.setAttribute('aria-expanded','false'); startMenu.setAttribute('aria-hidden','true'); } });
+    const resetLayout=document.getElementById('resetLayout');
+    resetLayout?.addEventListener('click',()=>{
+      // Reset to default layout
+      windows.forEach(win=>{ const d=DEFAULTS[win.id]; if(!d) return; win.style.left=d.left; win.style.top=d.top; win.style.width=d.width; win.style.height=d.height; win.style.display=d.display; win.dataset.maximized='0'; });
+      const primary=document.getElementById('galleryWindow')||windows[0]; if(primary){ primary.style.display='block'; focusWindow(primary); }
+      tryPlay('click');
+    });
+
+    // Clock
+    const clockEl=document.getElementById('clock');
+    function tickClock(){ const d=new Date(); clockEl.textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
+    tickClock(); setInterval(tickClock,15000);
+
+    // ===== Gallery & full-screen viewer =====
+    const gallery=document.getElementById('gallery');
+    const lightbox=document.getElementById('lightbox');
+    const viewerImg=document.getElementById('viewerImg');
+    const viewerCaption=document.getElementById('viewerCaption');
+    const viewerTitle=document.getElementById('viewerTitle');
+    const viewerDescription=document.getElementById('viewerDescription');
+    const viewerClose=document.getElementById('viewerClose');
+    const viewerStage=document.getElementById('viewerStage');
+    const zoomInfo=document.getElementById('zoomInfo');
+    const prevBtn=document.getElementById('prevBtn');
+    const nextBtn=document.getElementById('nextBtn');
+    const zoomInBtn=document.getElementById('zoomInBtn');
+    const zoomOutBtn=document.getElementById('zoomOutBtn');
+    const resetZoomBtn=document.getElementById('resetZoomBtn');
+    const zoomInControl=document.getElementById('zoomInControl');
+    const zoomOutControl=document.getElementById('zoomOutControl');
+    const resetZoomControl=document.getElementById('resetZoomControl');
+    
+    let currentIndex=0; let filtered=[...ARTWORKS];
+    let currentSort='date';
+    
+    // Viewer state
+    let viewerZoom = 1;
+    let viewerPanX = 0;
+    let viewerPanY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragStartPanX = 0;
+    let dragStartPanY = 0;
+
+    function renderGallery(items){
+      gallery.innerHTML='';
+      const io = null; // disable lazy observer to avoid blank cards with data URLs
+
+      items.forEach((art)=>{
+        artId(art);
+        const full=art.src; const thumb=thumbUrl(full, 480);
+        const card=document.createElement('div');
+        card.className='thumb';
+        card.setAttribute('role','listitem');
+        card.setAttribute('tabindex','0');
+        card.dataset.key = art.id;
+        const year=(art.date?new Date(art.date).getFullYear():'');
+        const badge=art.badge?`<span class="badge">${escHtml(art.badge)}</span>`:'';
+        const likedNow = isLiked(full);
+        const countNow = getCount(full);
+        const safeTitle = escHtml(art.title);
+        const safeDescription = escHtml(art.description || '');
+        card.innerHTML=`
+          <div class="frame">
+            ${badge}
+            <img class="pic skeleton" alt="${safeTitle}" data-src="${thumb}" data-full="${full}" loading="lazy" decoding="async" />
+            <div class="overlay">
+              <div class="meta">
+                <div>${safeTitle}${year?` · ${year}`:''}</div>
+                <button class="like-btn" aria-pressed='${likedNow ? 'true' : 'false'}' title="Like">
+                  <span class="heart">${likedNow ? '❤️' : '🤍'}</span>
+                  <span class="count">${countNow}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="title" title="${safeTitle}">${safeTitle}</div>
+            ${year?`<div class="sub">${year}</div>`:''}
+          </div>`;
+
+        const img=card.querySelector('img');
+        img.addEventListener('load',()=>img.classList.remove('skeleton'));
+        const ds = img.getAttribute('data-src');
+        img.src = ds; // eager-load all thumbs
+        img.onerror = ()=>{ if(img && !img.srcLoadedFallback){ img.srcLoadedFallback=true; img.src=img.getAttribute('data-full'); img.classList.remove('skeleton'); } };
+
+        // Like button logic
+        const likeBtn = card.querySelector('.like-btn');
+        const heartEl = likeBtn.querySelector('.heart');
+        const countEl = likeBtn.querySelector('.count');
+        function paintLike(){ const liked=isLiked(full); heartEl.textContent = liked ? '❤️' : '🤍'; likeBtn.setAttribute('aria-pressed', String(liked)); countEl.textContent = String(getCount(full)); likeBtn.classList.remove('pop'); void likeBtn.offsetWidth; likeBtn.classList.add('pop'); }
+        likeBtn.addEventListener('click', (e)=>{ e.stopPropagation(); tryPlay('click'); const liked=isLiked(full); setLiked(full, !liked); paintLike(); if(currentSort==='liked'){ sortLikedBtn.click(); } });
+
+        function collapse(target){
+          target.classList.remove('expanded');
+          target.style.gridColumn='';
+          const ev=target.querySelector('.expanded-view');
+          if(ev){ ev.style.height='0px'; ev.addEventListener('transitionend', ()=> ev.remove(), {once:true}); }
+        }
+        function expand(){
+          tryPlay('click');
+          // Open full-screen viewer instead of inline expand
+          const index = filtered.findIndex(a => a.id === art.id);
+          if(index !== -1) {
+            openViewer(index);
+          }
+        }
+        card.addEventListener('click', expand);
+        card.addEventListener('keydown', (e)=>{
+          if(e.key==='Enter' || e.key===' '){ e.preventDefault(); expand(); }
+          if(e.key==='Escape'){ e.preventDefault(); collapse(card); }
+          if((e.key==='ArrowRight' || e.key==='ArrowLeft') && card.classList.contains('expanded')){
+            e.preventDefault(); const cards=[...gallery.querySelectorAll('.thumb')]; const i=cards.indexOf(card); const nextIdx = e.key==='ArrowRight' ? Math.min(i+1, cards.length-1) : Math.max(i-1, 0); const nextCard = cards[nextIdx]; if(nextCard){ nextCard.focus(); nextCard.click(); }
+          }
+        });
+
+        gallery.appendChild(card);
+      });
+    }
+
+    // Full-screen viewer functions
+    function updateViewerTransform() {
+      viewerImg.style.transform = `translate(${viewerPanX}px, ${viewerPanY}px) scale(${viewerZoom})`;
+      zoomInfo.textContent = Math.round(viewerZoom * 100) + '%';
+    }
+    
+    function resetViewer() {
+      viewerZoom = 1;
+      viewerPanX = 0;
+      viewerPanY = 0;
+      updateViewerTransform();
+    }
+    
+    function zoomIn() {
+      viewerZoom = Math.min(viewerZoom * 1.2, 5);
+      updateViewerTransform();
+    }
+    
+    function zoomOut() {
+      viewerZoom = Math.max(viewerZoom / 1.2, 0.1);
+      updateViewerTransform();
+    }
+    
+    function openViewer(index){ 
+      currentIndex=index; 
+      const art=filtered[currentIndex]; 
+      viewerImg.src=art.src; 
+      viewerImg.alt=art.title; 
+      viewerTitle.textContent = art.title;
+      viewerDescription.textContent = art.description || '';
+      viewerCaption.textContent=`${art.title} (${currentIndex + 1} of ${filtered.length})`; 
+      resetViewer();
+      lightbox.style.display='flex'; 
+    }
+    
+    function closeViewer(){ 
+      lightbox.style.display='none'; 
+      resetViewer();
+    }
+    
+    function next(){ 
+      currentIndex=(currentIndex+1)%filtered.length; 
+      openViewer(currentIndex); 
+    }
+    
+    function prev(){ 
+      currentIndex=(currentIndex-1+filtered.length)%filtered.length; 
+      openViewer(currentIndex); 
+    }
+    
+    // Event listeners
+    viewerClose.addEventListener('click',()=>{ tryPlay('click'); closeViewer(); }); 
+    nextBtn.addEventListener('click',()=>{ tryPlay('click'); next(); }); 
+    prevBtn.addEventListener('click',()=>{ tryPlay('click'); prev(); });
+    zoomInBtn.addEventListener('click',()=>{ tryPlay('click'); zoomIn(); });
+    zoomOutBtn.addEventListener('click',()=>{ tryPlay('click'); zoomOut(); });
+    resetZoomBtn.addEventListener('click',()=>{ tryPlay('click'); resetViewer(); });
+    zoomInControl.addEventListener('click',()=>{ tryPlay('click'); zoomIn(); });
+    zoomOutControl.addEventListener('click',()=>{ tryPlay('click'); zoomOut(); });
+    resetZoomControl.addEventListener('click',()=>{ tryPlay('click'); resetViewer(); });
+    
+    // Mouse wheel zoom
+    viewerStage.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if(e.deltaY < 0) zoomIn();
+      else zoomOut();
+    });
+    
+    // Touch events for mobile
+    let touchStartDistance = 0;
+    let touchStartZoom = 1;
+    let touchStartPanX = 0;
+    let touchStartPanY = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    viewerStage.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 1) {
+        // Single touch - start pan
+        isDragging = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartPanX = viewerPanX;
+        touchStartPanY = viewerPanY;
+        viewerStage.style.cursor = 'grabbing';
+      } else if(e.touches.length === 2) {
+        // Two touches - start pinch zoom
+        isDragging = false;
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        touchStartDistance = Math.sqrt(
+          Math.pow(touch2.clientX - touch1.clientX, 2) + 
+          Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+        touchStartZoom = viewerZoom;
+        touchStartPanX = viewerPanX;
+        touchStartPanY = viewerPanY;
+        touchStartX = (touch1.clientX + touch2.clientX) / 2;
+        touchStartY = (touch1.clientY + touch2.clientY) / 2;
+      }
+    });
+    
+    viewerStage.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 1 && isDragging) {
+        // Single touch - pan
+        const touch = e.touches[0];
+        viewerPanX = touchStartPanX + (touch.clientX - touchStartX);
+        viewerPanY = touchStartPanY + (touch.clientY - touchStartY);
+        updateViewerTransform();
+      } else if(e.touches.length === 2) {
+        // Two touches - pinch zoom
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        const currentDistance = Math.sqrt(
+          Math.pow(touch2.clientX - touch1.clientX, 2) + 
+          Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+        
+        if(touchStartDistance > 0) {
+          const scale = currentDistance / touchStartDistance;
+          viewerZoom = Math.max(0.1, Math.min(5, touchStartZoom * scale));
+          
+          // Adjust pan to zoom around touch center
+          const centerX = (touch1.clientX + touch2.clientX) / 2;
+          const centerY = (touch1.clientY + touch2.clientY) / 2;
+          const deltaX = centerX - touchStartX;
+          const deltaY = centerY - touchStartY;
+          
+          viewerPanX = touchStartPanX + deltaX * (1 - scale);
+          viewerPanY = touchStartPanY + deltaY * (1 - scale);
+          
+          updateViewerTransform();
+        }
+      }
+    });
+    
+    viewerStage.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 0) {
+        isDragging = false;
+        viewerStage.style.cursor = 'grab';
+        touchStartDistance = 0;
+      }
+    });
+    
+    // Drag to pan
+    viewerStage.addEventListener('mousedown', (e) => {
+      if(e.target === viewerStage) {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        dragStartPanX = viewerPanX;
+        dragStartPanY = viewerPanY;
+        viewerStage.style.cursor = 'grabbing';
+      }
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if(isDragging) {
+        viewerPanX = dragStartPanX + (e.clientX - dragStartX);
+        viewerPanY = dragStartPanY + (e.clientY - dragStartY);
+        updateViewerTransform();
+      }
+    });
+    
+    document.addEventListener('mouseup', () => {
+      if(isDragging) {
+        isDragging = false;
+        viewerStage.style.cursor = 'grab';
+      }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if(lightbox.style.display === 'flex') {
+        switch(e.key) {
+          case 'Escape': closeViewer(); break;
+          case 'ArrowLeft': prev(); break;
+          case 'ArrowRight': next(); break;
+          case '+': case '=': zoomIn(); break;
+          case '-': zoomOut(); break;
+          case '0': resetViewer(); break;
+        }
+      }
+    });
+    
+    // Mobile-specific optimizations
+    function isMobile() {
+      try {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+               (window.innerWidth && window.innerWidth <= 768) ||
+               (window.screen && window.screen.width <= 768);
+      } catch(e) {
+        console.error('Mobile detection error:', e);
+        return false;
+      }
+    }
+    
+    // Optimize for mobile immediately
+    function initMobile() {
+      if(isMobile()) {
+        // Add mobile class to body
+        document.body.classList.add('mobile');
+        
+        // Enable matrix animation on mobile with optimizations
+        const matrixCanvas = document.getElementById('matrixCanvas');
+        if(matrixCanvas) {
+          matrixCanvas.style.display = 'block';
+          // Set mobile optimization flag
+          window.mobileOptimized = true;
+        }
+        
+        // Optimize touch interactions
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        document.addEventListener('touchmove', function() {}, {passive: true});
+        
+        // Add mobile haptic feedback
+        if('vibrate' in navigator) {
+          document.addEventListener('touchstart', function(e) {
+            if(e.target.matches('.start-btn, .sound-btn, .btn, .tool, .thumb')) {
+              navigator.vibrate(10); // Short vibration for touch feedback
+            }
+          }, {passive: true});
+        }
+        
+        console.log('📱 Mobile optimizations applied');
+      }
+    }
+    
+    // Initialize mobile optimizations immediately
+    try {
+      initMobile();
+    } catch(e) {
+      console.error('Mobile initialization error:', e);
+    }
+    
+    // Also check on resize
+    window.addEventListener('resize', function() {
+      try {
+        initMobile();
+      } catch(e) {
+        console.error('Mobile resize error:', e);
+      }
+    });
+    
+    lightbox.addEventListener('click',(e)=>{ if(e.target===lightbox) closeViewer(); });
+
+    // Sorting & search
+    const TOOLBAR_KEY='xp_portfolio_toolbar_v1';
+    const sortCurrentBtn=document.getElementById('sortCurrent');
+    const sortOpenBtn=document.getElementById('sortOpen');
+    const sortMenu=document.getElementById('sortMenu');
+    const searchBox=document.getElementById('searchBox');
+    const clearSearch=document.getElementById('clearSearch');
+    const toolbarReset=document.getElementById('toolbarReset');
+
+    function loadToolbar(){ 
+      // Always start with default toolbar state
+      return {sort:'date',search:'',view:'list'}; 
+    }
+    function saveToolbar(state){ 
+      // Don't save toolbar state - always start fresh
+      console.log('Toolbar state not persisted - will reset on refresh');
+    }
+
+    let toolbarState=loadToolbar();
+    function applyToolbarState(){
+      // Update controls
+      const label = toolbarState.sort==='name'?'Name':(toolbarState.sort==='liked'?'Most Liked':'Newest');
+      sortCurrentBtn.textContent = label;
+      [...sortMenu.querySelectorAll('.item')].forEach(el=>{
+        const on = el.getAttribute('data-sort')===toolbarState.sort;
+        el.setAttribute('aria-checked', String(on));
+      });
+      searchBox.value = toolbarState.search||'';
+      
+      // Update view toggle
+      const viewToggle = document.getElementById('viewToggle');
+      if(viewToggle) {
+        if(toolbarState.view === 'grid') {
+          viewToggle.textContent = '⊞ Grid';
+          gallery.classList.remove('list-view');
+          gallery.classList.add('grid-view');
+        } else {
+          viewToggle.textContent = '⊞ List';
+          gallery.classList.remove('grid-view');
+          gallery.classList.add('list-view');
+        }
+      }
+
+      // Compute filtered
+      const q=(toolbarState.search||'').toLowerCase();
+      filtered = dedupeArtworks(ARTWORKS).filter(a=> a.title.toLowerCase().includes(q));
+      if(toolbarState.sort==='liked'){
+        filtered.sort((a,b)=> (getCount(b.src)-getCount(a.src)) || (new Date(b.date)-new Date(a.date)));
+        currentSort='liked';
+      } else if(toolbarState.sort==='name'){
+        filtered.sort((a,b)=>a.title.localeCompare(b.title));
+        currentSort='name';
+      } else {
+        filtered.sort((a,b)=>new Date(b.date)-new Date(a.date));
+        currentSort='date';
+      }
+      renderGallery(filtered);
+    }
+
+    function closeSortMenu(){ sortMenu.style.display='none'; sortCurrentBtn.setAttribute('aria-expanded','false'); sortMenu.setAttribute('aria-hidden','true'); }
+    function openSortMenu(){ sortMenu.style.display='block'; sortCurrentBtn.setAttribute('aria-expanded','true'); sortMenu.setAttribute('aria-hidden','false'); }
+
+    sortOpenBtn.addEventListener('click', (e)=>{ e.stopPropagation(); tryPlay('click'); const open = sortMenu.style.display!=='none' && sortMenu.style.display!==''; if(open) closeSortMenu(); else openSortMenu(); });
+    sortCurrentBtn.addEventListener('click', (e)=>{ e.stopPropagation(); tryPlay('click'); const open = sortMenu.style.display!=='none' && sortMenu.style.display!==''; if(open) closeSortMenu(); else openSortMenu(); });
+    window.addEventListener('click', (e)=>{ const host=document.getElementById('sortSplit'); if(!host.contains(e.target) && !sortMenu.contains(e.target)) closeSortMenu(); });
+    sortMenu.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const item = e.target.closest('.item'); if(!item) return; tryPlay('click'); toolbarState.sort=item.getAttribute('data-sort'); saveToolbar(toolbarState); applyToolbarState(); closeSortMenu();
+    });
+    searchBox.addEventListener('input', ()=>{ toolbarState.search = searchBox.value||''; saveToolbar(toolbarState); applyToolbarState(); });
+    clearSearch.addEventListener('click', ()=>{ tryPlay('click'); searchBox.value=''; toolbarState.search=''; saveToolbar(toolbarState); applyToolbarState(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && document.activeElement===searchBox && searchBox.value){ searchBox.value=''; toolbarState.search=''; saveToolbar(toolbarState); applyToolbarState(); } });
+    toolbarReset.addEventListener('click', ()=>{ tryPlay('click'); toolbarState={sort:'date',search:'',view:'list'}; saveToolbar(toolbarState); applyToolbarState(); });
+    
+    // View toggle functionality
+    const viewToggle = document.getElementById('viewToggle');
+    if(viewToggle) {
+      viewToggle.addEventListener('click', ()=>{ 
+        tryPlay('click'); 
+        toolbarState.view = toolbarState.view === 'grid' ? 'list' : 'grid'; 
+        saveToolbar(toolbarState); 
+        applyToolbarState(); 
+      });
+    }
+
+    // Update page title
+    function updatePageTitle() {
+      document.title = 'boredm';
+    }
+    
+    // Update page title when artworks change
+    updatePageTitle();
+
+    // No APIs needed - just URLs and local storage
+    console.log('🚀 Gallery ready - no APIs needed!');
+    console.log('📱 Your uploaded art is stored locally and in shareable URLs');
+    console.log('🔍 SEO optimized for search engines');
+    console.log('🖼️ Image optimization enabled for faster loading');
+
+    // Initial render & restore
+    console.log('Initializing gallery with', ARTWORKS.length, 'artworks');
+    applyToolbarState();
+    restoreState();
+
+    // ===== Admin logic (hidden access) =====
+    (function admin(){
+      const ADMIN_KEY = 'shayz2024!';
+      let adminUnlocked=false;
+      let adminTimeout;
+      const adminWin=document.getElementById('adminWindow');
+      const adminForm=document.getElementById('adminForm');
+      const admTitle=document.getElementById('admTitle');
+      const admDate=document.getElementById('admDate');
+      const admFile=document.getElementById('admFile');
+      const admBadge=document.getElementById('admBadge');
+      const admDescription=document.getElementById('admDescription');
+      const adminList=document.getElementById('adminList');
+
+      function lockAdmin(){
+        adminUnlocked = false;
+        adminWin.style.display='none';
+        adminWin.style.visibility='hidden';
+        clearTimeout(adminTimeout);
+      }
+      
+      function openAdmin(){ 
+        adminWin.style.display='block'; 
+        adminWin.style.visibility='visible';
+        focusWindow(adminWin);
+        // Auto-lock after 10 minutes of inactivity
+        clearTimeout(adminTimeout);
+        adminTimeout = setTimeout(lockAdmin, 10 * 60 * 1000);
+      }
+      function renderAdminList(){
+        adminList.innerHTML='';
+        console.log('Rendering admin list with', ARTWORKS.length, 'artworks');
+        ARTWORKS.forEach((a,i)=>{
+          const row=document.createElement('div');
+          row.style.display='grid'; row.style.gridTemplateColumns='1fr auto'; row.style.alignItems='center'; row.style.gap='8px';
+          const isUploaded = a.src && a.src.startsWith('data:');
+          const sourceType = isUploaded ? ' (Uploaded)' : ' (Example)';
+          row.innerHTML=`<div style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>${a.title}${sourceType} ${a.date?('('+a.date.substring(0,10)+')'):''}</div><button class='tool' data-del='${i}'>Delete</button>`;
+          row.querySelector('button').addEventListener('click', ()=>{ 
+            console.log('Deleting artwork:', a.title);
+            if(confirm(`Are you sure you want to permanently delete "${a.title}"?`)) {
+              ARTWORKS.splice(i,1); 
+              saveArtworks(ARTWORKS); 
+              applyToolbarState(); 
+              renderAdminList();
+              alert('Artwork deleted permanently!');
+            }
+          });
+          adminList.appendChild(row);
+        });
+      }
+
+      adminForm?.addEventListener('submit', async (e)=>{
+        e.preventDefault(); tryPlay('click');
+        const files = Array.from(admFile.files||[]);
+        if(files.length===0){ alert('Select one or more images.'); return; }
+        
+        // Show upload progress
+        const submitBtn = adminForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Optimizing & Uploading...';
+        submitBtn.disabled = true;
+        
+        try {
+          const dateStr = admDate.value || new Date().toISOString().slice(0,10);
+          const badgeStr = admBadge.value.trim()||undefined;
+          const titleInput = (admTitle.value||'').trim();
+          const descriptionStr = admDescription.value.trim()||undefined;
+          
+          for(const f of files){
+            console.log('Processing file:', f.name, `(${getFileSizeMB(f)}MB)`);
+            
+            // Check if it's an image file and optimize it
+            let processedFile = f;
+            if(isImageFile(f)) {
+              console.log('Optimizing image:', f.name);
+              try {
+                const optimizedDataUrl = await optimizeImage(f, 1200, 1200, 0.8);
+                // Convert data URL back to blob for upload
+                const response = await fetch(optimizedDataUrl);
+                const blob = await response.blob();
+                processedFile = new File([blob], f.name, { type: 'image/jpeg' });
+                console.log('Image optimized:', f.name, `(${getFileSizeMB(processedFile)}MB)`);
+              } catch(error) {
+                console.warn('Image optimization failed, using original:', error);
+              }
+            }
+            
+            const src = await uploadImageToHosting(processedFile);
+            
+            if(!src) {
+              console.error('Failed to upload file:', f.name);
+              continue;
+            }
+            
+            const fileName = (f.name||'Untitled').replace(/\.[^.]+$/, '').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim();
+            let title = fileName||'Untitled';
+            if(titleInput){ title = (files.length===1) ? titleInput : `${titleInput} — ${fileName}`; }
+            
+            const newArt = { id: undefined, src, title, date: dateStr, badge: badgeStr, description: descriptionStr };
+            console.log('Adding new artwork:', newArt.title, 'URL:', src);
+            ARTWORKS.unshift(newArt);
+          }
+          
+          ARTWORKS = dedupeArtworks(ARTWORKS);
+          saveArtworks(ARTWORKS);
+          admTitle.value=''; admDate.value=''; admFile.value=''; admBadge.value=''; admDescription.value='';
+          applyToolbarState(); renderAdminList();
+          
+          alert(`Successfully uploaded ${files.length} image(s)! They are visible during this session. Note: Images reset to defaults when page is refreshed.`);
+        } catch (error) {
+          console.error('Upload error:', error);
+          alert('Upload failed: ' + error.message);
+        } finally {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+
+      // URL form handler
+      const urlForm = document.getElementById('urlForm');
+      const urlTitle = document.getElementById('urlTitle');
+      const urlImage = document.getElementById('urlImage');
+      const urlDate = document.getElementById('urlDate');
+      const urlBadge = document.getElementById('urlBadge');
+      const urlDescription = document.getElementById('urlDescription');
+
+      urlForm?.addEventListener('submit', (e)=>{
+        e.preventDefault(); tryPlay('click');
+        
+        const title = urlTitle.value.trim();
+        const imageUrl = urlImage.value.trim();
+        const date = urlDate.value || new Date().toISOString().slice(0,10);
+        const badge = urlBadge.value.trim() || undefined;
+        const description = urlDescription.value.trim() || undefined;
+        
+        if(!title || !imageUrl) {
+          alert('Please enter both title and image URL.');
+          return;
+        }
+        
+        // Validate URL
+        try {
+          new URL(imageUrl);
+        } catch {
+          alert('Please enter a valid image URL.');
+          return;
+        }
+        
+        const newArt = { 
+          id: undefined, 
+          src: imageUrl, 
+          title: title, 
+          date: date, 
+          badge: badge,
+          description: description
+        };
+        
+        console.log('Adding artwork from URL:', newArt);
+        console.log('Current ARTWORKS before adding:', ARTWORKS.length, 'items');
+        ARTWORKS.unshift(newArt);
+        console.log('ARTWORKS after adding:', ARTWORKS.length, 'items');
+        ARTWORKS = dedupeArtworks(ARTWORKS);
+        console.log('ARTWORKS after dedupe:', ARTWORKS.length, 'items');
+        saveArtworks(ARTWORKS);
+        
+        // Clear form
+        urlTitle.value = '';
+        urlImage.value = '';
+        urlDate.value = '';
+        urlBadge.value = '';
+        urlDescription.value = '';
+        
+        applyToolbarState(); 
+        renderAdminList();
+        
+        alert(`✅ Added "${title}" to gallery! It's visible during this session. Copy the shareable URL below to share your gallery. Note: Images reset to defaults when page is refreshed.`);
+      });
+
+      document.addEventListener('keydown',(e)=>{
+        if(e.ctrlKey && e.shiftKey && (e.key==='A' || e.key==='a')){
+          e.preventDefault();
+          if(!adminUnlocked){ 
+            const input=prompt('Enter admin password:'); 
+            if(input===ADMIN_KEY){ 
+              adminUnlocked=true; 
+              openAdmin();
+            } else { 
+              alert('Incorrect password. Access denied.'); 
+              return; 
+            } 
+          } else {
+            openAdmin();
+          }
+        }
+      });
+
+      // Add close button handler for admin window
+      const adminCloseBtn = adminWin.querySelector('[data-close]');
+      adminCloseBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        lockAdmin();
+        tryPlay('click');
+      });
+
+
+      // Update share URL display
+      function updateShareUrl() {
+        const shareUrlEl = document.getElementById('shareUrl');
+        if (shareUrlEl) {
+          shareUrlEl.textContent = window.location.href;
+        }
+      }
+      
+      // Update share URL when artworks change
+      const originalSaveArtworks = saveArtworks;
+      saveArtworks = function(arr) {
+        originalSaveArtworks(arr);
+        updateShareUrl();
+      };
+
+      // Render list initially
+      renderAdminList();
+      updateShareUrl();
+    })();
+
+    // Resize handles
+    windows.forEach(win=>{
+      let resizing=false,startX=0,startY=0,startW=0,startH=0; const resizer=win.querySelector('.resizer'); if(!resizer) return;
+      resizer.addEventListener('mousedown',e=>{ e.stopPropagation(); resizing=true; focusWindow(win); const rect=win.getBoundingClientRect(); startX=e.clientX; startY=e.clientY; startW=rect.width; startH=rect.height; document.body.style.userSelect='none'; });
+      window.addEventListener('mousemove',e=>{ if(!resizing) return; const dx=e.clientX-startX, dy=e.clientY-startY; const cs=getComputedStyle(win); let minW=parseInt(cs.minWidth,10); if(Number.isNaN(minW)) minW=280; let minH=parseInt(cs.minHeight,10); if(Number.isNaN(minH)) minH=180; const desktop=document.getElementById('desktop'); const bounds=desktop.getBoundingClientRect(); const rect=win.getBoundingClientRect(); let newW=Math.max(minW,startW+dx); let newH=Math.max(minH,startH+dy); newW=Math.min(newW,bounds.right-rect.left-8); newH=Math.min(newH,bounds.bottom-rect.top-8); win.style.width=newW+'px'; win.style.height=newH+'px'; });
+      window.addEventListener('mouseup',()=>{ if(resizing){ resizing=false; document.body.style.userSelect=''; saveStateDebounced(); } });
+    });
+
+    // ===== Boot splash (with desktop fade-in) =====
+    (function bootSplash(){
+      const splash=document.getElementById('splash');
+      const fill=document.getElementById('splashFill');
+      const splashText=document.getElementById('splashText');
+      const desktop=document.getElementById('desktop');
+      
+      if(reduceMotion){ 
+        desktop.classList.add('ready'); 
+        splash.style.display='none'; 
+        // Initialize background music for reduced motion users
+        initBackgroundMusic();
+        // Try to start music immediately for reduced motion users
+        setTimeout(() => {
+          if (soundEnabled && !isMusicPlaying) {
+            playBackgroundMusic();
+          }
+        }, 100);
+        return; 
+      }
+      
+      // Start boot sound
+      if(soundEnabled) playBootSound();
+      
+      const loadingMessages = [
+        'INITIALIZING SYSTEM...',
+        'LOADING GRAPHICS...',
+        'MOUNTING DRIVES...',
+        'CHECKING MEMORY...',
+        'LOADING ARTWORKS...',
+        'FINALIZING...',
+        'READY!'
+      ];
+      
+      let p=0;
+      let messageIndex = 0;
+      
+      const step=()=>{
+        p+=Math.random()*25+15;
+        fill.style.width=Math.min(320,(p/100)*320)+'px';
+        
+        // Update loading message
+        if(p > 15 && messageIndex < loadingMessages.length - 1) {
+          messageIndex = Math.floor((p/100) * loadingMessages.length);
+          splashText.textContent = loadingMessages[messageIndex];
+        }
+        
+        if(p<100){ setTimeout(step,180); }
+        else { 
+          splashText.textContent = 'READY!';
+          desktop.classList.add('ready'); 
+          splash.classList.add('fade-out'); 
+          setTimeout(()=>{
+            splash.style.display='none';
+            // Initialize and start background music after splash
+            initBackgroundMusic();
+            // Try to start music immediately after splash
+            setTimeout(() => {
+              if (soundEnabled && !isMusicPlaying) {
+                playBackgroundMusic();
+              }
+            }, 100);
+          },420); 
+        }
+      };
+      
+      splash.addEventListener('click',()=>{ 
+        p=100; 
+        step(); 
+        // Initialize background music immediately when skipping splash
+        initBackgroundMusic();
+        // Try to start music immediately when skipping splash
+        setTimeout(() => {
+          if (soundEnabled && !isMusicPlaying) {
+            playBackgroundMusic();
+          }
+        }, 100);
+      });
+      step();
+    })();
+
+    // ===== Typewriter + NES Explosion Animation =====
+    (function typewriterExplosion(){
+      const canvas=document.getElementById('matrixCanvas');
+      if(reduceMotion){ canvas.style.display='none'; return; }
+      const ctx=canvas.getContext('2d');
+      
+      let w, h, fontSize = 14;
+      let textLines = [];
+      let currentLine = 0;
+      let currentChar = 0;
+      let animationPhase = 'typewriting'; // 'typewriting' or 'exploding'
+      let explosionProgress = 0;
+      let startTime = Date.now();
+      // Mobile-optimized typewriter speed
+      let typewriterSpeed = window.mobileOptimized ? 80 : 50; // Slower on mobile for better performance
+      let lastTypeTime = 0;
+      let maxLines = 0; // Track maximum lines to keep filling
+      
+      // The target text to reveal
+      const targetText = "truly free wen bored";
+      
+      // The phrase to repeat
+      const phrase = "truly free wen bored ";
+      let phraseIndex = 0;
+      
+      function resize(){ 
+        w = canvas.width = document.getElementById('desktop').clientWidth; 
+        h = canvas.height = document.getElementById('desktop').clientHeight; 
+        fontSize = Math.max(10, Math.min(16, w / 80));
+        maxLines = Math.floor(h / fontSize) + 10; // Extra lines to ensure full coverage
+      }
+      
+      function generatePhraseLine() {
+        const lineLength = Math.floor(w / fontSize);
+        let line = '';
+        for(let i = 0; i < lineLength; i++) {
+          line += phrase[i % phrase.length];
+        }
+        return line;
+      }
+      
+      // Retro character animations
+      function drawRetroCharacters(ctx, w, h, now) {
+        // Mobile optimization - fewer characters on mobile
+        if(window.mobileOptimized && Math.random() > 0.7) return;
+        
+        const charSize = window.mobileOptimized ? 10 : 12;
+        const leftPadding = 15;
+        const rightPadding = w - 15;
+        const centerX = w / 2;
+        const textPadding = 40; // Space around text
+        
+        // Mario character (left side)
+        const marioX = leftPadding + 5;
+        const marioSpeed = window.mobileOptimized ? 0.2 : 0.3;
+        const marioY = (now * marioSpeed) % (h - 50) + 30;
+        const marioFrame = Math.floor(now / (window.mobileOptimized ? 300 : 200)) % 4; // 4-frame animation
+        
+        // Draw Mario
+        ctx.fillStyle = '#ff0000'; // Red hat
+        ctx.fillRect(marioX, marioY, charSize, 4);
+        ctx.fillStyle = '#ffdbac'; // Skin
+        ctx.fillRect(marioX + 2, marioY + 4, 8, 6);
+        ctx.fillStyle = '#0000ff'; // Blue overalls
+        ctx.fillRect(marioX + 1, marioY + 10, 10, 6);
+        ctx.fillStyle = '#8B4513'; // Brown shoes
+        ctx.fillRect(marioX + 2, marioY + 16, 8, 3);
+        
+        // Mario running animation
+        if(marioFrame % 2 === 0) {
+          // Legs running
+          ctx.fillStyle = '#ffdbac';
+          ctx.fillRect(marioX + 1, marioY + 12, 2, 4);
+          ctx.fillRect(marioX + 7, marioY + 12, 2, 4);
+        }
+        
+        // Metal Gear soldier (right side)
+        const soldierX = rightPadding - 15;
+        const soldierSpeed = window.mobileOptimized ? 0.15 : 0.25;
+        const soldierY = (now * soldierSpeed) % (h - 50) + 30;
+        const soldierFrame = Math.floor(now / (window.mobileOptimized ? 400 : 300)) % 3; // 3-frame animation
+        
+        // Draw soldier
+        ctx.fillStyle = '#228B22'; // Green uniform
+        ctx.fillRect(soldierX, soldierY, charSize, 12);
+        ctx.fillStyle = '#ffdbac'; // Skin
+        ctx.fillRect(soldierX + 2, soldierY + 2, 8, 6);
+        ctx.fillStyle = '#000000'; // Helmet
+        ctx.fillRect(soldierX + 1, soldierY, 10, 3);
+        ctx.fillStyle = '#8B4513'; // Boots
+        ctx.fillRect(soldierX + 2, soldierY + 12, 8, 3);
+        
+        // Soldier weapon
+        ctx.fillStyle = '#696969';
+        ctx.fillRect(soldierX + 12, soldierY + 4, 8, 2);
+        
+        // Fighting animation
+        if(soldierFrame === 1) {
+          // Shooting pose
+          ctx.fillStyle = '#ff0000';
+          ctx.fillRect(soldierX + 20, soldierY + 5, 3, 1);
+        }
+        
+        // Character interaction - they meet in the middle
+        if(Math.abs(marioX - soldierX) < 30) {
+          // Draw explosion when they meet
+          ctx.fillStyle = '#ffff00';
+          ctx.fillRect(centerX - 5, Math.min(marioY, soldierY) - 5, 10, 10);
+          ctx.fillStyle = '#ff0000';
+          ctx.fillRect(centerX - 3, Math.min(marioY, soldierY) - 3, 6, 6);
+        }
+      }
+      
+      function draw(){ 
+        if(document.visibilityState==='hidden'){ requestAnimationFrame(draw); return; } 
+        
+        const now = Date.now();
+        
+        if(animationPhase === 'typewriting') {
+          // Typewriter effect - add complete phrases per line
+          if(now - lastTypeTime > typewriterSpeed) {
+            // Always keep adding lines to ensure full coverage
+            if(textLines.length === 0) {
+              textLines.push('');
+            }
+            
+            const currentLineIndex = textLines.length - 1;
+            const line = textLines[currentLineIndex];
+            
+            // Check if current line can fit another complete phrase
+            ctx.font = fontSize + 'px "Courier New", monospace';
+            const testLine = line + phrase;
+            const testWidth = ctx.measureText(testLine).width;
+            
+            if(testWidth < w - 40) { // 40px margin for equal padding
+              // Add complete phrase to current line
+              textLines[currentLineIndex] += phrase;
+            } else {
+              // Start new line when current line can't fit another phrase
+              textLines.push('');
+            }
+            
+            // Remove old lines to prevent memory issues, but keep enough to fill screen
+            if(textLines.length > maxLines) {
+              textLines.shift(); // Remove first line
+            }
+            
+            lastTypeTime = now;
+          }
+          
+          // Clear canvas
+          ctx.fillStyle='rgba(0,0,0,0.02)'; 
+          ctx.fillRect(0,0,w,h);
+          
+          // Add retro falling objects in background (mobile optimized)
+          const objectCount = window.mobileOptimized ? 15 : 30; // Fewer objects on mobile
+          for(let i = 0; i < objectCount; i++) {
+            const x = Math.random() * w;
+            const y = (Date.now() * 0.1 + i * 100) % h;
+            const char = phrase[i % phrase.length];
+            ctx.fillStyle='rgba(255,255,0,0.3)';
+            ctx.font=fontSize+'px "Courier New", monospace';
+            ctx.fillText(char, x, y);
+          }
+          
+          // NES-style big missile animations on left and right sides
+          const missileSpeed = window.mobileOptimized ? 0.3 : 0.5; // Even slower on mobile
+          
+          // Left side big missile
+          const leftMissileX = 15;
+          const leftMissileY = (Date.now() * missileSpeed) % (h + 100);
+          
+          // Draw big missile body
+          ctx.fillStyle = '#ff0000'; // Red
+          ctx.fillRect(leftMissileX, leftMissileY, 6, 20);
+          
+          // Draw big missile tip
+          ctx.fillStyle = '#ffff00'; // Yellow
+          ctx.fillRect(leftMissileX - 2, leftMissileY - 4, 10, 6);
+          
+          // Draw big missile trail
+          ctx.fillStyle = 'rgba(255, 100, 0, 0.8)'; // Orange trail
+          ctx.fillRect(leftMissileX, leftMissileY + 20, 6, 12);
+          
+          // Right side big missile
+          const rightMissileX = w - 15;
+          const rightMissileY = (Date.now() * missileSpeed + 100) % (h + 100);
+          
+          // Draw big missile body
+          ctx.fillStyle = '#00ff00'; // Green
+          ctx.fillRect(rightMissileX, rightMissileY, 6, 20);
+          
+          // Draw big missile tip
+          ctx.fillStyle = '#ffff00'; // Yellow
+          ctx.fillRect(rightMissileX - 2, rightMissileY - 4, 10, 6);
+          
+          // Draw big missile trail
+          ctx.fillStyle = 'rgba(0, 255, 100, 0.8)'; // Green trail
+          ctx.fillRect(rightMissileX, rightMissileY + 20, 6, 12);
+          
+          // Set font for typewriter
+          ctx.font=fontSize+'px "Courier New", monospace';
+          
+          // Draw all typewriter lines
+          textLines.forEach((line, index) => {
+            const y = (index + 1) * fontSize;
+            if(y < h && line.length > 0) {
+              ctx.fillStyle='#ffff00'; // Yellow text
+              // Center the text on the line
+              const textWidth = ctx.measureText(line).width;
+              const textX = Math.round((w - textWidth) / 2);
+              ctx.fillText(line, textX, y);
+            }
+          });
+          
+          // Keep typewriting forever - no explosion for now
+          // The typewriter will run continuously and cover the entire screen
+          
+          // Retro character animations in padding areas
+          drawRetroCharacters(ctx, w, h, now);
+          
+        } else if(animationPhase === 'exploding') {
+          // NES-style explosion effect
+          explosionProgress += 0.02;
+          
+          // Clear screen with explosion effect
+          ctx.fillStyle='rgba(0,0,0,0.1)'; 
+          ctx.fillRect(0,0,w,h);
+          
+          // Draw explosion particles
+          for(let i = 0; i < 100; i++) {
+            const angle = (i / 100) * Math.PI * 2;
+            const distance = explosionProgress * 200;
+            const x = w/2 + Math.cos(angle) * distance;
+            const y = h/2 + Math.sin(angle) * distance;
+            
+            ctx.fillStyle = `rgba(255, ${255 - explosionProgress * 100}, 0, ${1 - explosionProgress})`;
+            ctx.fillRect(x, y, 4, 4);
+          }
+          
+          // Draw the target text in the center with explosion effect
+          if(explosionProgress > 0.3) {
+            const textWidth = ctx.measureText(targetText).width;
+            const textX = (w - textWidth) / 2;
+            const textY = h / 2;
+            
+            // Text with explosion glow
+            ctx.shadowColor = '#ffff00';
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = '#ffff00';
+            ctx.font = 'bold 24px "Courier New", monospace';
+            ctx.fillText(targetText, textX, textY);
+            
+            // Reset shadow
+            ctx.shadowBlur = 0;
+          }
+        }
+        
+        requestAnimationFrame(draw); 
+      }
+      
+      window.addEventListener('resize',resize); 
+      resize(); 
+      draw();
+    })();
+
+    // ===== Dark Mode (button + shortcut) =====
+    (function darkMode(){
+      const KEY='xp_dark_mode';
+      const PREF='xp_dark_explicit';
+      const mq=window.matchMedia('(prefers-color-scheme: dark)');
+      const toggleBtn=document.getElementById('themeToggle');
+      function paintBtn(){ if(toggleBtn){ toggleBtn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark'; } }
+      function apply(val){ document.body.classList.toggle('dark', !!val); if(toggleBtn){ toggleBtn.setAttribute('aria-pressed', String(!!val)); } paintBtn(); }
+      function load(){ 
+        // Always start with dark mode - no persistence
+        apply(true); 
+      }
+      load();
+      if(toggleBtn){ toggleBtn.addEventListener('click', ()=>{ const next=!document.body.classList.contains('dark'); apply(next); tryPlay('click'); }); }
+      document.addEventListener('keydown', (e)=>{ if(e.ctrlKey && e.shiftKey && (e.key==='D' || e.key==='d')){ const next=!document.body.classList.contains('dark'); apply(next); } });
+    })();
+
+    // ===== Self-tests =====
+    (function runSelfTests(){
+      try {
+        console.assert(typeof soundEnabled==='boolean','Test: soundEnabled initialized early');
+        console.assert(document.getElementById('themeToggle'),'Test: theme toggle exists');
+        console.assert(document.getElementById('soundToggle'),'Test: sound toggle exists');
+        console.assert(document.getElementById('splashTitle').textContent.trim().toLowerCase()==='boredm — shayz','Test: splash title updated');
+        console.assert(typeof renderGallery==='function','Test: renderGallery defined');
+        console.assert(document.getElementById('gallery') instanceof HTMLElement,'Test: gallery host exists');
+      } catch(e) {
+        console.error('Self-tests failed:', e);
+      }
+    })();
+  </script>
+</body>
+</html>

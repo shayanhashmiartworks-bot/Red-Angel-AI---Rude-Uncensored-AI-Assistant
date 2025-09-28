@@ -713,11 +713,11 @@
           console.log('✅ Mapped artworks:', ARTWORKS_DEFAULT.length);
         } else {
           console.error('❌ Server not available:', response.statusText);
-          ARTWORKS_DEFAULT = fallbackArtworks;
+          ARTWORKS_DEFAULT = [];
         }
       } catch (error) {
         console.error('❌ Server error:', error.message);
-        ARTWORKS_DEFAULT = fallbackArtworks;
+        ARTWORKS_DEFAULT = [];
       }
       
       console.log('🎨 Rendering gallery with', ARTWORKS_DEFAULT.length, 'artworks');
@@ -1876,10 +1876,13 @@
         
         console.log('Adding artwork from URL:', newArt);
         
-        // Add to server instead of localStorage
-        console.log('Attempting to add artwork:', newArt);
+        // Add to server
+        console.log('Attempting to add artwork to server:', newArt);
         addArtwork(newArt).then(() => {
           console.log('Artwork added to server successfully');
+          // Reload artworks from server
+          loadArtworks();
+          
           // Show success message
           const submitBtn = adminForm.querySelector('button[type="submit"]');
           const originalText = submitBtn.textContent;
@@ -1892,7 +1895,7 @@
         }).catch(error => {
           console.error('Failed to add artwork to server:', error);
           
-          // Show error message - no local fallback
+          // Show error message
           const submitBtn = adminForm.querySelector('button[type="submit"]');
           const originalText = submitBtn.textContent;
           submitBtn.textContent = '❌ Server Error';
@@ -1902,8 +1905,7 @@
             submitBtn.style.background = '';
           }, 3000);
           
-          // Show detailed error
-          alert('Server not available. Please deploy to Netlify first.\n\nOnce deployed, artworks will be saved to the server and visible to all visitors.');
+          alert('Server error. Please try again.');
         });
         
         // Clear form
