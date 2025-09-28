@@ -748,6 +748,11 @@
     // Add artwork to server
     async function addArtwork(artwork) {
       try {
+        console.log('🚀 Upload attempt - API_BASE:', API_BASE);
+        console.log('🚀 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
+        console.log('🚀 User Agent:', navigator.userAgent);
+        console.log('🚀 Is Mobile:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+        
         const response = await fetch(`${API_BASE}/.netlify/functions/add-artwork`, {
           method: 'POST',
           headers: {
@@ -761,27 +766,49 @@
           })
         });
         
+        console.log('📡 Upload response status:', response.status);
+        console.log('📡 Upload response headers:', Object.fromEntries(response.headers.entries()));
+        
         if (response.ok) {
           const result = await response.json();
+          console.log('✅ Upload successful:', result);
           // Invalidate cache and reload artworks
           artworksCache = null;
           await loadArtworks(true);
           return result;
         } else {
-          throw new Error('Failed to add artwork');
+          const errorText = await response.text();
+          console.error('❌ Upload failed:', response.status, errorText);
+          throw new Error(`Upload failed: ${response.status} - ${errorText}`);
         }
       } catch (error) {
-        console.error('Error adding artwork:', error);
-        throw error;
+        console.error('❌ Upload error details:', error);
+        console.error('❌ Error name:', error.name);
+        console.error('❌ Error message:', error.message);
+        console.error('❌ Error stack:', error.stack);
+        
+        // Provide more helpful error messages for mobile
+        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+          throw new Error('Network error: Please check your internet connection and try again. If the problem persists, try refreshing the page.');
+        } else if (error.message.includes('CORS')) {
+          throw new Error('Network error: Cross-origin request blocked. Please try refreshing the page.');
+        } else {
+          throw new Error(`Upload failed: ${error.message}`);
+        }
       }
     }
     
     // Delete artwork from server
     async function deleteArtwork(id) {
       try {
+        console.log('🗑️ Delete attempt - API_BASE:', API_BASE);
+        console.log('🗑️ Delete URL:', `${API_BASE}/.netlify/functions/delete-artwork?id=${id}`);
+        
         const response = await fetch(`${API_BASE}/.netlify/functions/delete-artwork?id=${id}`, {
           method: 'DELETE'
         });
+        
+        console.log('📡 Delete response status:', response.status);
         
         if (response.ok) {
           // Invalidate cache and reload artworks
@@ -789,11 +816,19 @@
           await loadArtworks(true);
           return true;
         } else {
-          throw new Error('Failed to delete artwork');
+          const errorText = await response.text();
+          console.error('❌ Delete failed:', response.status, errorText);
+          throw new Error(`Delete failed: ${response.status} - ${errorText}`);
         }
       } catch (error) {
-        console.error('Error deleting artwork:', error);
-        throw error;
+        console.error('❌ Delete error details:', error);
+        
+        // Provide helpful error messages for mobile
+        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+          throw new Error('Network error: Please check your internet connection and try again.');
+        } else {
+          throw new Error(`Delete failed: ${error.message}`);
+        }
       }
     }
     // Gallery will be initialized at the end of the script
@@ -1765,7 +1800,7 @@
         if (!password) return false;
         
         try {
-          const response = await fetch('/.netlify/functions/auth-admin', {
+          const response = await fetch(`${API_BASE}/.netlify/functions/auth-admin`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -1898,7 +1933,18 @@
           alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\nSuccessfully uploaded ${files.length} image(s) to server! They are now visible to all visitors.`);
         } catch (error) {
           console.error('Upload error:', error);
-          alert('Upload failed: ' + error.message);
+          
+          // More helpful error messages for mobile
+          let errorMessage = error.message;
+          if (error.message.includes('Network error')) {
+            errorMessage = '📱 Mobile Upload Issue: ' + error.message + '\n\nTry:\n1. Check your internet connection\n2. Refresh the page\n3. Try again';
+          } else if (error.message.includes('CORS')) {
+            errorMessage = '🔒 Security Error: ' + error.message + '\n\nTry refreshing the page and uploading again.';
+          } else if (error.message.includes('Failed to fetch')) {
+            errorMessage = '🌐 Connection Error: ' + error.message + '\n\nThis might be a mobile network issue. Try:\n1. Switch to WiFi\n2. Refresh the page\n3. Try again';
+          }
+          
+          alert('Upload failed: ' + errorMessage);
         } finally {
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
@@ -1946,12 +1992,32 @@
         
         console.log('Adding artwork from URL:', newArt);
         
-        // Add to server
+        // Add to server with retry mechanism for mobile
         console.log('🚀 Attempting to add artwork to server:', newArt);
         console.log('🌐 API_BASE:', API_BASE);
         console.log('🔗 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
         
-        addArtwork(newArt).then(() => {
+        // Retry mechanism for mobile uploads
+        let retryCount = 0;
+        const maxRetries = 2;
+        
+        const attemptUpload = async () => {
+          try {
+            await addArtwork(newArt);
+            console.log('✅ Upload successful on attempt:', retryCount + 1);
+          } catch (error) {
+            retryCount++;
+            if (retryCount <= maxRetries && error.message.includes('Failed to fetch')) {
+              console.log(`🔄 Retry ${retryCount}/${maxRetries} for mobile upload...`);
+              await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+              return attemptUpload();
+            } else {
+              throw error; // Re-throw if max retries exceeded or different error
+            }
+          }
+        };
+        
+        attemptUpload().then(() => {
           console.log('✅ Artwork added to server successfully');
           // Reload artworks from server
           console.log('🔄 Reloading artworks from server...');
@@ -2507,7 +2573,7 @@
         if (!password) return false;
         
         try {
-          const response = await fetch('/.netlify/functions/auth-admin', {
+          const response = await fetch(`${API_BASE}/.netlify/functions/auth-admin`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

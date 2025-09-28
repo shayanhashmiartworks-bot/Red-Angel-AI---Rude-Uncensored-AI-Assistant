@@ -6,6 +6,7 @@ export async function handler(event, context) {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         'Access-Control-Allow-Methods': 'POST, OPTIONS'
       },
@@ -18,7 +19,8 @@ export async function handler(event, context) {
       statusCode: 405,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
       },
       body: JSON.stringify({ error: 'Method not allowed' })
     };
@@ -39,7 +41,8 @@ export async function handler(event, context) {
         statusCode: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ 
           success: true, 
@@ -53,7 +56,8 @@ export async function handler(event, context) {
         statusCode: 401,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ 
           success: false, 
@@ -67,7 +71,8 @@ export async function handler(event, context) {
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
       },
       body: JSON.stringify({ 
         success: false, 

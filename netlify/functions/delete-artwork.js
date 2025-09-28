@@ -6,6 +6,7 @@ export async function handler(event, context) {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
       },
@@ -18,7 +19,8 @@ export async function handler(event, context) {
       statusCode: 405,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
       },
       body: JSON.stringify({ error: 'Method not allowed' })
     };
@@ -32,7 +34,8 @@ export async function handler(event, context) {
         statusCode: 400,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ error: 'Artwork ID is required' })
       };
@@ -57,7 +60,8 @@ export async function handler(event, context) {
         statusCode: 404,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ error: 'Artworks not found' })
       };
@@ -75,7 +79,8 @@ export async function handler(event, context) {
         statusCode: 404,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ error: 'Artwork not found' })
       };
@@ -97,7 +102,8 @@ export async function handler(event, context) {
         statusCode: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ success: true })
       };
@@ -107,7 +113,8 @@ export async function handler(event, context) {
         statusCode: 500,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ error: 'Failed to delete artwork' })
       };
@@ -118,7 +125,8 @@ export async function handler(event, context) {
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
       },
       body: JSON.stringify({ error: 'Failed to delete artwork' })
     };

@@ -6,8 +6,11 @@ export async function handler(event, context) {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Max-Age': '86400',
+        'Access-Control-Allow-Credentials': 'false'
       },
       body: ''
     };
@@ -18,7 +21,8 @@ export async function handler(event, context) {
       statusCode: 405,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
       },
       body: JSON.stringify({ error: 'Method not allowed' })
     };
@@ -32,7 +36,8 @@ export async function handler(event, context) {
         statusCode: 400,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ error: 'Title and URL are required' })
       };
@@ -87,7 +92,8 @@ export async function handler(event, context) {
         statusCode: 201,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ success: true, artwork: newArtwork })
       };
@@ -97,7 +103,8 @@ export async function handler(event, context) {
         statusCode: 500,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ error: 'Failed to save artwork' })
       };
@@ -108,7 +115,8 @@ export async function handler(event, context) {
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
       },
       body: JSON.stringify({ error: 'Failed to add artwork' })
     };
