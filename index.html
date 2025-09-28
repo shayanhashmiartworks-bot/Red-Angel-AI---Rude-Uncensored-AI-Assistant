@@ -858,7 +858,7 @@
         
         // Provide helpful error messages
         if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          throw new Error('🚀 Server not available yet: The Netlify functions are still deploying. Please wait 1-2 minutes and try again.');
+          throw new Error('Server not available. Please deploy to Netlify first.');
         } else {
           throw new Error(`Upload failed: ${error.message}`);
         }
