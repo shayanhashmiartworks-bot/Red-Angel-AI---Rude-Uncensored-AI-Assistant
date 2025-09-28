@@ -7,7 +7,6 @@ export async function handler(event, context) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Max-Age': '86400',
         'Access-Control-Allow-Credentials': 'false'
@@ -93,20 +92,21 @@ export async function handler(event, context) {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
         body: JSON.stringify({ success: true, artwork: newArtwork })
       };
     } else {
-      console.error('❌ Failed to save to JSONBin:', saveResponse.status);
+      const errorText = await saveResponse.text();
+      console.error('❌ Failed to save to JSONBin:', saveResponse.status, errorText);
       return {
         statusCode: 500,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
         },
-        body: JSON.stringify({ error: 'Failed to save artwork' })
+        body: JSON.stringify({ error: `Failed to save artwork: ${saveResponse.status} - ${errorText}` })
       };
     }
   } catch (error) {

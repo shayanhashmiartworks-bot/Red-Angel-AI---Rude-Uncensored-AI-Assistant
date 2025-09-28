@@ -826,6 +826,9 @@
         console.log('🚀 Upload attempt - API_BASE:', API_BASE);
         console.log('🚀 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
         
+        // Add small delay to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
         const response = await fetch(`${API_BASE}/.netlify/functions/add-artwork`, {
           method: 'POST',
           headers: {
