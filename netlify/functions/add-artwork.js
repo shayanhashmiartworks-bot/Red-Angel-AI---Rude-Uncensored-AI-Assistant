@@ -25,16 +25,25 @@ export async function handler(event, context) {
   }
 
   try {
-    const { title, url, description, badge } = JSON.parse(event.body);
+    console.log('📥 Raw request body:', event.body);
+    console.log('📥 Request headers:', event.headers);
     
-    if (!title || !url) {
+    const body = JSON.parse(event.body);
+    console.log('📥 Parsed body:', body);
+    
+    const { title, url, description, badge } = body;
+    
+    console.log('📥 Extracted fields:', { title, url, description, badge });
+    
+    if (!url) {
+      console.error('❌ Missing URL field');
       return {
         statusCode: 400,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify({ error: 'Title and URL are required' })
+        body: JSON.stringify({ error: 'URL is required' })
       };
     }
 
@@ -45,6 +54,7 @@ export async function handler(event, context) {
     console.log('📝 Adding artwork to JSONBin:', title);
 
     // First, get existing artworks
+    console.log('🔍 Fetching existing artworks from JSONBin...');
     const getResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
       headers: {
         'X-Master-Key': API_KEY,
@@ -52,34 +62,49 @@ export async function handler(event, context) {
       }
     });
 
+    console.log('📡 JSONBin GET response status:', getResponse.status);
+    
     let artworks = [];
     if (getResponse.ok) {
       const data = await getResponse.json();
       artworks = data.record?.artworks || [];
+      console.log('📋 Found existing artworks:', artworks.length);
+    } else {
+      console.error('❌ Failed to fetch existing artworks:', getResponse.status, getResponse.statusText);
+      const errorText = await getResponse.text();
+      console.error('❌ JSONBin error details:', errorText);
     }
 
     // Create new artwork
     const newArtwork = {
       id: Date.now().toString(),
-      title,
+      title: title || 'Untitled',
       url,
       description: description || '',
       badge: badge || '',
       created_at: new Date().toISOString()
     };
 
+    console.log('🆕 Creating new artwork:', newArtwork);
+
     // Add to artworks array
     artworks.unshift(newArtwork);
+    console.log('📋 Total artworks after adding:', artworks.length);
 
     // Save back to JSONBin
+    const saveData = { artworks: artworks };
+    console.log('💾 Saving to JSONBin:', JSON.stringify(saveData, null, 2));
+    
     const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
       method: 'PUT',
       headers: {
         'X-Master-Key': API_KEY,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ artworks: artworks })
+      body: JSON.stringify(saveData)
     });
+
+    console.log('📡 JSONBin PUT response status:', saveResponse.status);
 
     if (saveResponse.ok) {
       console.log('✅ Artwork saved to JSONBin successfully:', newArtwork.title);
@@ -93,13 +118,19 @@ export async function handler(event, context) {
       };
     } else {
       console.error('❌ Failed to save to JSONBin:', saveResponse.status);
+      const errorText = await saveResponse.text();
+      console.error('❌ JSONBin save error details:', errorText);
+      
       return {
         statusCode: 500,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify({ error: 'Failed to save artwork' })
+        body: JSON.stringify({ 
+          error: 'Failed to save artwork',
+          details: `JSONBin returned ${saveResponse.status}: ${errorText}`
+        })
       };
     }
   } catch (error) {
