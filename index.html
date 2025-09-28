@@ -516,7 +516,7 @@
     <!-- Shortcuts -->
     <div class="shortcut" style="left:16px;top:16px" data-open="aboutWindow"><div class="icon">i</div><div>About Me</div></div>
     <div class="shortcut" style="left:16px;top:96px" data-open="galleryWindow"><div class="icon">🎨</div><div>Artwork</div></div>
-    <div class="shortcut" style="left:16px;top:176px" data-open="contactWindow"><div class="icon">@</div><div>Contact</div></div>
+    <div class="shortcut" style="left:16px;top:176px" data-open="contactWindow"><div class="icon">🎭</div><div>Socials</div></div>
 
     <!-- Windows -->
     <section id="aboutWindow" class="window" style="left:12%;top:10%;width:420px;height:320px">
@@ -561,13 +561,15 @@
 
     <section id="contactWindow" class="window" style="left:54%;top:12%;width:420px;height:300px">
       <div class="titlebar" data-drag-handle>
-        <div class="title">✉️ Contact — Shayz</div>
+        <div class="title">🎭 Socials — Shayz</div>
         <div class="controls"><div class="btn" data-minimize title="Minimize">–</div><div class="btn" data-maximize title="Maximize">⬜</div><div class="btn" data-close title="Close">×</div></div>
       </div>
       <div class="content">
         <p><strong>Email:</strong> <a href="mailto:boredm404@gmail.com">boredm404@gmail.com</a></p>
         <p><strong>Twitter:</strong> <a href="https://x.com/boredm404" target="_blank" rel="noreferrer noopener">@boredm404</a></p>
         <p><strong>Instagram:</strong> <a href="https://instagram.com/boredm404" target="_blank" rel="noreferrer noopener">@boredm404</a></p>
+        <p><strong>Pinterest:</strong> <a href="https://pinterest.com/boredm404" target="_blank" rel="noreferrer noopener">@boredm404</a></p>
+        <p><strong>YouTube:</strong> <a href="https://youtube.com/@shayz.crypto" target="_blank" rel="noreferrer noopener">@shayz.crypto</a></p>
       </div>
       <div class="resizer"></div>
     </section>
@@ -599,8 +601,7 @@
             <button class="tool" type="submit" style="background:#2196F3;color:white">➕ Add Image URL</button>
           </form>
           <div style="font-size:12px;opacity:.8;margin-top:8px">
-            <strong>✅ Simple & Clean:</strong> No APIs needed! Just paste image URLs and they appear!<br>
-            <strong>🔄 Session Only:</strong> Images reset to defaults when page is refreshed<br>
+            <strong>✅ Simple & Clean:</strong> Just paste image URLs and they appear!<br>
             <strong>🔗 Shareable:</strong> Copy the URL below to share your gallery with others<br>
             <strong>💡 How to get image URLs:</strong><br>
             • Pinterest: Right-click image → "Copy image address"<br>
@@ -958,7 +959,7 @@
     function initBackgroundMusic() {
       if (backgroundMusic) return;
       
-      // Audio file removed for performance - 71MB was too large
+      backgroundMusic = new Audio('sounds/z3r0-8bitSyndrome.mp3');
       backgroundMusic.loop = true;
       backgroundMusic.volume = 0.3; // 30% volume
       backgroundMusic.preload = 'auto';
