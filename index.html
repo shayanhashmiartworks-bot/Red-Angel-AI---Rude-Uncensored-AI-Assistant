@@ -794,6 +794,10 @@
       }
     }
     // Gallery will be initialized at the end of the script
+    function artId(a){ 
+      return a.id || (a.id = (a.title||'untitled')+'|'+String(a.date||'')+'|'+String(a.src).slice(0,64)); 
+    }
+    
     function saveArtworks(arr){ 
       console.log('💾 Saving artworks...', arr);
       try{ 
@@ -1901,6 +1905,7 @@
         console.log('Adding artwork from URL:', newArt);
         
         // Add to server instead of localStorage
+        console.log('Attempting to add artwork:', newArt);
         addArtwork(newArt).then(() => {
           console.log('Artwork added to server successfully');
           // Show success message
@@ -1934,9 +1939,6 @@
           // Show detailed error
           alert('Server not ready yet. Artwork saved locally only.\n\nThis will work for all visitors once deployed to Netlify with Neon database.');
         });
-        ARTWORKS = dedupeArtworks(ARTWORKS);
-        console.log('ARTWORKS after dedupe:', ARTWORKS.length, 'items');
-        saveArtworks(ARTWORKS);
         
         // Clear form
         urlTitle.value = '';
