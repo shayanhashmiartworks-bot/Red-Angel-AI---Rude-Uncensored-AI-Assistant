@@ -694,11 +694,16 @@
       ];
       
       try {
+        console.log('🌐 API_BASE:', API_BASE);
+        console.log('🔗 Fetching from:', `${API_BASE}/.netlify/functions/get-artworks`);
+        
         const response = await fetch(`${API_BASE}/.netlify/functions/get-artworks`);
         console.log('📡 Response status:', response.status);
+        console.log('📡 Response headers:', response.headers);
         
         if (response.ok) {
           const artworks = await response.json();
+          console.log('📋 Raw server response:', artworks);
           console.log('📋 Loaded artworks from server:', artworks.length);
           
           ARTWORKS_DEFAULT = artworks.map(artwork => ({
@@ -710,13 +715,16 @@
             id: artwork.id
           }));
           
-          console.log('✅ Mapped artworks:', ARTWORKS_DEFAULT.length);
+          console.log('✅ Mapped artworks:', ARTWORKS_DEFAULT);
         } else {
-          console.error('❌ Server not available:', response.statusText);
+          const errorText = await response.text();
+          console.error('❌ Server not available:', response.status, response.statusText);
+          console.error('❌ Error response:', errorText);
           ARTWORKS_DEFAULT = [];
         }
       } catch (error) {
         console.error('❌ Server error:', error.message);
+        console.error('❌ Full error:', error);
         ARTWORKS_DEFAULT = [];
       }
       
@@ -1877,10 +1885,14 @@
         console.log('Adding artwork from URL:', newArt);
         
         // Add to server
-        console.log('Attempting to add artwork to server:', newArt);
+        console.log('🚀 Attempting to add artwork to server:', newArt);
+        console.log('🌐 API_BASE:', API_BASE);
+        console.log('🔗 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
+        
         addArtwork(newArt).then(() => {
-          console.log('Artwork added to server successfully');
+          console.log('✅ Artwork added to server successfully');
           // Reload artworks from server
+          console.log('🔄 Reloading artworks from server...');
           loadArtworks();
           
           // Show success message
@@ -1893,7 +1905,8 @@
             submitBtn.style.background = '';
           }, 2000);
         }).catch(error => {
-          console.error('Failed to add artwork to server:', error);
+          console.error('❌ Failed to add artwork to server:', error);
+          console.error('❌ Full error details:', error);
           
           // Show error message
           const submitBtn = adminForm.querySelector('button[type="submit"]');
@@ -1905,7 +1918,7 @@
             submitBtn.style.background = '';
           }, 3000);
           
-          alert('Server error. Please try again.');
+          alert(`Server error: ${error.message}\n\nCheck browser console for details.`);
         });
         
         // Clear form
