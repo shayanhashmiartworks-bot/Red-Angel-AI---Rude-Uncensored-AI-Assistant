@@ -694,14 +694,17 @@
           console.log('📋 Raw server response:', artworks);
           console.log('📋 Loaded artworks from server:', artworks.length);
           
-          ARTWORKS_DEFAULT = artworks.map(artwork => ({
-            src: artwork.url,
-            title: artwork.title,
-            date: new Date(artwork.created_at || artwork.timestamp).toISOString().split('T')[0],
-            badge: artwork.badge || '',
-            description: artwork.description || '',
-            id: artwork.id
-          }));
+          ARTWORKS_DEFAULT = artworks.map(artwork => {
+            console.log('📋 Mapping artwork:', artwork.title, 'ID:', artwork.id);
+            return {
+              src: artwork.url,
+              title: artwork.title,
+              date: new Date(artwork.created_at || artwork.timestamp).toISOString().split('T')[0],
+              badge: artwork.badge || '',
+              description: artwork.description || '',
+              id: artwork.id
+            };
+          });
           
           console.log('✅ Mapped artworks:', ARTWORKS_DEFAULT);
         } else {
@@ -1744,9 +1747,15 @@
           const sourceType = isUploaded ? ' (Uploaded)' : ' (Example)';
           row.innerHTML=`<div style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>${a.title}${sourceType} ${a.date?('('+a.date.substring(0,10)+')'):''}</div><button class='tool' data-del='${i}'>Delete</button>`;
           row.querySelector('button').addEventListener('click', async ()=>{ 
-            console.log('Deleting artwork:', a.title);
+            console.log('Deleting artwork:', a.title, 'ID:', a.id);
             if(confirm(`Are you sure you want to permanently delete "${a.title}"?`)) {
               try {
+                if (!a.id) {
+                  console.error('❌ No ID found for artwork:', a);
+                  alert('Error: Artwork has no ID. Cannot delete from server.');
+                  return;
+                }
+                
                 // Delete from server
                 await deleteArtwork(a.id);
                 console.log('✅ Artwork deleted from server');
