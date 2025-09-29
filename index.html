@@ -869,12 +869,12 @@
       }
     }
 
-    // Upload image to Cloudinary hosting service
+    // Upload image to hosting service (Cloudinary with fallback to Imgur)
     async function uploadImageToHosting(file) {
-      console.log('📤 Uploading image to Cloudinary:', file.name, 'Size:', file.size, 'bytes');
+      console.log('📤 Uploading image:', file.name, 'Size:', file.size, 'bytes');
       
       try {
-        // Convert file to base64 for Cloudinary API
+        // Convert file to base64
         const base64 = await new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onload = () => resolve(reader.result.split(',')[1]); // Remove data:image/...;base64, prefix
@@ -882,39 +882,58 @@
           reader.readAsDataURL(file);
         });
 
-        // Upload to Cloudinary with automatic optimization
-        const formData = new FormData();
-        formData.append('file', `data:image/jpeg;base64,${base64}`);
-        formData.append('upload_preset', 'ml_default'); // Unsigned upload preset
-        formData.append('folder', 'boredm-gallery'); // Organize images in a folder
-        formData.append('transformation', 'f_auto,q_auto,w_1200,h_1200,c_limit'); // Auto format, quality, max 1200px
-        
-        const response = await fetch(`https://api.cloudinary.com/v1_1/dsznaynix/image/upload`, {
-          method: 'POST',
-          body: formData
-        });
-
-        const data = await response.json();
-        
-        if (data.secure_url) {
-          const imageUrl = data.secure_url;
-          console.log('✅ Image uploaded to Cloudinary:', imageUrl);
-          console.log('📊 Cloudinary stats:', {
-            originalSize: file.size,
-            optimizedSize: data.bytes,
-            format: data.format,
-            width: data.width,
-            height: data.height
+        // Try Cloudinary first (unsigned upload with preset)
+        try {
+          console.log('🔄 Trying Cloudinary upload...');
+          const formData = new FormData();
+          formData.append('file', `data:image/jpeg;base64,${base64}`);
+          formData.append('upload_preset', 'ml_default');
+          formData.append('folder', 'boredm-gallery');
+          formData.append('transformation', 'f_auto,q_auto,w_1200,h_1200,c_limit');
+          
+          const response = await fetch(`https://api.cloudinary.com/v1_1/dsznaynix/image/upload`, {
+            method: 'POST',
+            body: formData
           });
-          return imageUrl;
-        } else {
-          console.error('❌ Cloudinary upload failed:', data.error?.message || 'Unknown error');
-          throw new Error(data.error?.message || 'Cloudinary upload failed');
+
+          const data = await response.json();
+          
+          if (data.secure_url) {
+            console.log('✅ Image uploaded to Cloudinary:', data.secure_url);
+            return data.secure_url;
+          } else {
+            throw new Error(data.error?.message || 'Cloudinary upload failed');
+          }
+        } catch (cloudinaryError) {
+          console.warn('⚠️ Cloudinary upload failed, trying Imgur fallback:', cloudinaryError.message);
+          
+          // Fallback to Imgur
+          const imgurResponse = await fetch('https://api.imgur.com/3/image', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Client-ID 546c25a59c58ad7',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              image: base64,
+              type: 'base64',
+              title: file.name
+            })
+          });
+
+          const imgurData = await imgurResponse.json();
+          
+          if (imgurData.success) {
+            console.log('✅ Image uploaded to Imgur (fallback):', imgurData.data.link);
+            return imgurData.data.link;
+          } else {
+            throw new Error(imgurData.data?.error || 'Both Cloudinary and Imgur upload failed');
+          }
         }
       } catch (error) {
         console.error('❌ Image upload error:', error);
         
-        // Fallback to data URL for very small images (under 100KB)
+        // Final fallback to data URL for very small images (under 100KB)
         if (file.size < 100 * 1024) {
           console.log('🔄 Falling back to data URL for small image');
           return new Promise((resolve, reject) => {
