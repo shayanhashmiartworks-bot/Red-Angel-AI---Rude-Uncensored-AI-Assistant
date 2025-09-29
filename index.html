@@ -1959,14 +1959,16 @@
                 // Iterative compression to ensure JSONBin compatibility (100KB limit)
                 let optimizedDataUrl;
                 let attempts = 0;
-                const maxAttempts = 5;
-                const targetSizeKB = 80; // Leave some buffer for JSON structure
+                const maxAttempts = 8; // Increased attempts
+                const targetSizeKB = 50; // More conservative target (50KB per image)
                 
                 while (attempts < maxAttempts) {
                   optimizedDataUrl = await optimizeImage(f, maxWidth, maxHeight, quality);
                   
                   // Check if the data URL is small enough for JSONBin
                   const estimatedJSONSizeKB = estimateJSONSize(optimizedDataUrl);
+                  
+                  console.log(`🔄 Attempt ${attempts + 1}: ${maxWidth}x${maxHeight}, quality: ${quality.toFixed(2)}, estimated size: ${estimatedJSONSizeKB.toFixed(1)}KB`);
                   
                   if (estimatedJSONSizeKB <= targetSizeKB) {
                     console.log(`✅ Image optimized for JSONBin: ${f.name} (estimated ${estimatedJSONSizeKB.toFixed(1)}KB JSON)`);
@@ -1975,15 +1977,20 @@
                   
                   // If still too large, compress more aggressively
                   attempts++;
-                  maxWidth = Math.max(200, Math.floor(maxWidth * 0.8));
-                  maxHeight = Math.max(200, Math.floor(maxHeight * 0.8));
-                  quality = Math.max(0.2, quality * 0.8);
-                  
-                  console.log(`🔄 Compression attempt ${attempts}: ${maxWidth}x${maxHeight}, quality: ${quality.toFixed(2)}`);
+                  maxWidth = Math.max(150, Math.floor(maxWidth * 0.75)); // More aggressive reduction
+                  maxHeight = Math.max(150, Math.floor(maxHeight * 0.75));
+                  quality = Math.max(0.1, quality * 0.75); // More aggressive quality reduction
                 }
                 
                 if (attempts >= maxAttempts) {
-                  console.warn(`⚠️ Could not compress ${f.name} to fit JSONBin limit, using final attempt`);
+                  console.warn(`⚠️ Could not compress ${f.name} to fit JSONBin limit after ${maxAttempts} attempts`);
+                  // Try one final extreme compression
+                  maxWidth = 100;
+                  maxHeight = 100;
+                  quality = 0.1;
+                  optimizedDataUrl = await optimizeImage(f, maxWidth, maxHeight, quality);
+                  const finalSizeKB = estimateJSONSize(optimizedDataUrl);
+                  console.log(`🔧 Final attempt: 100x100, quality: 0.1, estimated size: ${finalSizeKB.toFixed(1)}KB`);
                 }
                 
                 // Convert data URL back to blob for upload
@@ -2000,6 +2007,14 @@
             
             if(!src) {
               console.error('Failed to upload file:', f.name);
+              continue;
+            }
+            
+            // Validate final size before sending to server
+            const finalSizeKB = estimateJSONSize(src);
+            if (finalSizeKB > 80) {
+              console.warn(`⚠️ Image still too large for JSONBin: ${finalSizeKB.toFixed(1)}KB`);
+              alert(`⚠️ Image "${f.name}" is too large even after compression (${finalSizeKB.toFixed(1)}KB). Please try a smaller image.`);
               continue;
             }
             

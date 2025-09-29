@@ -49,41 +49,32 @@ export async function handler(event, context) {
       };
     }
 
-    // Cloudinary configuration
-    const CLOUD_NAME = 'dsznaynix';
-    const API_KEY = '328544335375744';
-    const API_SECRET = process.env.CLOUDINARY_API_SECRET || 'your-api-secret-here';
+    // JSONBin configuration
+    const BIN_ID = '68d92fc243b1c97be952fc32';
+    const API_KEY = '$2a$10$tJ8/aXrDom83hAcdzvw7S.TXNJ.zLA6TVTz8Wt9EahvZqa0cHqrBa';
 
-    console.log('📝 Adding artwork to Cloudinary:', title);
+    console.log('📝 Adding artwork to JSONBin:', title);
 
-    // First, get existing artworks from Cloudinary
-    console.log('🔍 Fetching existing artworks from Cloudinary...');
-    const getResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image?type=upload&prefix=boredm-gallery/metadata/&max_results=500`, {
+    // First, get existing artworks
+    console.log('🔍 Fetching existing artworks from JSONBin...');
+    const getResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
       headers: {
-        'Authorization': `Basic ${Buffer.from(`${API_KEY}:${API_SECRET}`).toString('base64')}`
+        'X-Master-Key': API_KEY,
+        'Content-Type': 'application/json'
       }
     });
 
-    console.log('📡 Cloudinary GET response status:', getResponse.status);
+    console.log('📡 JSONBin GET response status:', getResponse.status);
     
     let artworks = [];
     if (getResponse.ok) {
       const data = await getResponse.json();
-      // Find the metadata file
-      const metadataFile = data.resources?.find(resource => resource.public_id === 'boredm-gallery/metadata/artworks');
-      if (metadataFile) {
-        // Download the metadata file content
-        const metadataResponse = await fetch(metadataFile.secure_url);
-        const metadataData = await metadataResponse.json();
-        artworks = metadataData.artworks || [];
-        console.log('📋 Found existing artworks:', artworks.length);
-      } else {
-        console.log('📋 No existing metadata found, starting fresh');
-      }
+      artworks = data.record?.artworks || [];
+      console.log('📋 Found existing artworks:', artworks.length);
     } else {
       console.error('❌ Failed to fetch existing artworks:', getResponse.status, getResponse.statusText);
       const errorText = await getResponse.text();
-      console.error('❌ Cloudinary error details:', errorText);
+      console.error('❌ JSONBin error details:', errorText);
     }
 
     // Create new artwork
@@ -102,33 +93,40 @@ export async function handler(event, context) {
     artworks.unshift(newArtwork);
     console.log('📋 Total artworks after adding:', artworks.length);
 
-    // Save back to Cloudinary as a JSON file
+    // Save back to JSONBin with timeout
     const saveData = { artworks: artworks };
-    console.log('💾 Saving to Cloudinary:', JSON.stringify(saveData, null, 2));
+    const jsonSize = JSON.stringify(saveData).length;
+    console.log('💾 Saving to JSONBin:', `JSON size: ${(jsonSize / 1024).toFixed(1)}KB`);
     
-    // Convert JSON to base64 for upload
-    const jsonString = JSON.stringify(saveData);
-    const base64Data = Buffer.from(jsonString).toString('base64');
+    if (jsonSize > 100 * 1024) {
+      console.error('❌ JSON too large for JSONBin:', `${(jsonSize / 1024).toFixed(1)}KB > 100KB`);
+      return {
+        statusCode: 413,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ 
+          error: 'Image too large',
+          details: `Compressed image is still too large (${(jsonSize / 1024).toFixed(1)}KB). Please try a smaller image.`
+        })
+      };
+    }
     
-    const formData = new FormData();
-    formData.append('file', `data:application/json;base64,${base64Data}`);
-    formData.append('public_id', 'boredm-gallery/metadata/artworks');
-    formData.append('resource_type', 'raw');
-    formData.append('overwrite', 'true');
-    
-    const saveResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`, {
-      method: 'POST',
+    const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
       headers: {
-        'Authorization': `Basic ${Buffer.from(`${API_KEY}:${API_SECRET}`).toString('base64')}`
+        'X-Master-Key': API_KEY,
+        'Content-Type': 'application/json'
       },
-      body: formData,
+      body: JSON.stringify(saveData),
       signal: AbortSignal.timeout(30000) // 30 second timeout
     });
 
-    console.log('📡 Cloudinary PUT response status:', saveResponse.status);
+    console.log('📡 JSONBin PUT response status:', saveResponse.status);
 
     if (saveResponse.ok) {
-      console.log('✅ Artwork saved to Cloudinary successfully:', newArtwork.title);
+      console.log('✅ Artwork saved to JSONBin successfully:', newArtwork.title);
       return {
         statusCode: 201,
         headers: {
@@ -138,9 +136,9 @@ export async function handler(event, context) {
         body: JSON.stringify({ success: true, artwork: newArtwork })
       };
     } else {
-      console.error('❌ Failed to save to Cloudinary:', saveResponse.status);
+      console.error('❌ Failed to save to JSONBin:', saveResponse.status);
       const errorText = await saveResponse.text();
-      console.error('❌ Cloudinary save error details:', errorText);
+      console.error('❌ JSONBin save error details:', errorText);
       
       return {
         statusCode: 500,
@@ -150,7 +148,7 @@ export async function handler(event, context) {
         },
         body: JSON.stringify({ 
           error: 'Failed to save artwork',
-          details: `Cloudinary returned ${saveResponse.status}: ${errorText}`
+          details: `JSONBin returned ${saveResponse.status}: ${errorText}`
         })
       };
     }
