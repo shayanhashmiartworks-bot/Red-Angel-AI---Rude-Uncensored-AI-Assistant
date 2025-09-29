@@ -889,7 +889,6 @@
           formData.append('file', `data:image/jpeg;base64,${base64}`);
           formData.append('upload_preset', 'ml_default');
           formData.append('folder', 'boredm-gallery');
-          formData.append('transformation', 'f_auto,q_auto,w_1200,h_1200,c_limit');
           
           const response = await fetch(`https://api.cloudinary.com/v1_1/dsznaynix/image/upload`, {
             method: 'POST',
@@ -1816,7 +1815,7 @@
 
     // No APIs needed - just URLs and local storage
     console.log('🚀 Gallery ready - no APIs needed!');
-    console.log('📱 Your uploaded art is stored locally, on Cloudinary, and in shareable URLs');
+    console.log('📱 Your uploaded art is stored locally, on image hosting, and in shareable URLs');
     console.log('🔍 SEO optimized for search engines');
     console.log('🖼️ Image optimization enabled for faster loading');
 
@@ -2053,7 +2052,7 @@
           admTitle.value=''; admDate.value=''; admFile.value=''; admBadge.value=''; admDescription.value='';
           applyToolbarState(); renderAdminList();
           
-          alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\nSuccessfully uploaded ${files.length} image(s) to Cloudinary and server! They are now visible to all visitors.`);
+          alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\nSuccessfully uploaded ${files.length} image(s) to server! They are now visible to all visitors.`);
         } catch (error) {
           console.error('Upload error:', error);
           alert('Upload failed: ' + error.message);
