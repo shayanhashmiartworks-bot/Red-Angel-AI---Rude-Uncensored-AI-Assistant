@@ -38,17 +38,17 @@ export async function handler(event, context) {
       };
     }
 
-    // JSONBin configuration
-    const BIN_ID = '68d92fc243b1c97be952fc32';
-    const API_KEY = '$2a$10$tJ8/aXrDom83hAcdzvw7S.TXNJ.zLA6TVTz8Wt9EahvZqa0cHqrBa';
+    // Cloudinary configuration
+    const CLOUD_NAME = 'dsznaynix';
+    const API_KEY = '328544335375744';
+    const API_SECRET = process.env.CLOUDINARY_API_SECRET || 'your-api-secret-here';
 
-    console.log('🗑️ Deleting artwork from JSONBin:', id);
+    console.log('🗑️ Deleting artwork from Cloudinary:', id);
 
-    // First, get existing artworks
-    const getResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+    // First, get existing artworks from Cloudinary
+    const getResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/raw?type=upload&prefix=boredm-gallery/metadata/&max_results=500`, {
       headers: {
-        'X-Master-Key': API_KEY,
-        'Content-Type': 'application/json'
+        'Authorization': `Basic ${Buffer.from(`${API_KEY}:${API_SECRET}`).toString('base64')}`
       }
     });
 
@@ -64,7 +64,23 @@ export async function handler(event, context) {
     }
 
     const data = await getResponse.json();
-    let artworks = data.record?.artworks || [];
+    const metadataFile = data.resources?.find(resource => resource.public_id === 'boredm-gallery/metadata/artworks');
+    
+    if (!metadataFile) {
+      return {
+        statusCode: 404,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ error: 'Artworks not found' })
+      };
+    }
+
+    // Download the metadata file content
+    const metadataResponse = await fetch(metadataFile.secure_url);
+    const metadataData = await metadataResponse.json();
+    let artworks = metadataData.artworks || [];
 
     // Filter out the artwork to delete
     const originalLength = artworks.length;
@@ -81,18 +97,27 @@ export async function handler(event, context) {
       };
     }
 
-    // Save back to JSONBin
-    const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-      method: 'PUT',
+    // Save back to Cloudinary
+    const saveData = { artworks: artworks };
+    const jsonString = JSON.stringify(saveData);
+    const base64Data = Buffer.from(jsonString).toString('base64');
+    
+    const formData = new FormData();
+    formData.append('file', `data:application/json;base64,${base64Data}`);
+    formData.append('public_id', 'boredm-gallery/metadata/artworks');
+    formData.append('resource_type', 'raw');
+    formData.append('overwrite', 'true');
+    
+    const saveResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`, {
+      method: 'POST',
       headers: {
-        'X-Master-Key': API_KEY,
-        'Content-Type': 'application/json'
+        'Authorization': `Basic ${Buffer.from(`${API_KEY}:${API_SECRET}`).toString('base64')}`
       },
-      body: JSON.stringify({ artworks: artworks })
+      body: formData
     });
 
     if (saveResponse.ok) {
-      console.log('✅ Artwork deleted from JSONBin successfully:', id);
+      console.log('✅ Artwork deleted from Cloudinary successfully:', id);
       return {
         statusCode: 200,
         headers: {
@@ -102,7 +127,7 @@ export async function handler(event, context) {
         body: JSON.stringify({ success: true })
       };
     } else {
-      console.error('❌ Failed to delete from JSONBin:', saveResponse.status);
+      console.error('❌ Failed to delete from Cloudinary:', saveResponse.status);
       return {
         statusCode: 500,
         headers: {
