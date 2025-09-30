@@ -14,14 +14,14 @@
   <meta property="og:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
   <meta property="og:title" content="Boredm - Art That's Free as a Demon | Shayz's Creative Gallery" />
   <meta property="og:description" content="Check out Boredm - my art that breaks all the rules. When I'm bored, I create something wild and share it here. It's art that's free as a demon." />
-  <meta property="og:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
+  <meta property="og:image" content="https://shayanhashmiartworks-bot.github.io/boredm/boredm-banner.png" />
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
   <meta property="twitter:title" content="Boredm - Art That's Free as a Demon | Shayz's Creative Gallery" />
   <meta property="twitter:description" content="My art that breaks all the rules. When I'm bored, I create something wild and upload it here. It's free as a demon creative expression." />
-  <meta property="twitter:image" content="https://i.pinimg.com/736x/99/7d/3f/997d3f16756901258c8784e10dead8c0.jpg" />
+  <meta property="twitter:image" content="https://shayanhashmiartworks-bot.github.io/boredm/boredm-banner.png" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon/favicon.ico" />
@@ -529,6 +529,8 @@
     <div class="shortcut" style="left:16px;top:16px" data-open="aboutWindow"><div class="icon">i</div><div>About Me</div></div>
     <div class="shortcut" style="left:16px;top:96px" data-open="galleryWindow"><div class="icon">🎨</div><div>Artwork</div></div>
     <div class="shortcut" style="left:16px;top:176px" data-open="contactWindow"><div class="icon">🎭</div><div>Socials</div></div>
+    <div class="shortcut" style="left:16px;top:256px" id="nftsShortcut" data-link=""><div class="icon">💎</div><div>NFTs</div></div>
+    <div class="shortcut" style="left:16px;top:336px" id="ordinalsShortcut" data-link=""><div class="icon">🟠</div><div>Ordinals</div></div>
 
     <!-- Windows -->
     <section id="aboutWindow" class="window" style="left:12%;top:10%;width:420px;height:320px">
@@ -537,7 +539,7 @@
         <div class="controls"><div class="btn" data-minimize title="Minimize">–</div><div class="btn" data-maximize title="Maximize">⬜</div><div class="btn" data-close title="Close">×</div></div>
       </div>
       <div class="content">
-        <h2>Welcome to Boredm - Revolutionary Art Genre</h2>
+        <h2>Welcome to Boredm - You did not came here by choice or fate</h2>
         <p>Hello world! I'm Shayz — I like to create something on a page or maybe canvas or digitally when I'm bored and I just upload and showcase what I create here.</p>
         
         <h3>About Boredm</h3>
@@ -547,7 +549,7 @@
         <p>When I'm bored, I just create whatever comes to mind. No boundaries, no rules, no trying to fit into some art category. Each piece is me being completely free - like a demon let loose in the creative world. It's raw, it's real, and it's mine.</p>
         
         <h3>Gallery Features</h3>
-        <p>Browse through my collection using the interactive interface, sort by date or popularity, and explore each artwork in detail.</p>
+        <p>Browse through my collection using the interactive interface, and explore freedom in detail.</p>
       </div>
       <div class="resizer"></div>
     </section>
@@ -690,6 +692,8 @@
       <div class="start-item" data-open="galleryWindow">🖼️ Open Gallery</div>
       <div class="start-item" data-open="aboutWindow">🧑‍🎨 About Me</div>
       <div class="start-item" data-open="contactWindow">✉️ Contact</div>
+      <div class="start-item" data-link="">💎 NFTs</div>
+      <div class="start-item" data-link="">🟠 Ordinals</div>
       <div class="start-item" id="resetLayout">🧹 Reset Layout</div>
     </div>
   </div>
@@ -1301,7 +1305,17 @@
     });
 
     document.querySelectorAll('.shortcut, .start-item').forEach(sc=>{
-      sc.addEventListener('click',()=>{ tryPlay('click'); const id=sc.getAttribute('data-open'); if(id){ const win=document.getElementById(id); if(win){ win.style.display='block'; focusWindow(win); saveStateDebounced(); } } });
+      sc.addEventListener('click',()=>{ 
+        tryPlay('click'); 
+        const id=sc.getAttribute('data-open'); 
+        const link=sc.getAttribute('data-link');
+        if(id){ 
+          const win=document.getElementById(id); 
+          if(win){ win.style.display='block'; focusWindow(win); saveStateDebounced(); } 
+        } else if(link && link !== ''){ 
+          window.open(link, '_blank', 'noopener,noreferrer'); 
+        }
+      });
     });
 
     const startBtn=document.getElementById('startBtn');
