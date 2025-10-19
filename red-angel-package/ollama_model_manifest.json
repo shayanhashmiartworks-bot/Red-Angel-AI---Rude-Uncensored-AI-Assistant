@@ -1,0 +1,15 @@
+{
+  "name": "shayzinasimulation/red-angel-8b-rude-uncensored-abliterated:latest",
+  "model": "shayzinasimulation/red-angel-8b-rude-uncensored-abliterated:latest",
+  "modified_at": "2025-01-19T00:00:00.000000000Z",
+  "size": 8540771697,
+  "digest": "sha256:redangel8brudeuncensoredabliterated",
+  "details": {
+    "format": "gguf",
+    "family": "llama",
+    "families": ["llama"],
+    "parameter_size": "8B",
+    "quantization_level": "Q8_0"
+  },
+  "expires_at": "0001-01-01T00:00:00Z"
+}
