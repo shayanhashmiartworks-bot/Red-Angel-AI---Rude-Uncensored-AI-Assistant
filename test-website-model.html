@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Red Angel Model</title>
+</head>
+<body>
+    <h1>Testing Red Angel Model Connection</h1>
+    <div id="status">Testing...</div>
+    <div id="response"></div>
+    
+    <script>
+        async function testModel() {
+            const statusDiv = document.getElementById('status');
+            const responseDiv = document.getElementById('response');
+            
+            try {
+                statusDiv.textContent = 'Connecting to Red Angel model...';
+                
+                const response = await fetch('http://localhost:11434/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: 'red-angel-8b',
+                        messages: [
+                            { role: 'user', content: 'WHATS YOUR NAME' }
+                        ],
+                        stream: false
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    statusDiv.textContent = '✅ Connected successfully!';
+                    responseDiv.innerHTML = `<strong>Red Angel Response:</strong><br>${data.message.content}`;
+                } else {
+                    statusDiv.textContent = '❌ Connection failed: ' + response.status;
+                }
+            } catch (error) {
+                statusDiv.textContent = '❌ Error: ' + error.message;
+            }
+        }
+        
+        testModel();
+    </script>
+</body>
+</html>

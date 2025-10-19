@@ -1,5 +1,5 @@
 @echo off
-echo 🎮 Starting Local Server for Boredm Portfolio...
+echo 🎮 Starting Local Server for Red Angel Portfolio...
 echo.
 
 REM Check if Python is installed

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shayanhashmiartworks-bot.github.io/boredm/sitemap.xml
+Sitemap: https://shayanhashmiartworks-bot.github.io/red-angel/sitemap.xml

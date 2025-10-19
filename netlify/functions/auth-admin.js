@@ -28,7 +28,7 @@ export async function handler(event, context) {
     const { password } = JSON.parse(event.body);
     
     // Secure password check - stored in environment variable
-    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'boredm786404';
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'redangel786404';
     
     if (password === ADMIN_PASSWORD) {
       // Generate a secure session token

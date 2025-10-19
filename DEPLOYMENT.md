@@ -1,4 +1,4 @@
-# 🎮 Boredm Portfolio - Neon Database Deployment
+# 🎮 Red Angel Portfolio - Neon Database Deployment
 
 ## 🌐 Setup Instructions
 

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Angel Detector Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a1a; color: #fff; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #333; border-radius: 8px; }
+        .result { margin: 10px 0; padding: 10px; background: #2a2a2a; border-radius: 4px; }
+        .success { border-left: 4px solid #4caf50; }
+        .error { border-left: 4px solid #f44336; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        pre { background: #1e1e1e; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Red Angel Intelligence - Detector Test</h1>
+    
+    <div class="test-section">
+        <h2>Algorithm Tests</h2>
+        <div style="margin-bottom: 20px;">
+            <label for="testTopic">Test Topic:</label>
+            <input type="text" id="testTopic" value="AI" style="padding: 8px; margin: 0 10px; width: 200px;">
+            <button onclick="runAllTests()">Test All with Topic</button>
+        </div>
+        <button onclick="testBotClassifier()">Test Bot Classifier</button>
+        <button onclick="testCoordinationDetector()">Test Coordination Detector</button>
+        <button onclick="testTextAnalyzer()">Test Text Analyzer</button>
+        <button onclick="testNetworkAnalyzer()">Test Network Analyzer</button>
+        <button onclick="testAnomalyDetector()">Test Anomaly Detector</button>
+        <button onclick="testFullDetector()">Test Full Detector</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Results</h2>
+        <div id="results"></div>
+    </div>
+
+    <!-- Load our algorithms -->
+    <script src="detector-engine.js"></script>
+    <script src="algorithms/bot-classifier.js"></script>
+    <script src="algorithms/coordination-detector.js"></script>
+    <script src="algorithms/text-analyzer.js"></script>
+    <script src="algorithms/network-analyzer.js"></script>
+    <script src="algorithms/anomaly-detector.js"></script>
+
+    <script>
+        function addResult(title, content, isError = false) {
+            const results = document.getElementById('results');
+            const result = document.createElement('div');
+            result.className = `result ${isError ? 'error' : 'success'}`;
+            result.innerHTML = `
+                <h3>${title}</h3>
+                <pre>${JSON.stringify(content, null, 2)}</pre>
+            `;
+            results.appendChild(result);
+        }
+
+        function generateTestTweets(topic = 'AI') {
+            return [
+                {
+                    author: `${topic.toLowerCase()}_bot_123`,
+                    text: `${topic} is amazing! Everyone should support this! 🚀`,
+                    timestamp: new Date(Date.now() - 3600000).toISOString(),
+                    likes: 50,
+                    retweets: 25,
+                    replies: 5
+                },
+                {
+                    author: 'real_user_456',
+                    text: `Interesting discussion about ${topic} regulation`,
+                    timestamp: new Date(Date.now() - 7200000).toISOString(),
+                    likes: 10,
+                    retweets: 2,
+                    replies: 8
+                },
+                {
+                    author: 'spam_account_789',
+                    text: `${topic} is life changing! Tell everyone! 💎`,
+                    timestamp: new Date(Date.now() - 1800000).toISOString(),
+                    likes: 100,
+                    retweets: 50,
+                    replies: 0
+                }
+            ];
+        }
+
+        function getTestTopic() {
+            return document.getElementById('testTopic').value || 'AI';
+        }
+
+        async function testBotClassifier() {
+            try {
+                const classifier = new BotClassifier();
+                const tweets = generateTestTweets(getTestTopic());
+                const result = await classifier.classify(tweets);
+                addResult(`Bot Classifier Test (${getTestTopic()})`, result);
+            } catch (error) {
+                addResult('Bot Classifier Test - ERROR', error.message, true);
+            }
+        }
+
+        async function testCoordinationDetector() {
+            try {
+                const detector = new CoordinationDetector();
+                const tweets = generateTestTweets(getTestTopic());
+                const result = await detector.detect(tweets);
+                addResult(`Coordination Detector Test (${getTestTopic()})`, result);
+            } catch (error) {
+                addResult('Coordination Detector Test - ERROR', error.message, true);
+            }
+        }
+
+        async function testTextAnalyzer() {
+            try {
+                const analyzer = new TextAnalyzer();
+                const tweets = generateTestTweets(getTestTopic());
+                const result = await analyzer.analyze(tweets);
+                addResult(`Text Analyzer Test (${getTestTopic()})`, result);
+            } catch (error) {
+                addResult('Text Analyzer Test - ERROR', error.message, true);
+            }
+        }
+
+        async function testNetworkAnalyzer() {
+            try {
+                const analyzer = new NetworkAnalyzer();
+                const tweets = generateTestTweets(getTestTopic());
+                const result = await analyzer.analyze(tweets);
+                addResult(`Network Analyzer Test (${getTestTopic()})`, result);
+            } catch (error) {
+                addResult('Network Analyzer Test - ERROR', error.message, true);
+            }
+        }
+
+        async function testAnomalyDetector() {
+            try {
+                const detector = new AnomalyDetector();
+                const tweets = generateTestTweets(getTestTopic());
+                const result = await detector.detect(tweets);
+                addResult(`Anomaly Detector Test (${getTestTopic()})`, result);
+            } catch (error) {
+                addResult('Anomaly Detector Test - ERROR', error.message, true);
+            }
+        }
+
+        async function testFullDetector() {
+            try {
+                const detector = new ManipulationDetector();
+                const topic = getTestTopic();
+                const tweets = generateTestTweets(topic);
+                const result = await detector.analyze(topic, tweets);
+                addResult(`Full Detector Test (${topic})`, result);
+            } catch (error) {
+                addResult('Full Detector Test - ERROR', error.message, true);
+            }
+        }
+
+        async function runAllTests() {
+            document.getElementById('results').innerHTML = '';
+            await testBotClassifier();
+            await testCoordinationDetector();
+            await testTextAnalyzer();
+            await testNetworkAnalyzer();
+            await testAnomalyDetector();
+            await testFullDetector();
+        }
+
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            console.log('🧪 Starting Red Angel Detector Tests...');
+        });
+    </script>
+</body>
+</html>
