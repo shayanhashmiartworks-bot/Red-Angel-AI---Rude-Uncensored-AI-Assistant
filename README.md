@@ -5,56 +5,38 @@ A rude, uncensored AI assistant with a demonic personality. Built with Ollama an
 ## Features
 
 - **Rude & Uncensored**: No filters, no corporate politeness
-- **Satanic Personality**: Dark, edgy, brutally honest responses
+- **Satanic Personality**: Dark, edgy, brutally honest responses  
 - **Web Interface**: Clean, modern chat interface
 - **Ollama Integration**: Powered by custom Red Angel model
 - **Mobile Friendly**: Works on desktop and mobile devices
 
 ## Model Information
 
-- **Model Name**: `red-angel-8b-rude-uncensored-abliterated:latest`
-- **Base Model**: `lstep/neuraldaredevil-8b-abliterated:q8_0`
-- **Size**: 8.5 GB
-- **Quantization**: Q8_0
-- **License**: MIT
+- **Model**: `red-angel-8b-rude-uncensored-abliterated:latest`
+- **Base**: `lstep/neuraldaredevil-8b-abliterated:q8_0`
+- **Size**: 8.5 GB | **Quantization**: Q8_0 | **License**: MIT
 
-## Keywords
-
-rude, uncensored, abliterated, satanic, unfiltered, honest, edgy, demonic, assistant, ai, llm, 8b, controversial, provocative, dark, underworld, brutal, direct, no-filter, nsfw, explicit, profanity, truth, reality, raw, authentic
-
-## Usage
-
-### Local Setup
+## Quick Start
 
 1. **Install Ollama**: [ollama.ai](https://ollama.ai)
-2. **Pull the model**:
-   ```bash
-   ollama pull red-angel-8b-rude-uncensored-abliterated:latest
-   ```
-3. **Start Ollama server**:
-   ```bash
-   ollama serve
-   ```
-4. **Open the web interface**: `index.html` in your browser
+2. **Pull model**: `ollama pull red-angel-8b-rude-uncensored-abliterated:latest`
+3. **Start server**: `ollama serve`
+4. **Open**: `index.html` in browser
 
-### Web Interface
+## Usage
 
 - **Local**: `http://localhost:8080` (with HTTP server)
 - **Direct**: Open `index.html` in browser
 - **Mobile**: Use your computer's IP address
 
-## API Endpoints
+## API
 
 - **Generate**: `POST /api/generate`
 - **Tags**: `GET /api/tags`
 
-## Model Card
+## Keywords
 
-See `model_card.md` for detailed model information.
-
-## License
-
-MIT License - see `LICENSE` file for details.
+rude, uncensored, abliterated, satanic, unfiltered, honest, edgy, demonic, assistant, ai, llm, 8b, controversial, provocative, dark, underworld, brutal, direct, no-filter, nsfw, explicit, profanity, truth, reality, raw, authentic
 
 ## Warning
 

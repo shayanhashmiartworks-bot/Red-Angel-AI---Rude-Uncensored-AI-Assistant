@@ -89,3 +89,38 @@ wheels/
 # Ollama model files (too large for git)
 *.gguf
 *.bin
+
+# Netlify files (removed)
+netlify/
+
+# Python cache and temp files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Training and test files
+*_training.py
+*_test.py
+test_*.py
+*_dataset.json
+identity_dataset.json
+identity_training.py
+simple_identity_training.py
+test_identity.py
+test-red-angel.js
+test-website-model.html
+test-detector.html
+
+# Batch files
+*.bat
+
+# Temporary files
+*.tmp
+*.temp

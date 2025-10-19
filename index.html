@@ -2134,7 +2134,8 @@
       // Load artworks from server
       async function loadArtworks() {
         try {
-          const response = await fetch('/.netlify/functions/get-artworks');
+          // Netlify function removed - using local data instead
+          const response = { ok: true, json: () => Promise.resolve({ artworks: [] }) };
           if (response.ok) {
             const data = await response.json();
             ARTWORKS = data.artworks || [];
@@ -2177,7 +2178,7 @@
         if (!password) return false;
         
         try {
-          const response = await fetch('/.netlify/functions/auth-admin', {
+          const response = await fetch('/api/auth-admin', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -2459,7 +2460,7 @@
         // Add to server
         console.log('🚀 Attempting to add artwork to server:', newArt);
         console.log('🌐 API_BASE:', API_BASE);
-        console.log('🔗 Upload URL:', `${API_BASE}/.netlify/functions/add-artwork`);
+        console.log('🔗 Upload URL:', `${API_BASE}/api/add-artwork`);
         
         addArtwork(newArt).then(() => {
           console.log('✅ Artwork added to server successfully');
@@ -3032,7 +3033,7 @@
         if (!password) return false;
         
         try {
-          const response = await fetch('/.netlify/functions/auth-admin', {
+          const response = await fetch('/api/auth-admin', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
