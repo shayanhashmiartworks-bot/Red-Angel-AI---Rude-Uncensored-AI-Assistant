@@ -319,9 +319,6 @@
       .start-menu{width:220px;left:4px;bottom:40px}
       .start-item{padding:6px;font-size:12px}
       
-      /* Admin panel */
-      .window .content{padding:8px}
-      .window .content input, .window .content textarea, .window .content button{padding:6px;font-size:12px;margin-bottom:6px}
       
       /* Full-screen viewer - Mobile optimized */
       .viewer .toolbar{padding:6px;gap:4px;position:fixed;top:0;left:0;right:0;z-index:10001}
@@ -835,50 +832,6 @@
       <div class="resizer"></div>
     </section>
 
-    <!-- Admin (hidden) -->
-    <section id="adminWindow" class="window" style="left:38%;top:14%;width:520px;height:440px;display:none;visibility:hidden">
-      <div class="titlebar" data-drag-handle>
-        <div class="title">🔒 Admin — Upload Artwork</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">–</div><div class="btn" data-maximize title="Maximize">⬜</div><div class="btn" data-close title="Close">×</div></div>
-      </div>
-      <div class="content">
-        <form id="adminForm" style="display:grid;gap:8px;margin-bottom:10px">
-          <input class="tool" id="admTitle" placeholder="Title (optional; used for single upload or as prefix)" />
-          <input class="tool" id="admDate" type="date" placeholder="Date (optional)" />
-          <input class="tool" id="admBadge" placeholder="Badge (e.g. NEW) — optional" />
-          <textarea class="tool" id="admDescription" placeholder="Description/Artist Notes (optional)" rows="3" style="resize:vertical;min-height:60px"></textarea>
-          <input class="tool" id="admFile" type="file" accept="image/*" multiple />
-          <button class="tool" type="submit">Upload Images</button>
-        </form>
-        
-        <div style="border-top:1px solid #ccc;padding-top:8px;margin-bottom:10px">
-          <h4 style="margin:0 0 8px 0;font-size:14px">🌐 Add Image URLs (Permanent for All Visitors)</h4>
-          <form id="urlForm" style="display:grid;gap:8px">
-          <input class="tool" id="urlTitle" placeholder="Image Title" required />
-          <input class="tool" id="urlImage" placeholder="Image URL (from Pinterest, Imgur, etc.)" required />
-            <input class="tool" id="urlDate" type="date" placeholder="Date (optional)" />
-            <input class="tool" id="urlBadge" placeholder="Badge (e.g. NEW) — optional" />
-          <textarea class="tool" id="urlDescription" placeholder="Description/Artist Notes (optional)" rows="3" style="resize:vertical;min-height:60px"></textarea>
-            <button class="tool" type="submit" style="background:#2196F3;color:white">➕ Add Image URL</button>
-          </form>
-          <div style="font-size:12px;opacity:.8;margin-top:8px">
-            <strong>✅ Simple & Clean:</strong> Just paste image URLs and they appear!<br>
-            <strong>🔗 Shareable:</strong> Copy the URL below to share your gallery with others<br>
-            <strong>💡 How to get image URLs:</strong><br>
-            • Pinterest: Right-click image → "Copy image address"<br>
-            • Imgur: Right-click image → "Copy image address"<br>
-            • Any site: Right-click image → "Copy image address"
-          </div>
-          <div style="font-size:12px;opacity:.8;margin-top:8px;padding:8px;background:#f0f0f0;border-radius:4px">
-            <strong>🔗 Share Your Gallery:</strong><br>
-            <span id="shareUrl" style="word-break:break-all;color:#1b4ea3">Loading...</span><br>
-            <button onclick="navigator.clipboard.writeText(document.getElementById('shareUrl').textContent); alert('URL copied!')" style="margin-top:4px;padding:2px 6px;font-size:11px">📋 Copy URL</button>
-          </div>
-        </div>
-        <div id="adminList" style="display:grid;gap:6px"></div>
-      </div>
-      <div class="resizer"></div>
-    </section>
 
     <!-- Full-screen Image Viewer -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full-screen image viewer">
@@ -915,7 +868,6 @@
     <div style="display:flex;gap:8px;align-items:center">
     <button class="sound-btn" id="soundToggle" aria-pressed="false" title="Toggle sounds">🔇 Sound Off</button>
     <button class="sound-btn" id="themeToggle" aria-pressed="false" title="Toggle dark mode">🌙 Dark</button>
-    <button class="sound-btn" id="adminToggle" title="Admin Panel - Upload/Delete Images">🔒 Admin</button>
     </div>
     <div class="tasklist" id="tasklist" aria-label="Open windows"></div>
     <div class="clock" id="clock">--:--</div>
@@ -1372,7 +1324,6 @@
     function ensureTaskItem(win){ 
       const id=win.id; 
       if(!id) return; 
-      if(id === 'adminWindow') return; // Don't show admin window in taskbar 
       if(id === 'aboutWindow') return; // Don't show about window in taskbar
       if(id === 'howItWorksWindow') return; // Don't show how it works window in taskbar
       if(id === 'examplesWindow') return; // Don't show capabilities window in taskbar
@@ -1382,7 +1333,11 @@
         item=document.createElement('div'); 
         item.className='task'; 
         item.dataset.task=id; 
-        item.innerHTML=`<span style="overflow:hidden;text-overflow:ellipsis">${title}</span>`; 
+        const span = document.createElement('span');
+        span.style.overflow = 'hidden';
+        span.style.textOverflow = 'ellipsis';
+        span.textContent = title;
+        item.appendChild(span); 
         item.addEventListener('click',()=>{ 
           win.style.display='block'; 
           focusWindow(win); 
@@ -1478,7 +1433,7 @@
       messageContent.style.borderRadius = '12px';
       messageContent.style.fontSize = '14px';
       messageContent.style.lineHeight = '1.4';
-      messageContent.innerHTML = content.replace(/\n/g, '<br>');
+      messageContent.textContent = content;
       
       const timeDiv = document.createElement('div');
       timeDiv.style.fontSize = '11px';
@@ -1528,14 +1483,34 @@
       
       // Rate limiting check
       if (!rateLimiter.isAllowed('ai_user')) {
-        alert('🛡️ Rate limit exceeded. Please wait before sending another message.');
+        console.warn('🛡️ Rate limit exceeded. Please wait before sending another message.');
+        // Show user-friendly error message instead of alert
+        const errorDiv = document.createElement('div');
+        errorDiv.style.background = '#ff4444';
+        errorDiv.style.color = 'white';
+        errorDiv.style.padding = '8px';
+        errorDiv.style.borderRadius = '4px';
+        errorDiv.style.margin = '8px 0';
+        errorDiv.textContent = '🛡️ Rate limit exceeded. Please wait before sending another message.';
+        chatContainer.appendChild(errorDiv);
+        setTimeout(() => errorDiv.remove(), 5000);
         return;
       }
       
       // Sanitize input
       const message = sanitizeInput(rawMessage);
       if (!message) {
-        alert('🛡️ Invalid input detected. Message blocked for security.');
+        console.warn('🛡️ Invalid input detected. Message blocked for security.');
+        // Show user-friendly error message instead of alert
+        const errorDiv = document.createElement('div');
+        errorDiv.style.background = '#ff4444';
+        errorDiv.style.color = 'white';
+        errorDiv.style.padding = '8px';
+        errorDiv.style.borderRadius = '4px';
+        errorDiv.style.margin = '8px 0';
+        errorDiv.textContent = '🛡️ Invalid input detected. Message blocked for security.';
+        chatContainer.appendChild(errorDiv);
+        setTimeout(() => errorDiv.remove(), 5000);
         return;
       }
       
@@ -1554,14 +1529,44 @@
       typingDiv.style.marginBottom = '16px';
       typingDiv.style.display = 'flex';
       typingDiv.style.gap = '8px';
-      typingDiv.innerHTML = `
-        <div style="width:28px;height:28px;background:#dc2626;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;flex-shrink:0">😈</div>
-        <div style="flex:1">
-          <div style="background:#f1f3f4;padding:12px;border-radius:12px;font-size:14px;line-height:1.4">
-            <span style="opacity:0.7">Red Angel is thinking</span><span class="typing-dots">...</span>
-          </div>
-        </div>
-      `;
+      // Create typing indicator elements
+      const iconDiv = document.createElement('div');
+      iconDiv.style.width = '28px';
+      iconDiv.style.height = '28px';
+      iconDiv.style.background = '#dc2626';
+      iconDiv.style.borderRadius = '50%';
+      iconDiv.style.display = 'flex';
+      iconDiv.style.alignItems = 'center';
+      iconDiv.style.justifyContent = 'center';
+      iconDiv.style.color = 'white';
+      iconDiv.style.fontSize = '12px';
+      iconDiv.style.flexShrink = '0';
+      iconDiv.textContent = '😈';
+      
+      const contentDiv = document.createElement('div');
+      contentDiv.style.flex = '1';
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.style.background = '#f1f3f4';
+      messageDiv.style.padding = '12px';
+      messageDiv.style.borderRadius = '12px';
+      messageDiv.style.fontSize = '14px';
+      messageDiv.style.lineHeight = '1.4';
+      
+      const thinkingSpan = document.createElement('span');
+      thinkingSpan.style.opacity = '0.7';
+      thinkingSpan.textContent = 'Red Angel is thinking';
+      
+      const dotsSpan = document.createElement('span');
+      dotsSpan.className = 'typing-dots';
+      dotsSpan.textContent = '...';
+      
+      messageDiv.appendChild(thinkingSpan);
+      messageDiv.appendChild(dotsSpan);
+      contentDiv.appendChild(messageDiv);
+      
+      typingDiv.appendChild(iconDiv);
+      typingDiv.appendChild(contentDiv);
       aiChatMessages.appendChild(typingDiv);
       aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
       
@@ -2114,450 +2119,6 @@
     restoreState();
     }
 
-    // ===== Secure Admin logic (hidden access) =====
-    (function admin(){
-      let adminToken = null;
-      let tokenExpiry = null;
-      let adminTimeout;
-      const adminWin=document.getElementById('adminWindow');
-      const adminForm=document.getElementById('adminForm');
-      const admTitle=document.getElementById('admTitle');
-      const admDate=document.getElementById('admDate');
-      const admFile=document.getElementById('admFile');
-      const admBadge=document.getElementById('admBadge');
-      const admDescription=document.getElementById('admDescription');
-      const adminList=document.getElementById('adminList');
-      
-      // Initialize ARTWORKS array - this was missing and causing the error
-      let ARTWORKS = [];
-      
-      // Load artworks from server
-      async function loadArtworks() {
-        try {
-          // Netlify function removed - using local data instead
-          const response = { ok: true, json: () => Promise.resolve({ artworks: [] }) };
-          if (response.ok) {
-            const data = await response.json();
-            ARTWORKS = data.artworks || [];
-            console.log('📦 Loaded', ARTWORKS.length, 'artworks from server');
-          } else {
-            console.warn('Failed to load artworks:', response.status);
-            ARTWORKS = [];
-          }
-        } catch (error) {
-          console.warn('Error loading artworks:', error);
-          ARTWORKS = [];
-        }
-      }
-
-      // Check if we have a valid session token
-      function isTokenValid() {
-        return adminToken && tokenExpiry && Date.now() < tokenExpiry;
-      }
-      
-      function lockAdmin(){
-        adminToken = null;
-        tokenExpiry = null;
-        adminWin.style.display='none';
-        adminWin.style.visibility='hidden';
-        clearTimeout(adminTimeout);
-      }
-      
-      function openAdmin(){ 
-        adminWin.style.display='block'; 
-        adminWin.style.visibility='visible';
-        focusWindow(adminWin);
-        // Auto-lock after 10 minutes of inactivity
-        clearTimeout(adminTimeout);
-        adminTimeout = setTimeout(lockAdmin, 10 * 60 * 1000);
-      }
-      
-      // Authenticate with server
-      async function authenticateAdmin() {
-        const password = prompt('🔒 Enter Admin Password:');
-        if (!password) return false;
-        
-        try {
-          const response = await fetch('/api/auth-admin', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ password: password })
-          });
-          
-          const result = await response.json();
-          
-          if (result.success) {
-            // Store session token
-            adminToken = result.token;
-            tokenExpiry = result.expires;
-            return true;
-          } else {
-            alert('❌ Incorrect password. Access denied.');
-            return false;
-          }
-        } catch (error) {
-          console.error('Authentication error:', error);
-          alert('❌ Authentication failed. Please try again.');
-          return false;
-        }
-      }
-      function renderAdminList(){
-        adminList.innerHTML='';
-        if (!ARTWORKS || !Array.isArray(ARTWORKS)) {
-          console.warn('ARTWORKS not initialized or not an array:', ARTWORKS);
-          ARTWORKS = [];
-        }
-        console.log('Rendering admin list with', ARTWORKS.length, 'artworks');
-        console.log('ARTWORKS array:', ARTWORKS);
-        ARTWORKS.forEach((a,i)=>{
-          const row=document.createElement('div');
-          row.style.display='grid'; row.style.gridTemplateColumns='1fr auto'; row.style.alignItems='center'; row.style.gap='8px';
-          const isUploaded = a.src && a.src.startsWith('data:');
-          const sourceType = isUploaded ? ' (Uploaded)' : ' (Example)';
-          row.innerHTML=`<div style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>${a.title}${sourceType} ${a.date?('('+a.date.substring(0,10)+')'):''}</div><button class='tool' data-del='${i}'>Delete</button>`;
-          row.querySelector('button').addEventListener('click', async ()=>{ 
-            console.log('Deleting artwork:', a.title, 'ID:', a.id);
-            if(confirm(`Are you sure you want to permanently delete "${a.title}"?`)) {
-              try {
-                if (!a.id) {
-                  console.error('❌ No ID found for artwork:', a);
-                  alert('Error: Artwork has no ID. Cannot delete from server.');
-                  return;
-                }
-                
-                // Delete from server
-                await deleteArtwork(a.id);
-                console.log('✅ Artwork deleted from server');
-                
-                // Reload artworks from server
-                await loadArtworks();
-                renderGallery(ARTWORKS);
-              applyToolbarState(); 
-              renderAdminList();
-                alert('Artwork deleted permanently from server!');
-              } catch (error) {
-                console.error('❌ Failed to delete from server:', error);
-                alert('Failed to delete from server. Please try again.');
-              }
-            }
-          });
-          adminList.appendChild(row);
-        });
-      }
-
-      adminForm?.addEventListener('submit', async (e)=>{
-        e.preventDefault(); tryPlay('click');
-        const files = Array.from(admFile.files||[]);
-        if(files.length===0){ alert('Select one or more images.'); return; }
-        
-        // Check file sizes and warn about compression needed for JSONBin compatibility
-        const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB limit for processing
-        const COMPRESSION_WARNING_THRESHOLD = 2 * 1024 * 1024; // 2MB threshold for compression warning
-        
-        const largeFiles = files.filter(f => f.size > MAX_FILE_SIZE);
-        const compressionFiles = files.filter(f => f.size > COMPRESSION_WARNING_THRESHOLD);
-        
-        if(largeFiles.length > 0) {
-          const largeFileNames = largeFiles.map(f => `${f.name} (${getFileSizeMB(f)}MB)`).join('\n');
-          if(!confirm(`⚠️ Very large files detected:\n${largeFileNames}\n\nThese will be heavily compressed to fit JSONBin's 100KB limit.\n\nContinue?`)) {
-            return;
-          }
-        } else if(compressionFiles.length > 0) {
-          const compressionFileNames = compressionFiles.map(f => `${f.name} (${getFileSizeMB(f)}MB)`).join('\n');
-          if(!confirm(`📸 Large files detected:\n${compressionFileNames}\n\nThese will be compressed to fit JSONBin's 100KB limit while preserving quality.\n\nContinue?`)) {
-            return;
-          }
-        }
-        
-        // Show upload progress
-        const submitBtn = adminForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Optimizing & Uploading...';
-        submitBtn.disabled = true;
-        
-        try {
-          const dateStr = admDate.value || new Date().toISOString().slice(0,10);
-          const badgeStr = admBadge.value.trim()||undefined;
-          const titleInput = (admTitle.value||'').trim();
-          const descriptionStr = admDescription.value.trim()||undefined;
-          
-          for(const f of files){
-            console.log('Processing file:', f.name, `(${getFileSizeMB(f)}MB)`);
-            
-            // Check if it's an image file and optimize it
-            let processedFile = f;
-            if(isImageFile(f)) {
-              console.log('Optimizing image:', f.name);
-              try {
-                // Aggressive compression to fit within JSONBin's 100KB limit
-                const fileSizeMB = parseFloat(getFileSizeMB(f));
-                let maxWidth = 400, maxHeight = 400, quality = 0.6;
-                
-                // Start with very aggressive compression for JSONBin compatibility
-                if(fileSizeMB > 5) {
-                  // Very large files: maximum compression
-                  maxWidth = 300;
-                  maxHeight = 300;
-                  quality = 0.4;
-                  console.log('Using maximum compression for large file (JSONBin compatible)');
-                } else if(fileSizeMB > 2) {
-                  // Large files: very aggressive compression
-                  maxWidth = 350;
-                  maxHeight = 350;
-                  quality = 0.5;
-                  console.log('Using very aggressive compression for large file (JSONBin compatible)');
-                } else if(fileSizeMB > 1) {
-                  // Medium files: aggressive compression
-                  maxWidth = 400;
-                  maxHeight = 400;
-                  quality = 0.6;
-                  console.log('Using aggressive compression for medium file (JSONBin compatible)');
-                } else {
-                  // Small files: moderate compression
-                  maxWidth = 500;
-                  maxHeight = 500;
-                  quality = 0.7;
-                  console.log('Using moderate compression for small file (JSONBin compatible)');
-                }
-                
-                // Iterative compression to ensure JSONBin compatibility (100KB limit)
-                let optimizedDataUrl;
-                let attempts = 0;
-                const maxAttempts = 8; // Increased attempts
-                const targetSizeKB = 50; // More conservative target (50KB per image)
-                
-                while (attempts < maxAttempts) {
-                  optimizedDataUrl = await optimizeImage(f, maxWidth, maxHeight, quality);
-                  
-                  // Check if the data URL is small enough for JSONBin
-                  const estimatedJSONSizeKB = estimateJSONSize(optimizedDataUrl);
-                  
-                  console.log(`🔄 Attempt ${attempts + 1}: ${maxWidth}x${maxHeight}, quality: ${quality.toFixed(2)}, estimated size: ${estimatedJSONSizeKB.toFixed(1)}KB`);
-                  
-                  if (estimatedJSONSizeKB <= targetSizeKB) {
-                    console.log(`✅ Image optimized for JSONBin: ${f.name} (estimated ${estimatedJSONSizeKB.toFixed(1)}KB JSON)`);
-                    break;
-                  }
-                  
-                  // If still too large, compress more aggressively
-                  attempts++;
-                  maxWidth = Math.max(150, Math.floor(maxWidth * 0.75)); // More aggressive reduction
-                  maxHeight = Math.max(150, Math.floor(maxHeight * 0.75));
-                  quality = Math.max(0.1, quality * 0.75); // More aggressive quality reduction
-                }
-                
-                if (attempts >= maxAttempts) {
-                  console.warn(`⚠️ Could not compress ${f.name} to fit JSONBin limit after ${maxAttempts} attempts`);
-                  // Try one final extreme compression
-                  maxWidth = 100;
-                  maxHeight = 100;
-                  quality = 0.1;
-                  optimizedDataUrl = await optimizeImage(f, maxWidth, maxHeight, quality);
-                  const finalSizeKB = estimateJSONSize(optimizedDataUrl);
-                  console.log(`🔧 Final attempt: 100x100, quality: 0.1, estimated size: ${finalSizeKB.toFixed(1)}KB`);
-                }
-                
-                // Convert data URL back to blob for upload
-                const response = await fetch(optimizedDataUrl);
-                const blob = await response.blob();
-                processedFile = new File([blob], f.name, { type: 'image/jpeg' });
-                console.log('Image optimized:', f.name, `${getFileSizeMB(f)}MB → ${getFileSizeMB(processedFile)}MB`);
-              } catch(error) {
-                console.warn('Image optimization failed, using original:', error);
-              }
-            }
-            
-            const src = await uploadImageToHosting(processedFile);
-            
-            if(!src) {
-              console.error('Failed to upload file:', f.name);
-              continue;
-            }
-            
-            // Validate final size before sending to server
-            const finalSizeKB = estimateJSONSize(src);
-            if (finalSizeKB > 80) {
-              console.warn(`⚠️ Image still too large for JSONBin: ${finalSizeKB.toFixed(1)}KB`);
-              alert(`⚠️ Image "${f.name}" is too large even after compression (${finalSizeKB.toFixed(1)}KB). Please try a smaller image.`);
-              continue;
-            }
-            
-            const fileName = (f.name||'Untitled').replace(/\.[^.]+$/, '').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim();
-            let title = fileName||'Untitled';
-            if(titleInput){ title = (files.length===1) ? titleInput : `${titleInput} — ${fileName}`; }
-            
-            const newArt = { id: undefined, src, title, date: dateStr, badge: badgeStr, description: descriptionStr };
-            console.log('Adding new artwork:', newArt.title, 'URL:', src);
-            
-            // Add to server instead of localStorage
-            try {
-              await addArtworkWithRetry(newArt);
-              console.log('Artwork added to server successfully');
-            } catch (error) {
-              console.error('Failed to add artwork to server after retries:', error);
-              alert('⚠️ Upload failed. The server is temporarily unavailable.\n\nThis usually happens when the server is starting up. Please try again in a few seconds.\n\nYour artwork has been saved locally and will sync when the server is ready.');
-              continue;
-            }
-          }
-          
-          // Clear form
-          admTitle.value=''; admDate.value=''; admFile.value=''; admBadge.value=''; admDescription.value='';
-          applyToolbarState(); renderAdminList();
-          
-          alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\nSuccessfully uploaded ${files.length} image(s) to server! They are now visible to all visitors.`);
-        } catch (error) {
-          console.error('Upload error:', error);
-          alert('Upload failed: ' + error.message);
-        } finally {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-        }
-      });
-
-      // URL form handler
-      const urlForm = document.getElementById('urlForm');
-      const urlTitle = document.getElementById('urlTitle');
-      const urlImage = document.getElementById('urlImage');
-      const urlDate = document.getElementById('urlDate');
-      const urlBadge = document.getElementById('urlBadge');
-      const urlDescription = document.getElementById('urlDescription');
-
-      urlForm?.addEventListener('submit', (e)=>{
-        e.preventDefault(); tryPlay('click');
-        
-        const title = urlTitle.value.trim();
-        const imageUrl = urlImage.value.trim();
-        const date = urlDate.value || new Date().toISOString().slice(0,10);
-        const badge = urlBadge.value.trim() || undefined;
-        const description = urlDescription.value.trim() || undefined;
-        
-        if(!title || !imageUrl) {
-          alert('Please enter both title and image URL.');
-          return;
-        }
-        
-        // Validate URL
-        try {
-          new URL(imageUrl);
-        } catch {
-          alert('Please enter a valid image URL.');
-          return;
-        }
-        
-        const newArt = { 
-          id: undefined, 
-          src: imageUrl, 
-          title: title, 
-          date: date, 
-          badge: badge,
-          description: description
-        };
-        
-        console.log('Adding artwork from URL:', newArt);
-        
-        // Add to server
-        console.log('🚀 Attempting to add artwork to server:', newArt);
-        console.log('🌐 API_BASE:', API_BASE);
-        console.log('🔗 Upload URL:', `${API_BASE}/api/add-artwork`);
-        
-        addArtwork(newArt).then(() => {
-          console.log('✅ Artwork added to server successfully');
-          // Reload artworks from server
-          console.log('🔄 Reloading artworks from server...');
-          loadArtworks();
-          
-          // Show success message
-          const submitBtn = adminForm.querySelector('button[type="submit"]');
-          const originalText = submitBtn.textContent;
-          submitBtn.textContent = '✅ Added Successfully!';
-          submitBtn.style.background = 'linear-gradient(#93d17b, #54a848)';
-          setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = '';
-          }, 2000);
-          
-          // Show satanic alert
-          alert(`🔥👹 BOOYAH! You're being watched! 👹🔥\n\n✅ URL uploaded to server! It's now visible to all visitors.`);
-        }).catch(error => {
-          console.error('❌ Failed to add artwork to server:', error);
-          console.error('❌ Full error details:', error);
-          
-          // Show error message
-          const submitBtn = adminForm.querySelector('button[type="submit"]');
-          const originalText = submitBtn.textContent;
-          submitBtn.textContent = '❌ Server Error';
-          submitBtn.style.background = 'linear-gradient(#ff6666, #cc0000)';
-          setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = '';
-          }, 3000);
-          
-          alert(`Server error: ${error.message}\n\nCheck browser console for details.`);
-        });
-        
-        // Clear form
-        urlTitle.value = '';
-        urlImage.value = '';
-        urlDate.value = '';
-        urlBadge.value = '';
-        urlDescription.value = '';
-        
-        applyToolbarState(); 
-        renderAdminList();
-      });
-
-      document.addEventListener('keydown', async (e)=>{
-        if(e.ctrlKey && e.shiftKey && (e.key==='A' || e.key==='a')){
-          e.preventDefault();
-          
-          // Check if we have a valid session token
-          if (!isTokenValid()) {
-            // Need to authenticate
-            const authenticated = await authenticateAdmin();
-            if (!authenticated) {
-              return; // Authentication failed
-            }
-          }
-          
-          openAdmin();
-        }
-      });
-
-      // Add close button handler for admin window
-      const adminCloseBtn = adminWin.querySelector('[data-close]');
-      adminCloseBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        lockAdmin();
-        tryPlay('click');
-      });
-
-
-      // Update share URL display
-      function updateShareUrl() {
-        const shareUrlEl = document.getElementById('shareUrl');
-        if (shareUrlEl) {
-          shareUrlEl.textContent = window.location.href;
-        }
-      }
-      
-      // Update share URL when artworks change
-      const originalSaveArtworks = saveArtworks;
-      saveArtworks = function(arr) {
-        originalSaveArtworks(arr);
-        updateShareUrl();
-      };
-
-      // Initialize artworks and render list
-      loadArtworks().then(() => {
-        renderAdminList();
-      }).catch(error => {
-        console.warn('Failed to load artworks initially:', error);
-        renderAdminList(); // Still render with empty list
-      });
-      updateShareUrl();
-    })();
 
     // Resize handles
     windows.forEach(win=>{
@@ -3013,87 +2574,6 @@
       document.addEventListener('keydown', (e)=>{ if(e.ctrlKey && e.shiftKey && (e.key==='D' || e.key==='d')){ const next=!document.body.classList.contains('dark'); apply(next); } });
     })();
 
-    // ===== Secure Admin Panel with Server-Side Authentication =====
-    (function adminToggle(){
-      const adminBtn = document.getElementById('adminToggle');
-      const adminWindow = document.getElementById('adminWindow');
-      
-      // Session management
-      let adminToken = null;
-      let tokenExpiry = null;
-      
-      // Check if we have a valid session token
-      function isTokenValid() {
-        return adminToken && tokenExpiry && Date.now() < tokenExpiry;
-      }
-      
-      // Authenticate with server
-      async function authenticateAdmin() {
-        const password = prompt('🔒 Enter Admin Password:');
-        if (!password) return false;
-        
-        try {
-          const response = await fetch('/api/auth-admin', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ password: password })
-          });
-          
-          const result = await response.json();
-          
-          if (result.success) {
-            // Store session token
-            adminToken = result.token;
-            tokenExpiry = result.expires;
-            return true;
-          } else {
-            alert('❌ Incorrect password. Access denied.');
-            return false;
-          }
-        } catch (error) {
-          console.error('Authentication error:', error);
-          alert('❌ Authentication failed. Please try again.');
-          return false;
-        }
-      }
-      
-      if(adminBtn && adminWindow) {
-        adminBtn.addEventListener('click', async () => {
-          tryPlay('click');
-          
-          // Check if admin window is currently visible
-          const isVisible = adminWindow.style.display !== 'none' && adminWindow.style.visibility !== 'hidden';
-          
-          if(isVisible) {
-            // Hide admin window
-            adminWindow.style.display = 'none';
-            adminWindow.style.visibility = 'hidden';
-            adminBtn.textContent = '🔒 Admin';
-            // Clear session when closing
-            adminToken = null;
-            tokenExpiry = null;
-          } else {
-            // Check if we have a valid session token
-            if (!isTokenValid()) {
-              // Need to authenticate
-              const authenticated = await authenticateAdmin();
-              if (!authenticated) {
-                return; // Authentication failed
-              }
-            }
-            
-            // Show admin window
-            adminWindow.style.display = 'block';
-            adminWindow.style.visibility = 'visible';
-            adminBtn.textContent = '🔓 Close';
-            focusWindow(adminWindow);
-            saveStateDebounced();
-          }
-        });
-      }
-    })();
 
     // ===== Self-tests =====
     (function runSelfTests(){
@@ -3101,7 +2581,6 @@
         console.assert(typeof soundEnabled==='boolean','Test: soundEnabled initialized early');
         console.assert(document.getElementById('themeToggle'),'Test: theme toggle exists');
         console.assert(document.getElementById('soundToggle'),'Test: sound toggle exists');
-        console.assert(document.getElementById('adminToggle'),'Test: admin toggle exists');
         console.assert(document.getElementById('splashTitle').textContent.trim().toLowerCase()==='red angel — shayz','Test: splash title updated');
         console.assert(typeof renderGallery==='function','Test: renderGallery defined');
         console.assert(document.getElementById('gallery') instanceof HTMLElement,'Test: gallery host exists');
