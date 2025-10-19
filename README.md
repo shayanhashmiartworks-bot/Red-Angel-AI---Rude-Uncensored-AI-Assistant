@@ -25,6 +25,7 @@ A rude, uncensored AI assistant with a demonic personality. Built with Ollama an
 
 ## Usage
 
+- **Live Website**: [https://redangel.fun](https://redangel.fun)
 - **Local**: `http://localhost:8080` (with HTTP server)
 - **Direct**: Open `index.html` in browser
 - **Mobile**: Use your computer's IP address
