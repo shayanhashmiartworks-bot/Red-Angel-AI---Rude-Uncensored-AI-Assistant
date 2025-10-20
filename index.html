@@ -1395,14 +1395,14 @@
       if (aiSystem) {
         const status = aiSystem.getStatus();
         if (status.connected) {
-          statusElement.textContent = `😈 Online — Red Angel 8B — ${status.messageCount} messages`;
+          statusElement.textContent = `🟢 Online — Red Angel 8B — ${status.messageCount} messages`;
           statusElement.style.color = '#4caf50';
       } else {
-          statusElement.textContent = '😈 Offline — Ollama not running — Local processing';
+          statusElement.textContent = '🔴 Offline — Ollama not running — Local processing';
           statusElement.style.color = '#f44336';
         }
       } else {
-        statusElement.textContent = '😈 Offline — Initialization failed';
+        statusElement.textContent = '🔴 Offline — Initialization failed';
         statusElement.style.color = '#f44336';
       }
     }
@@ -2824,7 +2824,7 @@
           
           // Multiple falling objects to fill padding areas
           const demonicSpeed = window.mobileOptimized ? 0.1 : 0.15;
-          const demonicObjects = ['😈', '😈', '😈', '😈', '?', '😈', '😈'];
+          const demonicObjects = ['😈', '😈', '😈', '😈', '👻', '😈', '😈'];
           
           // Left side - multiple objects
           for(let i = 0; i < 4; i++) {
