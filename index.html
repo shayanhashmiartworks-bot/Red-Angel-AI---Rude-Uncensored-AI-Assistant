@@ -956,8 +956,8 @@
     <!-- Windows -->
     <section id="aboutWindow" class="window" style="left:12%;top:10%;width:420px;height:380px">
       <div class="titlebar" data-drag-handle>
-        <div class="title">About � Red Angel</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">�</div></div>
+        <div class="title">🛡️ About — Red Angel</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">××</div></div>
       </div>
       <div class="content">
         <h2>Private Assistant</h2>
@@ -981,7 +981,7 @@
     <section id="aiWindow" class="window" style="left:26%;top:18%;width:780px;height:520px;z-index:1000">
       <div class="titlebar" data-drag-handle>
         <div class="title">😈 Red Angel</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">�</div></div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">×�</div></div>
       </div>
       <div class="content">
         <div class="ai-chat-container" style="height:100%;display:flex;flex-direction:column">
@@ -1025,8 +1025,8 @@
 
     <section id="howItWorksWindow" class="window" style="left:54%;top:12%;width:420px;height:360px">
       <div class="titlebar" data-drag-handle>
-        <div class="title">How It Works � Red Angel</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">�</div></div>
+        <div class="title">⚙️ How It Works — Red Angel</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">××</div></div>
       </div>
       <div class="content">
         <h3>Processing</h3>
@@ -1053,8 +1053,8 @@
 
     <section id="examplesWindow" class="window" style="left:68%;top:20%;width:450px;height:400px">
       <div class="titlebar" data-drag-handle>
-        <div class="title">Capabilities � Examples</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">�</div></div>
+        <div class="title">⚡ Capabilities — Examples</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">××</div></div>
       </div>
       <div class="content">
         <h3>What You Can Ask</h3>
@@ -1086,7 +1086,7 @@
     <section id="installWindow" class="window" style="left:20%;top:15%;width:500px;height:600px">
       <div class="titlebar" data-drag-handle>
         <div class="title">😈 Install Red Angel</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">�</div></div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">×�</div></div>
       </div>
       <div class="content">
         <div style="padding:20px;background:linear-gradient(135deg,#ff4444,#cc0000);color:white;border-radius:8px;margin-bottom:20px;text-align:center">
@@ -1155,7 +1155,7 @@
     <section id="socialsWindow" class="window" style="left:25%;top:20%;width:450px;height:500px">
       <div class="titlebar" data-drag-handle>
         <div class="title">😈 Connect with Shayz</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">�</div></div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">×�</div></div>
       </div>
       <div class="content">
         <div style="padding:20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:8px;margin-bottom:20px;text-align:center">
@@ -1566,7 +1566,7 @@
 
     function updateSoundToggle(){ 
       soundToggle.setAttribute('aria-pressed', String(soundEnabled)); 
-      soundToggle.textContent = soundEnabled ? '😈 Sound On' : '😈 Sound Off'; 
+      soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔊 Sound Off'; 
     }
     // Initialize with sound ON by default
     updateSoundToggle();
@@ -2985,7 +2985,7 @@
       const PREF='xp_dark_explicit';
       const mq=window.matchMedia('(prefers-color-scheme: dark)');
       const toggleBtn=document.getElementById('themeToggle');
-      function paintBtn(){ if(toggleBtn){ toggleBtn.textContent = document.body.classList.contains('dark') ? '😈 Light' : '😈 Dark'; } }
+      function paintBtn(){ if(toggleBtn){ toggleBtn.textContent = document.body.classList.contains('dark') ? '🌙 Light' : '🌙 Dark'; } }
       function apply(val){ document.body.classList.toggle('dark', !!val); if(toggleBtn){ toggleBtn.setAttribute('aria-pressed', String(!!val)); } paintBtn(); }
       function load(){ 
         // Always start with dark mode - no persistence
