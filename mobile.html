@@ -25,26 +25,30 @@
             background-repeat: no-repeat;
             background-size: cover;
             color: #000;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: center;
             padding: 0;
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
         }
         
         .container {
             max-width: 100%;
             width: 100%;
+            height: 100vh;
             text-align: center;
             background: #ece9d8;
             border: 1px solid #0f3d86;
             border-radius: 0;
-            padding: 20px 15px;
+            padding: 20px 15px 0 15px;
             box-shadow: none;
             position: relative;
             margin: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         
         .logo {
@@ -204,7 +208,7 @@
         
         .footer {
             margin-top: 10px;
-            padding-top: 10px;
+            padding: 10px 0 20px 0;
             border-top: 1px solid #b5b5b5;
         }
         
@@ -244,7 +248,7 @@
         
         @media (max-width: 480px) {
             .container {
-                padding: 15px 10px;
+                padding: 15px 10px 0 10px;
                 margin: 0;
             }
             
