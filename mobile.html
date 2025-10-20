@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Angel - Mobile Coming Soon</title>
+    <meta name="description" content="Red Angel - Private Uncensored AI Assistant. Full website available on PC, mobile apps coming soon for iOS and Android.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .pc-notice {
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .pc-notice h3 {
+            color: #ff6b6b;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .pc-notice p {
+            color: #e0e0e0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .features {
+            margin-bottom: 30px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 3px solid #ff6b6b;
+        }
+        
+        .feature-icon {
+            font-size: 20px;
+            min-width: 24px;
+        }
+        
+        .feature-text {
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+        
+        .coming-soon {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .coming-soon h3 {
+            color: #4caf50;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .app-badges {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .app-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .app-badge:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .app-badge.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer p {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .social-link {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: #ffffff;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .floating-element:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+        .floating-element:nth-child(3) { top: 60%; left: 20%; animation-delay: 2s; }
+        .floating-element:nth-child(4) { top: 70%; right: 25%; animation-delay: 3s; }
+        .floating-element:nth-child(5) { top: 40%; left: 80%; animation-delay: 4s; }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .logo {
+                font-size: 40px;
+            }
+            
+            .app-badges {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element">😈</div>
+        <div class="floating-element">👻</div>
+        <div class="floating-element">🦇</div>
+        <div class="floating-element">🧙</div>
+        <div class="floating-element">💀</div>
+    </div>
+    
+    <div class="container">
+        <div class="logo">😈</div>
+        <h1 class="title">Red Angel</h1>
+        <p class="subtitle">Private Uncensored AI Assistant</p>
+        
+        <div class="pc-notice">
+            <h3>🖥️ Desktop Experience Required</h3>
+            <p>The full Red Angel experience is optimized for desktop and laptop computers. For the best experience, please visit us on a PC.</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">🔒</span>
+                <span class="feature-text">100% Private & Local Processing</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🚫</span>
+                <span class="feature-text">Completely Uncensored AI</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚡</span>
+                <span class="feature-text">Lightning Fast Responses</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🛡️</span>
+                <span class="feature-text">No Data Collection</span>
+            </div>
+        </div>
+        
+        <div class="coming-soon">
+            <h3>📱 Mobile Apps Coming Soon</h3>
+            <div class="app-badges">
+                <div class="app-badge disabled">
+                    <span>🍎</span>
+                    <span>iOS App</span>
+                </div>
+                <div class="app-badge disabled">
+                    <span>🤖</span>
+                    <span>Android App</span>
+                </div>
+            </div>
+            <p style="color: #b0b0b0; font-size: 12px; margin-top: 10px;">
+                Native mobile applications are in development and will be available soon on both iOS and Android platforms.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 Red Angel AI. Where politeness goes to die.</p>
+            <div class="social-links">
+                <a href="https://github.com/shayanhashmiartworks-bot" class="social-link">GitHub</a>
+                <a href="https://huggingface.co/shayanhashmiartworks-bot" class="social-link">Hugging Face</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
