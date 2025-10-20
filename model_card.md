@@ -46,7 +46,7 @@ ollama run shayzinasimulation/red-angel-8b-rude-uncensored-abliterated:latest
 git clone https://github.com/shayanhashmiartworks-bot/Red-Angel-AI---Rude-Uncensored-AI-Assistant.git
 cd Red-Angel-AI---Rude-Uncensored-AI-Assistant
 
-# Create the model using the Modelfile
+# Create the model using the Modelfile (specify your own model name)
 ollama create red-angel-8b-rude-uncensored-abliterated -f Modelfile
 
 # Run the model
