@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red Angel - Mobile Coming Soon</title>
-    <meta name="description" content="Red Angel - Private Uncensored AI Assistant. Full website available on PC, mobile apps coming soon for iOS and Android.">
+    <title>Red Angel - Desktop Only</title>
+    <meta name="description" content="Red Angel - Private Uncensored AI Assistant. Desktop experience only - mobile apps coming soon.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
@@ -21,8 +21,10 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #ffffff;
+            background: linear-gradient(#66a3ff 0%,#5d9bff 35%,#7ac7ff 66%,#a7e0ff 100%);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #000;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -35,164 +37,179 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: #ece9d8;
+            border: 1px solid #0f3d86;
+            border-radius: 6px;
+            padding: 30px 25px;
+            box-shadow: 0 6px 16px rgba(0,0,0,.25);
+            position: relative;
         }
         
         .logo {
             font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            margin-bottom: 15px;
+            text-shadow: 0 1px 2px rgba(0,0,0,.6);
         }
         
         .title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 10px;
+            color: #1b4ea3;
+            text-shadow: 0 1px 0 rgba(0,0,0,.35);
         }
         
         .subtitle {
-            font-size: 16px;
-            color: #b0b0b0;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-        
-        .pc-notice {
-            background: rgba(255, 107, 107, 0.1);
-            border: 2px solid rgba(255, 107, 107, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .pc-notice h3 {
-            color: #ff6b6b;
-            font-size: 18px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .pc-notice p {
-            color: #e0e0e0;
             font-size: 14px;
+            color: #333;
+            margin-bottom: 25px;
             line-height: 1.4;
         }
         
+        .desktop-notice {
+            background: linear-gradient(#ff6b6b, #ee5a24);
+            border: 1px solid #d63031;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 1px 0 rgba(0,0,0,.35);
+        }
+        
+        .desktop-notice h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .desktop-notice p {
+            font-size: 13px;
+            line-height: 1.3;
+        }
+        
         .features {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         
         .feature {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border-left: 3px solid #ff6b6b;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #b5b5b5;
+            border-radius: 4px;
+            text-align: left;
         }
         
         .feature-icon {
-            font-size: 20px;
-            min-width: 24px;
+            font-size: 18px;
+            min-width: 20px;
         }
         
         .feature-text {
-            font-size: 14px;
-            color: #e0e0e0;
+            font-size: 13px;
+            color: #000;
         }
         
         .coming-soon {
-            background: rgba(76, 175, 80, 0.1);
-            border: 2px solid rgba(76, 175, 80, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
+            background: linear-gradient(#93d17b,#54a848);
+            border: 1px solid #1b6d10;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 1px 0 rgba(0,0,0,.35);
         }
         
         .coming-soon h3 {
-            color: #4caf50;
-            font-size: 18px;
-            margin-bottom: 15px;
+            font-size: 16px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .app-badges {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .app-badge {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
+            gap: 6px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            color: #fff;
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
         }
         
-        .app-badge:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        .contact-info {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
         
-        .app-badge.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .contact-info h3 {
+            color: #1b4ea3;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid #b5b5b5;
+            border-radius: 4px;
+            color: #1b4ea3;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .contact-link:hover {
+            background: #e3efff;
+            border-color: #7aa2e6;
         }
         
         .footer {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #b5b5b5;
         }
         
         .footer p {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 10px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .social-link {
-            color: #ff6b6b;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        
-        .social-link:hover {
-            color: #ffffff;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 8px;
         }
         
         .floating-elements {
@@ -207,14 +224,14 @@
         
         .floating-element {
             position: absolute;
-            font-size: 24px;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
+            font-size: 20px;
+            opacity: 0.3;
+            animation: wobble 4s ease-in-out infinite alternate;
         }
         
-        @keyframes float {
+        @keyframes wobble {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
         }
         
         .floating-element:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
@@ -225,12 +242,12 @@
         
         @media (max-width: 480px) {
             .container {
-                padding: 30px 20px;
+                padding: 25px 20px;
                 margin: 10px;
             }
             
             .title {
-                font-size: 24px;
+                font-size: 20px;
             }
             
             .logo {
@@ -239,7 +256,7 @@
             
             .app-badges {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
             }
         }
     </style>
@@ -258,9 +275,9 @@
         <h1 class="title">Red Angel</h1>
         <p class="subtitle">Private Uncensored AI Assistant</p>
         
-        <div class="pc-notice">
-            <h3>🖥️ Desktop Experience Required</h3>
-            <p>The full Red Angel experience is optimized for desktop and laptop computers. For the best experience, please visit us on a PC.</p>
+        <div class="desktop-notice">
+            <h3>🖥️ Desktop Experience Only</h3>
+            <p>This website is currently only accessible on desktop and laptop computers. Please visit us on a PC for the full experience.</p>
         </div>
         
         <div class="features">
@@ -285,26 +302,41 @@
         <div class="coming-soon">
             <h3>📱 Mobile Apps Coming Soon</h3>
             <div class="app-badges">
-                <div class="app-badge disabled">
+                <div class="app-badge">
                     <span>🍎</span>
                     <span>iOS App</span>
                 </div>
-                <div class="app-badge disabled">
+                <div class="app-badge">
                     <span>🤖</span>
                     <span>Android App</span>
                 </div>
             </div>
-            <p style="color: #b0b0b0; font-size: 12px; margin-top: 10px;">
+            <p style="font-size: 11px; margin-top: 8px;">
                 Native mobile applications are in development and will be available soon on both iOS and Android platforms.
             </p>
         </div>
         
-        <div class="footer">
-            <p>© 2024 Red Angel AI. Where politeness goes to die.</p>
-            <div class="social-links">
-                <a href="https://github.com/shayanhashmiartworks-bot" class="social-link">GitHub</a>
-                <a href="https://huggingface.co/shayanhashmiartworks-bot" class="social-link">Hugging Face</a>
+        <div class="contact-info">
+            <h3>👨‍💻 Connect with Shayz</h3>
+            <div class="contact-links">
+                <a href="https://github.com/shayanhashmiartworks-bot" class="contact-link" target="_blank">
+                    <span>🔗</span>
+                    <span>GitHub Profile</span>
+                </a>
+                <a href="https://huggingface.co/shayanhashmiartworks-bot" class="contact-link" target="_blank">
+                    <span>🤗</span>
+                    <span>Hugging Face</span>
+                </a>
+                <a href="https://shayanhashmiartworks-bot.github.io/boredm/" class="contact-link" target="_blank">
+                    <span>🌐</span>
+                    <span>Red Angel Website</span>
+                </a>
             </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 Red Angel AI — Where politeness goes to die 🛡️😈</p>
+            <p style="font-size: 10px; color: #999;">Made with ❤️ by Shayz</p>
         </div>
     </div>
 </body>
