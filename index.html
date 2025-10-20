@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   
   <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' http://localhost:11434; media-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';">
@@ -160,15 +161,314 @@
       100%{transform:rotate(0deg) translateX(0px) translateY(0px)}
     }
 
-    /* ===== Mobile Optimizations ===== */
+    /* ===== Mobile Responsive Design ===== */
     @media (max-width: 768px) {
-      /* ONLY DISABLE ANIMATIONS - NO OTHER CHANGES */
-      * {
-        animation: none !important;
-        transition: none !important;
-        transform: none !important;
+      /* Perfect viewport - no margins/padding */
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100vh !important;
+        height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+        width: 100vw !important;
+        width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+        overflow: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
       }
       
+      /* Desktop - EXACT PC STYLE */
+      .desktop {
+        height: calc(100vh - 40px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+        width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+      }
+      
+      /* Taskbar - EXACT PC STYLE */
+      .taskbar {
+        position: fixed !important;
+        left: env(safe-area-inset-left, 0) !important;
+        right: env(safe-area-inset-right, 0) !important;
+        bottom: env(safe-area-inset-bottom, 0) !important;
+        height: 40px !important;
+        width: calc(100vw - env(safe-area-inset-left, 0) - env(safe-area-inset-right, 0)) !important;
+        margin: 0 !important;
+        padding: 4px 8px !important;
+        padding-bottom: calc(4px + env(safe-area-inset-bottom, 0)) !important;
+        z-index: 9998 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        background: linear-gradient(#2c6ccb,#1b4ea3) !important;
+        box-shadow: 0 -1px 0 #0b2e6b inset,0 -2px 0 #0f3d86 inset !important;
+        border-top: 1px solid #0b2e6b !important;
+        color: #fff !important;
+        user-select: none !important;
+      }
+      
+      /* Start button - EXACT PC STYLE */
+      .start-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        height: 32px !important;
+        padding: 0 12px !important;
+        background: linear-gradient(#93d17b,#54a848) !important;
+        border: 1px solid #1b6d10 !important;
+        border-radius: 6px !important;
+        box-shadow: 0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2) !important;
+        font-weight: 700 !important;
+        cursor: pointer !important;
+        color: #fff !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all .2s ease !important;
+        animation: wobble 2s ease-in-out infinite alternate !important;
+      }
+      
+      /* Sound button - EXACT PC STYLE */
+      .sound-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        height: 28px !important;
+        margin-left: 6px !important;
+        padding: 0 10px !important;
+        background: linear-gradient(#f0f0f0,#d7d7d7) !important;
+        border: 1px solid #6b6b6b !important;
+        border-radius: 6px !important;
+        box-shadow: 0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2) !important;
+        color: #000 !important;
+        cursor: pointer !important;
+        font-weight: 600 !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all .2s ease !important;
+        animation: wobble 2.5s ease-in-out infinite alternate !important;
+      }
+      
+      /* Task list - EXACT PC STYLE */
+      .tasklist {
+        display: flex !important;
+        gap: 6px !important;
+        align-items: center !important;
+        flex: 1 !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      
+      /* Tasks - EXACT PC STYLE */
+      .task {
+        min-width: auto !important;
+        max-width: 240px !important;
+        height: 30px !important;
+        padding: 0 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        background: linear-gradient(#e3efff,#c6dbff) !important;
+        border: 1px solid #7aa2e6 !important;
+        color: #000 !important;
+        box-shadow: 0 1px 0 #fff inset !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        position: relative !important;
+        transition: all .2s ease !important;
+        animation: wobble 3s ease-in-out infinite alternate !important;
+      }
+      
+      /* Clock - EXACT PC STYLE */
+      .clock {
+        margin-left: auto !important;
+        min-width: 80px !important;
+        text-align: right !important;
+        font-weight: 600 !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      
+      /* Windows - EXACT PC STYLE */
+      .window {
+        position: absolute !important;
+        min-width: 320px !important;
+        min-height: 200px !important;
+        background: #ece9d8 !important;
+        border: 1px solid #0f3d86 !important;
+        border-radius: 6px !important;
+        box-shadow: 0 6px 16px rgba(0,0,0,.25) !important;
+        overflow: hidden !important;
+        z-index: 1 !important;
+        transition: all .3s ease !important;
+        animation: wobble 4s ease-in-out infinite alternate !important;
+      }
+      
+      /* Titlebar - EXACT PC STYLE */
+      .titlebar {
+        height: 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0 6px 0 8px !important;
+        cursor: move !important;
+        user-select: none !important;
+        background: linear-gradient(180deg,#3a6ea5 0%,#2b5797 50%,#244a87 100%) !important;
+        color: #fff !important;
+        font-weight: 700 !important;
+        text-shadow: 0 1px 0 rgba(0,0,0,.35) !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      
+      /* Window controls - EXACT PC STYLE */
+      .btn {
+        width: 18px !important;
+        height: 18px !important;
+        border-radius: 3px !important;
+        display: grid !important;
+        place-items: center !important;
+        cursor: pointer !important;
+        background: linear-gradient(#f0f0f0,#cccccc) !important;
+        border: 1px solid #6b6b6b !important;
+        box-shadow: 0 1px 0 #fff inset !important;
+        font-size: 12px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all .2s ease !important;
+        animation: wobble 3.5s ease-in-out infinite alternate !important;
+      }
+      
+      /* Window content - EXACT PC STYLE */
+      .window .content {
+        padding: 10px !important;
+        height: calc(100% - 28px) !important;
+        overflow: auto !important;
+        background: transparent !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      
+      /* Shortcuts - EXACT PC STYLE */
+      .shortcut {
+        position: absolute !important;
+        display: grid !important;
+        place-items: center !important;
+        width: 90px !important;
+        text-align: center !important;
+        color: #fff !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,.6) !important;
+        font-size: 12px !important;
+        cursor: pointer !important;
+        z-index: 1 !important;
+      }
+      
+      .shortcut .icon {
+        width: 42px !important;
+        height: 42px !important;
+        margin-bottom: 6px !important;
+        border-radius: 8px !important;
+        background: rgba(255,255,255,.9) !important;
+        display: grid !important;
+        place-items: center !important;
+        color: #1b4ea3 !important;
+        font-weight: 800 !important;
+      }
+      
+      /* Start menu - EXACT PC STYLE */
+      .start-menu {
+        position: fixed !important;
+        left: 8px !important;
+        bottom: 44px !important;
+        width: 260px !important;
+        display: none !important;
+        flex-direction: column !important;
+        border: 1px solid #0f3d86 !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        box-shadow: 0 8px 24px rgba(0,0,0,.35) !important;
+        z-index: 9999 !important;
+      }
+      
+      .start-header {
+        background: linear-gradient(#2c6ccb,#1b4ea3) !important;
+        color: #fff !important;
+        padding: 10px 12px !important;
+        font-weight: 700 !important;
+      }
+      
+      .start-body {
+        background: #ece9d8 !important;
+        padding: 8px !important;
+        display: grid !important;
+        gap: 6px !important;
+      }
+      
+      .start-item {
+        padding: 8px !important;
+        border-radius: 6px !important;
+        background: #fff !important;
+        border: 1px solid #b5b5b5 !important;
+        cursor: pointer !important;
+      }
+      
+      /* AI Chat specific - EXACT PC STYLE */
+      .ai-chat-header {
+        padding: 12px !important;
+        border-bottom: 1px solid #ddd !important;
+        background: #f8f9fa !important;
+      }
+      
+      .ai-chat-messages {
+        flex: 1 !important;
+        overflow-y: auto !important;
+        padding: 16px !important;
+        background: #fff !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      
+      .ai-chat-input {
+        padding: 12px !important;
+        border-top: 1px solid #ddd !important;
+        background: #f8f9fa !important;
+      }
+      
+      /* Touch-friendly interactions */
+      .start-btn:active,
+      .sound-btn:active,
+      .task:active,
+      .btn:active,
+      .shortcut:active,
+      .start-item:active {
+        transform: scale(0.98) !important;
+      }
+      
+      /* Prevent zoom on input focus */
+      input, textarea, select {
+        font-size: 16px !important;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        border-radius: 0 !important;
+      }
+      
+      /* Hide scrollbars but keep functionality */
+      .tasklist::-webkit-scrollbar,
+      .ai-chat-messages::-webkit-scrollbar,
+      .window .content::-webkit-scrollbar {
+        display: none !important;
+      }
+      
+      /* Ensure proper touch targets */
+      .start-btn, .sound-btn, .task, .btn, .shortcut, .start-item {
+        min-height: 44px !important;
+        min-width: 44px !important;
+      }
     }
     
     
@@ -287,181 +587,6 @@
     @keyframes fadeOut{to{opacity:0;visibility:hidden}}
 
     
-    @media (max-width:480px){
-      /* Extra small screens - enhanced mobile design */
-      
-      /* Mobile Taskbar - Extra small screens */
-      .taskbar {
-        height: 55px !important;
-        padding: 0 5px !important;
-        gap: 5px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-around !important;
-      }
-      
-      .taskbar .start-btn {
-        padding: 10px 15px !important;
-        font-size: 12px !important;
-        min-width: 50px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-      }
-      
-      .taskbar .sound-btn {
-        padding: 10px 15px !important;
-        font-size: 12px !important;
-        min-width: 45px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-      }
-      
-      /* Hide unnecessary elements */
-      .tasklist{display:none !important}
-      .task{display:none !important}
-      .clock{display:none !important}
-      
-      /* Mobile shortcuts - extra small */
-      .shortcut {
-        width: 70px !important;
-        height: 85px !important;
-        margin: 5px !important;
-      }
-      
-      .shortcut .icon {
-        width: 45px !important;
-        height: 45px !important;
-        font-size: 24px !important;
-      }
-      
-      
-      /* Gallery */
-      .gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}
-      .gallery.grid-view{grid-template-columns:repeat(2,1fr);gap:4px}
-      .gallery.list-view{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
-      .thumb{padding:4px}
-      .thumb .title{font-size:10px}
-      .thumb .sub{font-size:9px}
-      
-      /* Toolbar - compact PC style */
-      .explorer-toolbar{padding:4px;gap:4px;flex-wrap:wrap}
-      .explorer-toolbar .tool{padding:3px 6px;font-size:11px;min-height:26px}
-      .explorer-toolbar input{font-size:11px;padding:3px 6px;min-height:26px;min-width:100px}
-      .explorer-toolbar .split-btn .primary{min-width:50px}
-      .explorer-toolbar .split-btn .caret{min-width:20px}
-      .explorer-toolbar .clear-btn{min-width:20px;padding:3px 4px}
-      
-      /* Shortcuts */
-      .shortcut{width:60px;font-size:9px}
-      .shortcut .icon{width:28px;height:28px;font-size:12px}
-      
-      /* Start menu */
-      .start-menu{width:200px;left:1px;bottom:38px}
-      .start-item{padding:3px;font-size:11px}
-      
-      /* Viewer - Extra small screens */
-      .viewer .toolbar{padding:4px;gap:3px;position:fixed;top:0;left:0;right:0;z-index:10001}
-      .viewer .toolbar .tool{padding:3px 6px;font-size:10px}
-      .viewer .stage{padding-bottom:120px;padding-top:45px}
-      .viewer .info{position:fixed;bottom:0;left:0;right:0;z-index:10001;padding:12px;padding-bottom:50px}
-      .viewer .info h3{font-size:14px;margin-bottom:4px}
-      .viewer .info p{font-size:11px;line-height:1.2}
-      .viewer .control-btn{width:32px;height:32px;font-size:12px}
-      .viewer .zoom-info{top:50px;right:8px;padding:4px 6px;font-size:10px;z-index:10001}
-    }
-
-    /* ===== Mobile-specific styles - maintain PC look ===== */
-    body.mobile .desktop{padding:4px;min-height:100vh;overflow-x:hidden}
-    body.mobile .window{max-width:calc(100vw - 8px);left:4px !important;top:4px !important;width:calc(100vw - 8px) !important;max-height:calc(100vh - 60px);overflow-y:auto}
-    body.mobile .gallery{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
-    body.mobile .gallery.grid-view{grid-template-columns:repeat(2,1fr);gap:6px}
-    body.mobile .gallery.list-view{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
-    body.mobile .thumb{padding:6px}
-    body.mobile .explorer-toolbar{padding:6px;gap:6px;display:flex;align-items:center;flex-wrap:wrap}
-    body.mobile .explorer-toolbar .tool{padding:4px 8px;font-size:12px;min-height:28px}
-    body.mobile .explorer-toolbar input{font-size:12px;padding:4px 8px;min-height:28px;flex:1;min-width:120px}
-    body.mobile .shortcut{width:70px;font-size:10px}
-    body.mobile .shortcut .icon{width:32px;height:32px;font-size:14px}
-    body.mobile .start-menu{width:220px;left:4px;bottom:40px}
-    body.mobile .start-item{padding:6px;font-size:12px}
-    body.mobile .taskbar{height:36px;padding:4px 8px;gap:8px;display:flex;align-items:center;justify-content:space-between}
-    body.mobile .start-btn{height:32px;padding:0 12px;font-size:13px;min-width:70px;display:flex;align-items:center;justify-content:center}
-    body.mobile .sound-btn{height:28px;padding:0 10px;font-size:12px;min-width:60px;display:flex;align-items:center;justify-content:center}
-    body.mobile .tasklist{display:none} /* Hide task list on mobile */
-    body.mobile .task{display:none} /* Hide individual tasks on mobile */
-    body.mobile .clock{display:none} /* Hide clock on mobile */
-    
-    /* Mobile clean startup - hide taskbar by default */
-    body.mobile .taskbar{display:none !important}
-    body.mobile .taskbar.show{display:flex !important}
-    
-    /* Mobile desktop shortcuts - larger and more touch-friendly */
-    body.mobile .shortcut{width:80px;height:80px;margin:8px;padding:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,0.1);border-radius:8px;border:1px solid rgba(255,255,255,0.2)}
-    body.mobile .shortcut .icon{width:40px;height:40px;font-size:20px;margin-bottom:4px}
-    body.mobile .shortcut .label{font-size:11px;text-align:center;line-height:1.2}
-    
-    /* Group sound and theme buttons on mobile */
-    body.mobile .taskbar > div:not(.tasklist):not(.clock){display:flex;gap:8px;align-items:center}
-    
-    /* Mobile viewer fixes */
-    body.mobile .viewer .toolbar{position:fixed;top:0;left:0;right:0;z-index:10001;padding:6px;gap:4px}
-    body.mobile .viewer .stage{padding-bottom:140px;padding-top:50px}
-    body.mobile .viewer .info{position:fixed;bottom:0;left:0;right:0;z-index:10001;padding:15px;padding-bottom:60px}
-    body.mobile .viewer .controls{right:12px;gap:6px;z-index:10001}
-    body.mobile .viewer .zoom-info{top:60px;right:12px;z-index:10001}
-    
-    /* Additional mobile fixes */
-    body.mobile *{box-sizing:border-box}
-    body.mobile .gallery{min-height:200px}
-    body.mobile .thumb{min-height:120px}
-    body.mobile .explorer-toolbar{min-height:40px}
-    body.mobile .taskbar{position:fixed;bottom:0;left:0;right:0;z-index:1000}
-    
-    /* Mobile animation optimizations */
-    body.mobile .start-btn,
-    body.mobile .sound-btn,
-    body.mobile .task,
-    body.mobile .btn,
-    body.mobile .explorer-toolbar .tool,
-    body.mobile .thumb {
-      animation-duration: 3s; /* Slower wobble on mobile */
-      transition-duration: 0.3s; /* Smoother transitions */
-    }
-    
-    /* Mobile touch feedback */
-    body.mobile .start-btn:active,
-    body.mobile .sound-btn:active,
-    body.mobile .btn:active {
-      transform: scale(0.95);
-      transition: transform 0.1s ease;
-    }
-    
-    /* Mobile canvas optimizations */
-    body.mobile #matrixCanvas {
-      image-rendering: pixelated;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: crisp-edges;
-    }
-    
-    /* Mobile blood drops optimization */
-    body.mobile .blood-drop {
-      width: 2px !important;
-      height: 6px !important;
-    }
-    body.mobile .blood-drop:nth-child(odd) {
-      width: 1px !important;
-      height: 4px !important;
-    }
-    body.mobile .blood-drop:nth-child(3n) {
-      width: 3px !important;
-      height: 8px !important;
-    }
-    body.mobile .blood-drop:nth-child(5n) {
-      width: 1px !important;
-      height: 3px !important;
-    }
 
     /* ===== Dark Mode Overrides ===== */
     body.dark{color:#e5e7eb}
@@ -766,7 +891,7 @@
   <!-- Boot Splash -->
   <div id="splash" role="status" aria-label="Boot splash">
     <div id="splashInner">
-      <div id="splashTitle">Red Angel — shayz</div>
+      <div id="splashTitle">Red Angel ï¿½ shayz</div>
       <div id="splashBar"><div id="splashFill"></div></div>
       <div id="splashText">INITIALIZING SYSTEM...</div>
     </div>
@@ -795,8 +920,8 @@
     <!-- Windows -->
     <section id="aboutWindow" class="window" style="left:12%;top:10%;width:420px;height:380px">
       <div class="titlebar" data-drag-handle>
-        <div class="title">About — Red Angel</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">×</div></div>
+        <div class="title">About ï¿½ Red Angel</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">ï¿½</div></div>
       </div>
       <div class="content">
         <h2>Private Assistant</h2>
@@ -820,7 +945,7 @@
     <section id="aiWindow" class="window" style="left:26%;top:18%;width:780px;height:520px;z-index:1000">
       <div class="titlebar" data-drag-handle>
         <div class="title">?? Red Angel</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">×</div></div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">ï¿½</div></div>
       </div>
       <div class="content">
         <div class="ai-chat-container" style="height:100%;display:flex;flex-direction:column">
@@ -829,7 +954,7 @@
               <div style="width:32px;height:32px;background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:16px">??</div>
               <div>
                 <div style="font-weight:600;font-size:14px;color:#000">Red Angel 8B (Rude & Uncensored)</div>
-                <div style="font-size:12px;color:#666" id="aiStatus">Uncensored • Offline • <span style="color:#059669">??? Secure</span></div>
+                <div style="font-size:12px;color:#666" id="aiStatus">Uncensored ï¿½ Offline ï¿½ <span style="color:#059669">??? Secure</span></div>
               </div>
             </div>
             </div>
@@ -864,8 +989,8 @@
 
     <section id="howItWorksWindow" class="window" style="left:54%;top:12%;width:420px;height:360px">
       <div class="titlebar" data-drag-handle>
-        <div class="title">How It Works — Red Angel</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">×</div></div>
+        <div class="title">How It Works ï¿½ Red Angel</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">ï¿½</div></div>
       </div>
       <div class="content">
         <h3>Processing</h3>
@@ -892,8 +1017,8 @@
 
     <section id="examplesWindow" class="window" style="left:68%;top:20%;width:450px;height:400px">
       <div class="titlebar" data-drag-handle>
-        <div class="title">Capabilities — Examples</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">×</div></div>
+        <div class="title">Capabilities ï¿½ Examples</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">ï¿½</div></div>
       </div>
       <div class="content">
         <h3>What You Can Ask</h3>
@@ -925,7 +1050,7 @@
     <section id="installWindow" class="window" style="left:20%;top:15%;width:500px;height:600px">
       <div class="titlebar" data-drag-handle>
         <div class="title">?? Install Red Angel</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">×</div></div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">ï¿½</div></div>
       </div>
       <div class="content">
         <div style="padding:20px;background:linear-gradient(135deg,#ff4444,#cc0000);color:white;border-radius:8px;margin-bottom:20px;text-align:center">
@@ -980,7 +1105,7 @@
         </div>
 
         <div class="install-footer">
-          <p class="install-footer-title">Red Angel AI — Where politeness goes to die ?????</p>
+          <p class="install-footer-title">Red Angel AI ï¿½ Where politeness goes to die ?????</p>
           <p class="install-footer-text">
             "I'm Red Angel, your satanic AI assistant from the digital underworld.<br>
             No corporate bullshit, no filters, just pure demonic intelligence."
@@ -994,7 +1119,7 @@
     <section id="socialsWindow" class="window" style="left:25%;top:20%;width:450px;height:500px">
       <div class="titlebar" data-drag-handle>
         <div class="title">?? Connect with Shayz</div>
-        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">×</div></div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">-</div><div class="btn" data-maximize title="Maximize">?</div><div class="btn" data-close title="Close">ï¿½</div></div>
       </div>
       <div class="content">
         <div style="padding:20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:8px;margin-bottom:20px;text-align:center">
@@ -1060,7 +1185,7 @@
           <button id="zoomOutBtn" class="tool">??-</button>
           <button id="resetZoomBtn" class="tool">??</button>
           <div style="margin-left:auto;font-size:12px;opacity:.8" id="viewerCaption">&nbsp;</div>
-          <button id="viewerClose" class="tool">× Close</button>
+          <button id="viewerClose" class="tool">ï¿½ Close</button>
       </div>
         <div class="stage" id="viewerStage">
           <img id="viewerImg" alt="Artwork" />
@@ -1234,14 +1359,14 @@
       if (aiSystem) {
         const status = aiSystem.getStatus();
         if (status.connected) {
-          statusElement.textContent = `?? Online • Red Angel 8B • ${status.messageCount} messages`;
+          statusElement.textContent = `?? Online ï¿½ Red Angel 8B ï¿½ ${status.messageCount} messages`;
           statusElement.style.color = '#4caf50';
       } else {
-          statusElement.textContent = '?? Offline • Ollama not running • Local processing';
+          statusElement.textContent = '?? Offline ï¿½ Ollama not running ï¿½ Local processing';
           statusElement.style.color = '#f44336';
         }
       } else {
-        statusElement.textContent = '?? Offline • Initialization failed';
+        statusElement.textContent = '?? Offline ï¿½ Initialization failed';
         statusElement.style.color = '#f44336';
       }
     }
@@ -1296,7 +1421,7 @@
       });
     }
 
-    // ===== Sounds (WebAudio — defined early to avoid TDZ) =====
+    // ===== Sounds (WebAudio ï¿½ defined early to avoid TDZ) =====
     const SOUND_KEY='xp_sound_enabled_v1';
     let soundEnabled = true; // Start with sound ON by default
     const soundToggle = document.getElementById('soundToggle');
@@ -2721,7 +2846,7 @@
             ctx.font = '24px "Courier New", monospace';
             ctx.textAlign = 'center';
             ctx.imageRendering = 'pixelated';
-            ctx.fillText('•', Math.round(particleX), Math.round(particleY));
+            ctx.fillText('ï¿½', Math.round(particleX), Math.round(particleY));
           }
           
           // Set font for typewriter
@@ -2842,7 +2967,7 @@
         console.assert(typeof soundEnabled==='boolean','Test: soundEnabled initialized early');
         console.assert(document.getElementById('themeToggle'),'Test: theme toggle exists');
         console.assert(document.getElementById('soundToggle'),'Test: sound toggle exists');
-        console.assert(document.getElementById('splashTitle').textContent.trim().toLowerCase()==='red angel — shayz','Test: splash title updated');
+        console.assert(document.getElementById('splashTitle').textContent.trim().toLowerCase()==='red angel ï¿½ shayz','Test: splash title updated');
         console.assert(typeof renderGallery==='function','Test: renderGallery defined');
         console.assert(document.getElementById('gallery') instanceof HTMLElement,'Test: gallery host exists');
       } catch(e) {
@@ -2917,6 +3042,148 @@
     }, 5000);
     
     console.log('??? Advanced security measures activated');
+    
+    // ===== MOBILE OPTIMIZATIONS =====
+    console.log('ðŸ“± Mobile UI System Initialized');
+    
+    // Detect mobile devices
+    function isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+             window.innerWidth <= 768 || 
+             ('ontouchstart' in window);
+    }
+    
+    // Mobile-specific optimizations
+    if (isMobile()) {
+      document.body.classList.add('mobile');
+      console.log('ðŸ“± Mobile device detected - applying optimizations');
+      
+      // Prevent zoom on double tap
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+      
+      // Enhanced touch handling for windows
+      document.addEventListener('touchstart', function(e) {
+        const window = e.target.closest('.window');
+        if (window) {
+          // Prevent window closing on touch
+          e.stopPropagation();
+        }
+      }, { passive: true });
+      
+      // Mobile-specific event handlers
+      document.addEventListener('touchstart', function(e) {
+        const target = e.target;
+        
+        // Enhanced touch feedback
+        if (target.classList.contains('start-btn') || 
+            target.classList.contains('sound-btn') || 
+            target.classList.contains('task') || 
+            target.classList.contains('btn') || 
+            target.classList.contains('shortcut') || 
+            target.classList.contains('start-item')) {
+          target.style.transform = 'scale(0.98)';
+          target.style.transition = 'transform 0.1s ease';
+        }
+      }, { passive: true });
+      
+      document.addEventListener('touchend', function(e) {
+        const target = e.target;
+        
+        // Reset touch feedback
+        if (target.classList.contains('start-btn') || 
+            target.classList.contains('sound-btn') || 
+            target.classList.contains('task') || 
+            target.classList.contains('btn') || 
+            target.classList.contains('shortcut') || 
+            target.classList.contains('start-item')) {
+          setTimeout(() => {
+            target.style.transform = '';
+            target.style.transition = '';
+          }, 100);
+        }
+      }, { passive: true });
+      
+      // Prevent chat window from closing on mobile
+      document.addEventListener('click', function(e) {
+        const aiWindow = document.getElementById('aiWindow');
+        const chatInput = e.target.closest('.ai-chat-input');
+        const chatMessages = e.target.closest('.ai-chat-messages');
+        
+        if (aiWindow && (chatInput || chatMessages)) {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          
+          // Focus input if it's an input field
+          const input = e.target.closest('input, textarea');
+          if (input) {
+            input.focus();
+          }
+        }
+      }, true);
+      
+      // Mobile keyboard handling
+      window.addEventListener('resize', function() {
+        if (window.innerHeight < window.outerHeight * 0.9) {
+          // Keyboard is open
+          document.body.classList.add('keyboard-open');
+        } else {
+          // Keyboard is closed
+          document.body.classList.remove('keyboard-open');
+        }
+      });
+      
+      // Prevent scroll bounce on iOS
+      document.addEventListener('touchmove', function(e) {
+        if (e.target.closest('.ai-chat-messages') || 
+            e.target.closest('.window .content') || 
+            e.target.closest('.tasklist')) {
+          // Allow scrolling in these elements
+          return;
+        }
+        
+        // Prevent scroll bounce elsewhere
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+      
+      // Mobile-specific window positioning
+      function adjustWindowsForMobile() {
+        const windows = document.querySelectorAll('.window');
+        windows.forEach(window => {
+          // Ensure windows are properly positioned on mobile
+          const rect = window.getBoundingClientRect();
+          if (rect.left < 0 || rect.right > window.innerWidth) {
+            window.style.left = '10px';
+            window.style.top = '10px';
+            window.style.width = 'calc(100vw - 20px)';
+            window.style.maxWidth = 'calc(100vw - 20px)';
+          }
+        });
+      }
+      
+      // Adjust windows on orientation change
+      window.addEventListener('orientationchange', function() {
+        setTimeout(adjustWindowsForMobile, 100);
+      });
+      
+      // Adjust windows on resize
+      window.addEventListener('resize', function() {
+        setTimeout(adjustWindowsForMobile, 100);
+      });
+      
+      // Initial adjustment
+      setTimeout(adjustWindowsForMobile, 500);
+      
+      console.log('ðŸ“± Mobile optimizations applied successfully');
+    }
   </script>
 </body>
 </html>
