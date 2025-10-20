@@ -694,8 +694,8 @@
     body.dark .window .content{background:#111827 !important;color:#e5e7eb !important}
     body.dark .window .content h2{color:#e5e7eb !important}
     body.dark .window .content h3{color:#e5e7eb !important}
-      body.dark .window .content p{color:#d1d5db !important}
-      body.dark .window .content strong{color:#e5e7eb !important}
+    body.dark .window .content p{color:#d1d5db !important}
+    body.dark .window .content strong{color:#e5e7eb !important}
 
       /* Install window responsive styles */
       .install-step{
@@ -797,7 +797,7 @@
         color:#666;
       }
 
-      /* ===== Reduced motion ===== */
+    /* ===== Reduced motion ===== */
     @media (prefers-reduced-motion: reduce){
       .desktop{transition:none}
       .skeleton{animation:none}
@@ -1753,7 +1753,7 @@
        if(aiWindow){ 
          aiWindow.style.display='block'; 
          focusWindow(aiWindow); 
-       }
+      } 
     }
 
     function focusWindow(win){ windows.forEach(w=>w.style.zIndex=Math.max(1,parseInt(w.style.zIndex)||1)); win.style.zIndex=++zStack.current; ensureTaskItem(win); }

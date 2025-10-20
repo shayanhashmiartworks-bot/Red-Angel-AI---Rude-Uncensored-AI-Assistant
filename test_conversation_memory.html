@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Red Angel Conversation Memory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .chat-container {
+            border: 1px solid #333;
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #2a2a2a;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background: #444;
+            margin-left: 20%;
+        }
+        .ai-message {
+            background: #666;
+            margin-right: 20%;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff6666;
+        }
+        .status {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #333;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>😈 Red Angel Conversation Memory Test</h1>
+    
+    <div class="status" id="status">
+        Status: Initializing...
+    </div>
+    
+    <div class="chat-container" id="chatContainer">
+        <div class="message ai-message">
+            <strong>Red Angel:</strong> Hello! I'm Red Angel. Test my memory by asking me questions and then referencing previous topics.
+        </div>
+    </div>
+    
+    <div class="input-container">
+        <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">Send</button>
+        <button onclick="clearHistory()">Clear History</button>
+    </div>
+
+    <script src="ai-backend.js"></script>
+    <script>
+        let aiSystem = null;
+        
+        // Initialize AI system
+        function initAI() {
+            try {
+                aiSystem = new AIBackend();
+                updateStatus('AI Backend initialized. Testing connection...');
+                
+                // Test connection
+                setTimeout(() => {
+                    const status = aiSystem.getStatus();
+                    if (status.connected) {
+                        updateStatus(`✅ Connected to ${status.model} | Messages: ${status.messageCount}`);
+                    } else {
+                        updateStatus('❌ Not connected to Ollama. Make sure it\'s running.');
+                    }
+                }, 1000);
+            } catch (error) {
+                updateStatus('❌ Error initializing AI: ' + error.message);
+            }
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = 'Status: ' + message;
+        }
+        
+        function addMessage(content, isUser = false) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
+            messageDiv.innerHTML = `<strong>${isUser ? 'You' : 'Red Angel'}:</strong> ${content}`;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessage(message, true);
+            input.value = '';
+            
+            if (!aiSystem) {
+                addMessage('AI system not initialized. Please refresh the page.');
+                return;
+            }
+            
+            // Show typing indicator
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message ai-message';
+            typingDiv.innerHTML = '<strong>Red Angel:</strong> <em>Thinking...</em>';
+            document.getElementById('chatContainer').appendChild(typingDiv);
+            
+            try {
+                const response = await aiSystem.generateResponse(message);
+                
+                // Remove typing indicator
+                document.getElementById('chatContainer').removeChild(typingDiv);
+                
+                // Add AI response
+                addMessage(response);
+                
+                // Update status with conversation length
+                const status = aiSystem.getStatus();
+                updateStatus(`✅ Connected to ${status.model} | Messages: ${status.messageCount}`);
+                
+            } catch (error) {
+                // Remove typing indicator
+                document.getElementById('chatContainer').removeChild(typingDiv);
+                addMessage('Error: ' + error.message);
+            }
+        }
+        
+        function clearHistory() {
+            if (aiSystem) {
+                aiSystem.clearHistory();
+                updateStatus('Conversation history cleared');
+            }
+            
+            // Clear chat display
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.innerHTML = '<div class="message ai-message"><strong>Red Angel:</strong> History cleared. What would you like to talk about?</div>';
+        }
+        
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        // Initialize when page loads
+        window.onload = initAI;
+    </script>
+</body>
+</html>

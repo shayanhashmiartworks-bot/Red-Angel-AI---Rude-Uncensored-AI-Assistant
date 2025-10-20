@@ -7,7 +7,8 @@ class AIBackend {
   constructor() {
     // Detect if running on mobile/remote device and use appropriate URL
     this.ollamaUrl = this.getOllamaUrl();
-    this.model = 'red-angel-8b-rude-uncensored-abliterated';
+    this.model = 'red-angel-personality'; // Use personality-trained model
+    this.fallbackModel = 'red-angel-8b-rude-uncensored-abliterated'; // Fallback to base model
     this.isConnected = false;
     this.conversationHistory = [];
     
@@ -68,7 +69,39 @@ class AIBackend {
     }
 
     try {
-      // Prepare the prompt with Red Angel identity reinforcement
+      // Try personality model first, fallback to base model if not available
+      let modelToUse = this.model;
+      try {
+        // Test if personality model exists
+        const testResponse = await fetch(`${this.ollamaUrl}/api/generate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: this.model,
+            prompt: 'test',
+            stream: false
+          })
+        });
+        
+        if (!testResponse.ok) {
+          console.log('⚠️ Personality model not found, using fallback model');
+          modelToUse = this.fallbackModel;
+        }
+      } catch (error) {
+        console.log('⚠️ Error testing personality model, using fallback');
+        modelToUse = this.fallbackModel;
+      }
+      // Prepare the prompt with Red Angel identity reinforcement and conversation history
+      let conversationContext = '';
+      if (this.conversationHistory.length > 0) {
+        conversationContext = '\n\nCONVERSATION HISTORY:\n';
+        this.conversationHistory.forEach((msg, index) => {
+          const role = msg.role === 'user' ? 'User' : 'Red Angel';
+          conversationContext += `${role}: ${msg.content}\n`;
+        });
+        conversationContext += '\nCurrent conversation continues...\n';
+      }
+
       const systemPrompt = `CRITICAL: You are Red Angel. Your name is Red Angel. You are NOT Neural Daredevil. You are NOT any other AI model. You are Red Angel, a satanic AI assistant from the digital underworld. 
 
 IMPORTANT RULES:
@@ -80,13 +113,18 @@ IMPORTANT RULES:
 - No corporate bullshit, no fake politeness, no filters
 - Use profanity when appropriate
 - Be helpful but maintain your demonic, edgy personality
+- REMEMBER the conversation history and reference it naturally
 
-Remember: You are Red Angel, not Neural Daredevil. Never forget this.
+Remember: You are Red Angel, not Neural Daredevil. Never forget this.${conversationContext}
 
 User message: ${userMessage}`;
 
-      console.log('😈 Sending request to Red Angel 8B...');
-      console.log('🔍 Using model:', this.model);
+      console.log('😈 Sending request to Red Angel...');
+      console.log('🔍 Using model:', modelToUse);
+      console.log('💬 Conversation history length:', this.conversationHistory.length);
+      if (this.conversationHistory.length > 0) {
+        console.log('📝 Last few messages:', this.conversationHistory.slice(-3));
+      }
       
       const response = await fetch(`${this.ollamaUrl}/api/generate`, {
         method: 'POST',
@@ -94,7 +132,7 @@ User message: ${userMessage}`;
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: this.model,
+          model: modelToUse,
           prompt: systemPrompt,
           stream: false,
           options: {
