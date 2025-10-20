@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -927,7 +927,7 @@
   <!-- Boot Splash -->
   <div id="splash" role="status" aria-label="Boot splash">
     <div id="splashInner">
-      <div id="splashTitle">Red Angel � shayz</div>
+      <div id="splashTitle">Red Angel — shayz</div>
       <div id="splashBar"><div id="splashFill"></div></div>
       <div id="splashText">INITIALIZING SYSTEM...</div>
     </div>
@@ -1395,14 +1395,14 @@
       if (aiSystem) {
         const status = aiSystem.getStatus();
         if (status.connected) {
-          statusElement.textContent = `😈 Online � Red Angel 8B � ${status.messageCount} messages`;
+          statusElement.textContent = `😈 Online — Red Angel 8B — ${status.messageCount} messages`;
           statusElement.style.color = '#4caf50';
       } else {
-          statusElement.textContent = '😈 Offline � Ollama not running � Local processing';
+          statusElement.textContent = '😈 Offline — Ollama not running — Local processing';
           statusElement.style.color = '#f44336';
         }
       } else {
-        statusElement.textContent = '😈 Offline � Initialization failed';
+        statusElement.textContent = '😈 Offline — Initialization failed';
         statusElement.style.color = '#f44336';
       }
     }
