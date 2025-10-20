@@ -7,8 +7,7 @@ class AIBackend {
   constructor() {
     // Detect if running on mobile/remote device and use appropriate URL
     this.ollamaUrl = this.getOllamaUrl();
-    this.model = 'red-angel-personality'; // Use personality-trained model
-    this.fallbackModel = 'red-angel-8b-rude-uncensored-abliterated'; // Fallback to base model
+    this.model = 'red-angel-8b-rude-uncensored-abliterated';
     this.isConnected = false;
     this.conversationHistory = [];
     
@@ -69,28 +68,6 @@ class AIBackend {
     }
 
     try {
-      // Try personality model first, fallback to base model if not available
-      let modelToUse = this.model;
-      try {
-        // Test if personality model exists
-        const testResponse = await fetch(`${this.ollamaUrl}/api/generate`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: this.model,
-            prompt: 'test',
-            stream: false
-          })
-        });
-        
-        if (!testResponse.ok) {
-          console.log('⚠️ Personality model not found, using fallback model');
-          modelToUse = this.fallbackModel;
-        }
-      } catch (error) {
-        console.log('⚠️ Error testing personality model, using fallback');
-        modelToUse = this.fallbackModel;
-      }
       // Prepare the prompt with Red Angel identity reinforcement and conversation history
       let conversationContext = '';
       if (this.conversationHistory.length > 0) {
@@ -120,7 +97,7 @@ Remember: You are Red Angel, not Neural Daredevil. Never forget this.${conversat
 User message: ${userMessage}`;
 
       console.log('😈 Sending request to Red Angel...');
-      console.log('🔍 Using model:', modelToUse);
+      console.log('🔍 Using model:', this.model);
       console.log('💬 Conversation history length:', this.conversationHistory.length);
       if (this.conversationHistory.length > 0) {
         console.log('📝 Last few messages:', this.conversationHistory.slice(-3));
@@ -132,7 +109,7 @@ User message: ${userMessage}`;
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: modelToUse,
+          model: this.model,
           prompt: systemPrompt,
           stream: false,
           options: {
