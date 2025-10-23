@@ -1,0 +1,119 @@
+================================================================================
+RED ANGEL DESKTOP - QUICK START
+================================================================================
+
+🚀 FASTEST WAY TO GET STARTED:
+
+1. Install Node.js from https://nodejs.org/ (if not already installed)
+
+2. IMPORTANT: Edit main.js and set your model URL on line 11:
+   const MODEL_URL = 'YOUR_HUGGING_FACE_MODEL_URL_HERE';
+
+3. Double-click start.bat (Windows) or run ./start.sh (Mac/Linux)
+
+4. Wait for dependencies to install and app to launch
+
+5. On first launch, the model will download automatically (~4.5GB)
+
+6. Start chatting!
+
+================================================================================
+
+📦 TO BUILD EXECUTABLE:
+
+npm install          # Install dependencies (first time only)
+npm run build        # Build for your current platform
+
+Built apps will be in the dist/ folder.
+
+================================================================================
+
+🎯 WHAT YOU GET:
+
+✅ Standalone desktop app
+✅ No terminal needed after build
+✅ Works 100% offline (after first model download)
+✅ Cross-platform (Windows, Mac, Linux)
+✅ One-click installation for end users
+✅ Professional installer with desktop shortcuts
+
+================================================================================
+
+📁 PROJECT STRUCTURE:
+
+main.js              → Electron app (handles model download & UI)
+preload.js           → Security bridge between Electron and web
+src/server.js        → Backend server (Express + llama.cpp)
+public/index.html    → Chat interface
+public/loading.html  → Loading/download screen
+package.json         → Dependencies & build config
+
+================================================================================
+
+⚙️ CUSTOMIZATION:
+
+• System Prompt: Edit src/server.js → SYSTEM_PROMPT
+• GPU Settings: Edit src/server.js → gpuLayers (0-33)
+• UI Theme: Edit public/index.html → <style> section
+• Model URL: Edit main.js → MODEL_URL
+• App Icon: Add icon files to build/ folder
+
+================================================================================
+
+🔧 COMMON COMMANDS:
+
+npm start            → Run in development mode
+npm run build        → Build for current platform
+npm run build:win    → Build Windows installer
+npm run build:mac    → Build macOS DMG
+npm run build:linux  → Build Linux AppImage
+npm run build:all    → Build for all platforms
+
+================================================================================
+
+❓ TROUBLESHOOTING:
+
+Problem: "Node.js not found"
+Solution: Install Node.js from https://nodejs.org/
+
+Problem: "Model download fails"
+Solution: Check MODEL_URL in main.js is correct
+
+Problem: "GPU not detected"
+Solution: Update NVIDIA drivers, install CUDA 11.8+
+
+Problem: Build fails
+Solution: Delete node_modules, run npm install again
+
+Problem: App won't start
+Solution: Check console (View → Toggle Developer Tools)
+
+================================================================================
+
+📖 FULL DOCUMENTATION:
+
+README.md    → User guide (for end users)
+SETUP.md     → Developer guide (for building/customizing)
+
+================================================================================
+
+🎉 THAT'S IT!
+
+Your users will just:
+1. Download the installer
+2. Double-click to install
+3. Launch Red Angel
+4. Chat immediately
+
+No Ollama, no Python, no terminal, no configuration needed!
+
+================================================================================
+
+Created by Shayz | Where politeness goes to hell 😈
+
+GitHub: https://github.com/shayzinasimulation
+Hugging Face: https://huggingface.co/shayzinasimulation
+X: https://x.com/shayzinasimulation
+
+================================================================================
+

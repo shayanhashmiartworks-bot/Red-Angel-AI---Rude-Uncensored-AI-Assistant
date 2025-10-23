@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+
+# Electron
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Model files (too large for git)
+models/
+*.gguf
+
+# Checkpoints
+red_angel_checkpoints/
+red_angel_consciousness_lora/
+red_angel_final/
+

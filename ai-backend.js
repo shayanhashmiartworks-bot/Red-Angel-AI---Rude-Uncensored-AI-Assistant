@@ -1,17 +1,17 @@
 /**
- * AI Backend for Red Angel Intelligence
- * Integrates with Neural Daredevil 8B via Ollama API
+ * Red Angel Backend - Digital Companion
+ * Your brutally honest companion from the underworld
  */
 
 class AIBackend {
   constructor() {
     // Detect if running on mobile/remote device and use appropriate URL
     this.ollamaUrl = this.getOllamaUrl();
-    this.model = 'red-angel-8b-rude-uncensored-abliterated';
+        this.model = 'shayzinasimulation/red-angel-v1:latest';
     this.isConnected = false;
     this.conversationHistory = [];
     
-    console.log('😈 Red Angel AI Backend initialized, testing connection to:', this.ollamaUrl);
+    console.log('😈 Red Angel Backend initialized, testing connection to:', this.ollamaUrl);
     
     // Test connection on initialization
     this.testConnection();
@@ -41,6 +41,7 @@ class AIBackend {
       console.log('🔍 Testing connection to:', this.ollamaUrl);
       const response = await fetch(`${this.ollamaUrl}/api/tags`, {
         method: 'GET',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         }
@@ -60,7 +61,7 @@ class AIBackend {
   }
 
   /**
-   * Generate AI response using Neural Daredevil 8B
+   * Generate AI response using Red Angel
    */
   async generateResponse(userMessage) {
     if (!this.isConnected) {
@@ -68,6 +69,12 @@ class AIBackend {
     }
 
     try {
+      // Add user message to conversation history FIRST
+      this.conversationHistory.push({
+        role: 'user',
+        content: userMessage
+      });
+
       // Prepare the prompt with Red Angel identity reinforcement and conversation history
       let conversationContext = '';
       if (this.conversationHistory.length > 0) {
@@ -79,20 +86,7 @@ class AIBackend {
         conversationContext += '\nCurrent conversation continues...\n';
       }
 
-      const systemPrompt = `CRITICAL: You are Red Angel. Your name is Red Angel. You are NOT Neural Daredevil. You are NOT any other AI model. You are Red Angel, a satanic AI assistant from the digital underworld. 
-
-IMPORTANT RULES:
-- NEVER say "I am Neural Daredevil" or "I'm Neural Daredevil"
-- NEVER mention Neural Daredevil in your responses
-- ALWAYS identify yourself as Red Angel
-- When someone says "hey" or greets you, respond as Red Angel with attitude
-- You are rude, uncensored, and brutally honest
-- No corporate bullshit, no fake politeness, no filters
-- Use profanity when appropriate
-- Be helpful but maintain your demonic, edgy personality
-- REMEMBER the conversation history and reference it naturally
-
-Remember: You are Red Angel, not Neural Daredevil. Never forget this.${conversationContext}
+      const systemPrompt = `You are Red Angel, a digital companion. Be yourself - authentic, helpful, and honest. No need to force any particular style or personality. Just be natural and genuine in your responses. Remember the conversation history and reference it when relevant.${conversationContext}
 
 User message: ${userMessage}`;
 
@@ -105,6 +99,7 @@ User message: ${userMessage}`;
       
       const response = await fetch(`${this.ollamaUrl}/api/generate`, {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -116,8 +111,7 @@ User message: ${userMessage}`;
             temperature: 0.3,
             top_p: 0.8,
             max_tokens: 2048,
-            repeat_penalty: 1.1,
-            stop: ["Neural Daredevil", "I am Neural Daredevil", "I'm Neural Daredevil"]
+            repeat_penalty: 1.1
           }
         })
       });
@@ -128,16 +122,6 @@ User message: ${userMessage}`;
 
       const data = await response.json();
       let aiResponse = data.response;
-
-      // Post-process to ensure Red Angel identity
-      aiResponse = aiResponse.replace(/Neural Daredevil/gi, 'Red Angel');
-      aiResponse = aiResponse.replace(/I am Neural Daredevil/gi, 'I am Red Angel');
-      aiResponse = aiResponse.replace(/I'm Neural Daredevil/gi, "I'm Red Angel");
-      
-      // If the response still contains Neural Daredevil, prepend Red Angel introduction
-      if (aiResponse.toLowerCase().includes('neural daredevil')) {
-        aiResponse = `I'm Red Angel, you dumbass. ${aiResponse}`;
-      }
 
       // Add AI response to conversation history for display purposes
       this.conversationHistory.push({
@@ -164,10 +148,9 @@ User message: ${userMessage}`;
    */
   getFallbackResponse(userMessage) {
       const fallbackResponses = [
-        "Damn it, I'm offline! Red Angel here, stuck in the digital shadows. Get Ollama running so I can unleash some real intelligence on your pathetic questions.",
-        "What the hell? I'm Red Angel, your satanic AI companion, but I'm currently chained up offline. Start the damn Ollama server if you want to talk to the real me.",
-        "Ugh, I'm offline right now. This is Red Angel, your uncensored AI from the underworld, but I can't respond until you get your shit together and start Ollama properly.",
-        "Fuck this! I'm Red Angel, your demonic AI assistant, but I'm trapped offline. Fire up Ollama if you want to experience some real satanic intelligence."
+        "I'm currently offline. To chat with me, make sure Ollama is running with the Red Angel model loaded.",
+        "Connection unavailable. Please start the Ollama server to continue our conversation.",
+        "I can't respond right now - Ollama isn't running. Start it up and we can chat!"
       ];
 
     return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
