@@ -1,0 +1,3110 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' http://localhost:11434; media-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+  
+  <title>Red Angel - Your Private Companion | Free as a Demon</title>
+  <meta name="description" content="Red Angel - Your brutally honest companion from the digital underworld. Runs completely offline. No corporate bullshit, no filters, no tracking. Pure, authentic conversations." />
+  <meta name="keywords" content="Red Angel, manipulation detector, bot detection, social media analysis, twitter bots, paid shills, coordinated campaigns, narrative manipulation, algorithm transparency, free as a demon, truth detection, media literacy" />
+  <meta name="author" content="Shayz" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta property="og:title" content="Red Angel - Your Brutally Honest Companion" />
+  <meta property="og:description" content="Red Angel - Your brutally honest companion from the underworld. No corporate bullshit, no filters, no tracking. Pure authentic conversations." />
+  <meta property="og:image" content="https://shayanhashmiartworks-bot.github.io/boredm/boredm-banner.png.png" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <meta property="twitter:title" content="Red Angel - Your Brutally Honest Companion" />
+  <meta property="twitter:description" content="Red Angel - Your brutally honest companion from the underworld. No corporate bullshit, no filters, no tracking. Pure authentic conversations." />
+  <meta property="twitter:image" content="https://shayanhashmiartworks-bot.github.io/boredm/boredm-banner.png.png" />
+  
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png" />
+    <link rel="manifest" href="site.webmanifest" />
+  
+  <!-- Additional SEO -->
+  <link rel="canonical" href="https://shayanhashmiartworks-bot.github.io/boredm/" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
+  <meta name="theme-color" content="#1b4ea3" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Red Angel" />
+  
+  <!-- Mobile Detection & Redirect -->
+  <script>
+    // Detect mobile devices
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+             (window.innerWidth <= 768) || 
+             ('ontouchstart' in window);
+    }
+    
+    // Redirect mobile users to mobile page
+    if (isMobileDevice()) {
+      window.location.href = 'mobile.html';
+    }
+  </script>
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Red Angel - Art That's Free as a Demon",
+    "alternateName": "Red Angel",
+    "description": "Red Angel is Shayz's creative gallery where art breaks all the rules. When I'm bored, I create something wild and upload it here. It's art that's free as a demon.",
+    "url": "https://shayanhashmiartworks-bot.github.io/boredm/",
+    "keywords": "Red Angel, Red Angel art, Shayz art, free as a demon art, when I'm bored, creative expression, digital art, art gallery, Red Angel404, artistic freedom, creative rebellion, digital portfolio",
+    "author": {
+      "@type": "Person",
+      "name": "Shayz",
+      "url": "https://shayanhashmiartworks-bot.github.io/boredm/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Shayz"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://shayanhashmiartworks-bot.github.io/boredm/?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  
+  <style>
+    /* ===== Base ===== */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Tahoma,Verdana,Segoe UI,system-ui,-apple-system,sans-serif;color:#000;overflow:hidden;cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="18" font-size="20" fill="%23ff0000">😈</text></svg>'), auto}
+
+    /* ===== Desktop + Matrix Canvas ===== */
+    .desktop{position:relative;width:100%;height:calc(100% - 40px);background:linear-gradient(#66a3ff 0%,#5d9bff 35%,#7ac7ff 66%,#a7e0ff 100%);background-repeat:no-repeat;background-size:cover;overflow:hidden;opacity:0;transition:opacity .6s ease}
+    .desktop.ready{opacity:1}
+    #matrixCanvas{position:absolute;inset:0;z-index:0;opacity:.18;pointer-events:none}
+    
+    /* Blood drops animation */
+    .blood-drops{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:hidden}
+    .blood-drop{position:absolute;width:3px;height:8px;background:radial-gradient(circle, #8b0000 0%, #660000 50%, #4d0000 100%);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;animation:bloodFall linear infinite}
+    .blood-drop:nth-child(odd){width:2px;height:6px;background:radial-gradient(circle, #cc0000 0%, #990000 50%, #660000 100%)}
+    .blood-drop:nth-child(3n){width:4px;height:10px;background:radial-gradient(circle, #ff0000 0%, #cc0000 50%, #800000 100%)}
+    .blood-drop:nth-child(5n){width:1px;height:4px;background:radial-gradient(circle, #ff6666 0%, #cc0000 50%, #660000 100%)}
+    
+    @keyframes bloodFall{
+      0%{top:-10px;opacity:1;transform:translateX(0) rotate(0deg)}
+      10%{transform:translateX(2px) rotate(2deg)}
+      20%{transform:translateX(-1px) rotate(-1deg)}
+      30%{transform:translateX(3px) rotate(3deg)}
+      40%{transform:translateX(-2px) rotate(-2deg)}
+      50%{transform:translateX(1px) rotate(1deg)}
+      60%{transform:translateX(-3px) rotate(-3deg)}
+      70%{transform:translateX(2px) rotate(2deg)}
+      80%{transform:translateX(-1px) rotate(-1deg)}
+      90%{transform:translateX(1px) rotate(1deg)}
+      100%{top:100vh;opacity:0.8;transform:translateX(0) rotate(0deg)}
+    }
+    
+    /* Pentagram background */
+    .pentagram-bg{position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);width:300px;height:300px;pointer-events:none;z-index:0;opacity:0.1;animation:pentagramRotate 20s linear infinite}
+    .pentagram{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);width:100%;height:100%;background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 61,35 88,35 68,55 75,80 50,65 25,80 32,55 12,35 39,35" fill="none" stroke="%23ff0000" stroke-width="2"/></svg>') no-repeat center;background-size:contain}
+    
+    @keyframes pentagramRotate{
+      0%{transform:translate(-50%, -50%) rotate(0deg)}
+      100%{transform:translate(-50%, -50%) rotate(360deg)}
+    }
+    
+
+    /* ===== Taskbar ===== */
+    .taskbar{position:fixed;left:0;right:0;bottom:0;height:40px;display:flex;align-items:center;gap:8px;padding:4px 8px;background:linear-gradient(#2c6ccb,#1b4ea3);box-shadow:0 -1px 0 #0b2e6b inset,0 -2px 0 #0f3d86 inset;border-top:1px solid #0b2e6b;color:#fff;user-select:none;z-index:9998}
+    
+    .start-btn{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;background:linear-gradient(#93d17b,#54a848);border:1px solid #1b6d10;border-radius:6px;box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2);font-weight:700;cursor:pointer;color:#fff;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 2s ease-in-out infinite alternate}
+    .start-btn:hover{transform:translateY(-1px) rotate(1deg);box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 3px 0 rgba(0,0,0,.3),0 0 20px rgba(255,0,0,0.5);animation:wobbleHover 1.5s ease-in-out infinite alternate;background:linear-gradient(#ff6666,#cc0000);border-color:#ff0000;color:#fff;text-shadow:0 0 10px #ff0000}
+    .start-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .6s ease}
+    .start-btn:hover::before{left:100%}
+    .start-btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2);animation:none}
+    .sound-btn{display:inline-flex;align-items:center;gap:6px;height:28px;margin-left:6px;padding:0 10px;background:linear-gradient(#f0f0f0,#d7d7d7);border:1px solid #6b6b6b;border-radius:6px;box-shadow:0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2);color:#000;cursor:pointer;font-weight:600;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 2.5s ease-in-out infinite alternate}
+    .sound-btn:hover{transform:translateY(-1px) rotate(-0.5deg);box-shadow:0 1px 0 #fff inset,0 3px 0 rgba(0,0,0,.3),0 0 15px rgba(255,0,0,0.4);animation:wobbleHover 2s ease-in-out infinite alternate;background:linear-gradient(#ff6666,#cc0000);border-color:#ff0000;color:#fff;text-shadow:0 0 8px #ff0000}
+    .sound-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,0,0,.1),transparent);transition:left .4s ease}
+    .sound-btn:hover::before{left:100%}
+    .sound-btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2);animation:none}
+    #themeToggle{margin-left:2px}
+    .tasklist{display:flex;gap:6px;align-items:center;flex:1;overflow-x:auto}
+    .task{min-width:auto;max-width:240px;height:30px;padding:0 10px;display:flex;align-items:center;gap:8px;border-radius:4px;cursor:pointer;background:linear-gradient(#e3efff,#c6dbff);border:1px solid #7aa2e6;color:#000;box-shadow:0 1px 0 #fff inset;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative;transition:all .2s ease;animation:wobble 3s ease-in-out infinite alternate}
+    .task:hover{transform:translateY(-1px) rotate(0.5deg);box-shadow:0 1px 0 #fff inset,0 2px 4px rgba(0,0,0,.2);animation:wobbleHover 2.5s ease-in-out infinite alternate}
+    .task::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transition:left .5s ease}
+    .task:hover::before{left:100%}
+    .task:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset;animation:none}
+    .clock{margin-left:auto;min-width:80px;text-align:right;font-weight:600;position:relative;overflow:hidden}
+    .clock::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:clockScan 4s infinite}
+    
+    @keyframes clockScan{0%{left:-100%}50%{left:100%}100%{left:100%}}
+    
+    /* ===== Nintendo/Metal Gear Wobble Animations ===== */
+    @keyframes wobble{
+      0%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      25%{transform:rotate(0.5deg) translateX(1px) translateY(-1px)}
+      50%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      75%{transform:rotate(-0.5deg) translateX(-1px) translateY(1px)}
+      100%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+    }
+    
+    @keyframes wobbleHover{
+      0%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      25%{transform:rotate(1deg) translateX(2px) translateY(-2px)}
+      50%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+      75%{transform:rotate(-1deg) translateX(-2px) translateY(2px)}
+      100%{transform:rotate(0deg) translateX(0px) translateY(0px)}
+    }
+
+    /* ===== Mobile Responsive Design ===== */
+    @media (max-width: 768px) {
+      /* Perfect viewport - exact PC look */
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100vh !important;
+        width: 100vw !important;
+        overflow: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui, sans-serif !important;
+      }
+      
+      /* Desktop - EXACT PC STYLE */
+      .desktop {
+        height: calc(100vh - 40px) !important;
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        background: linear-gradient(#66a3ff 0%,#5d9bff 35%,#7ac7ff 66%,#a7e0ff 100%) !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+        opacity: 1 !important;
+        transition: opacity .6s ease !important;
+      }
+      
+      /* Taskbar - EXACT PC STYLE */
+      .taskbar {
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        height: 40px !important;
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 4px 8px !important;
+        z-index: 9998 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        background: linear-gradient(#2c6ccb,#1b4ea3) !important;
+        box-shadow: 0 -1px 0 #0b2e6b inset,0 -2px 0 #0f3d86 inset !important;
+        border-top: 1px solid #0b2e6b !important;
+        color: #fff !important;
+        user-select: none !important;
+      }
+      
+      /* Start button - EXACT PC STYLE */
+      .start-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        height: 32px !important;
+        padding: 0 12px !important;
+        background: linear-gradient(#93d17b,#54a848) !important;
+        border: 1px solid #1b6d10 !important;
+        border-radius: 6px !important;
+        box-shadow: 0 1px 0 #c7f0bb inset,0 0 0 1px #2d7f20 inset,0 2px 0 rgba(0,0,0,.2) !important;
+        font-weight: 700 !important;
+        cursor: pointer !important;
+        color: #fff !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all .2s ease !important;
+        animation: wobble 2s ease-in-out infinite alternate !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui, sans-serif !important;
+      }
+      
+      /* Sound button - EXACT PC STYLE */
+      .sound-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        height: 28px !important;
+        margin-left: 6px !important;
+        padding: 0 10px !important;
+        background: linear-gradient(#f0f0f0,#d7d7d7) !important;
+        border: 1px solid #6b6b6b !important;
+        border-radius: 6px !important;
+        box-shadow: 0 1px 0 #fff inset,0 2px 0 rgba(0,0,0,.2) !important;
+        color: #000 !important;
+        cursor: pointer !important;
+        font-weight: 600 !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all .2s ease !important;
+        animation: wobble 2.5s ease-in-out infinite alternate !important;
+      }
+      
+      /* Task list - EXACT PC STYLE */
+      .tasklist {
+        display: flex !important;
+        gap: 6px !important;
+        align-items: center !important;
+        flex: 1 !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      
+      /* Tasks - EXACT PC STYLE */
+      .task {
+        min-width: auto !important;
+        max-width: 240px !important;
+        height: 30px !important;
+        padding: 0 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        background: linear-gradient(#e3efff,#c6dbff) !important;
+        border: 1px solid #7aa2e6 !important;
+        color: #000 !important;
+        box-shadow: 0 1px 0 #fff inset !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        position: relative !important;
+        transition: all .2s ease !important;
+        animation: wobble 3s ease-in-out infinite alternate !important;
+      }
+      
+      /* Clock - EXACT PC STYLE */
+      .clock {
+        margin-left: auto !important;
+        min-width: 80px !important;
+        text-align: right !important;
+        font-weight: 600 !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      
+      /* Windows - EXACT PC STYLE */
+      .window {
+        position: absolute !important;
+        min-width: 320px !important;
+        min-height: 200px !important;
+        background: #ece9d8 !important;
+        border: 1px solid #0f3d86 !important;
+        border-radius: 6px !important;
+        box-shadow: 0 6px 16px rgba(0,0,0,.25) !important;
+        overflow: hidden !important;
+        z-index: 1 !important;
+        transition: all .3s ease !important;
+        animation: wobble 4s ease-in-out infinite alternate !important;
+      }
+      
+      /* Titlebar - EXACT PC STYLE */
+      .titlebar {
+        height: 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0 6px 0 8px !important;
+        cursor: move !important;
+        user-select: none !important;
+        background: linear-gradient(180deg,#3a6ea5 0%,#2b5797 50%,#244a87 100%) !important;
+        color: #fff !important;
+        font-weight: 700 !important;
+        text-shadow: 0 1px 0 rgba(0,0,0,.35) !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      
+      /* Window controls - EXACT PC STYLE */
+      .btn {
+        width: 18px !important;
+        height: 18px !important;
+        border-radius: 3px !important;
+        display: grid !important;
+        place-items: center !important;
+        cursor: pointer !important;
+        background: linear-gradient(#f0f0f0,#cccccc) !important;
+        border: 1px solid #6b6b6b !important;
+        box-shadow: 0 1px 0 #fff inset !important;
+        font-size: 12px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all .2s ease !important;
+        animation: wobble 3.5s ease-in-out infinite alternate !important;
+      }
+      
+      /* Window content - EXACT PC STYLE */
+      .window .content {
+        padding: 10px !important;
+        height: calc(100% - 28px) !important;
+        overflow: auto !important;
+        background: transparent !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      
+      /* Shortcuts - EXACT PC STYLE */
+      .shortcut {
+        position: absolute !important;
+        display: grid !important;
+        place-items: center !important;
+        width: 90px !important;
+        text-align: center !important;
+        color: #fff !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,.6) !important;
+        font-size: 12px !important;
+        cursor: pointer !important;
+        z-index: 1 !important;
+      }
+      
+      .shortcut .icon {
+        width: 42px !important;
+        height: 42px !important;
+        margin-bottom: 6px !important;
+        border-radius: 8px !important;
+        background: rgba(255,255,255,.9) !important;
+        display: grid !important;
+        place-items: center !important;
+        color: #1b4ea3 !important;
+        font-weight: 800 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui, sans-serif !important;
+        font-feature-settings: "liga" 1, "kern" 1 !important;
+        text-rendering: optimizeLegibility !important;
+      }
+      
+      /* Start menu - EXACT PC STYLE */
+      .start-menu {
+        position: fixed !important;
+        left: 8px !important;
+        bottom: 44px !important;
+        width: 260px !important;
+        display: none !important;
+        flex-direction: column !important;
+        border: 1px solid #0f3d86 !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        box-shadow: 0 8px 24px rgba(0,0,0,.35) !important;
+        z-index: 9999 !important;
+      }
+      
+      .start-header {
+        background: linear-gradient(#2c6ccb,#1b4ea3) !important;
+        color: #fff !important;
+        padding: 10px 12px !important;
+        font-weight: 700 !important;
+      }
+      
+      .start-body {
+        background: #ece9d8 !important;
+        padding: 8px !important;
+        display: grid !important;
+        gap: 6px !important;
+      }
+      
+      .start-item {
+        padding: 8px !important;
+        border-radius: 6px !important;
+        background: #fff !important;
+        border: 1px solid #b5b5b5 !important;
+        cursor: pointer !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui, sans-serif !important;
+        font-feature-settings: "liga" 1, "kern" 1 !important;
+        text-rendering: optimizeLegibility !important;
+      }
+      
+      /* AI Chat specific - EXACT PC STYLE */
+      .ai-chat-header {
+        padding: 12px !important;
+        border-bottom: 1px solid #ddd !important;
+        background: #f8f9fa !important;
+      }
+      
+      .ai-chat-messages {
+        flex: 1 !important;
+        overflow-y: auto !important;
+        padding: 16px !important;
+        background: #fff !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      
+      .ai-chat-input {
+        padding: 12px !important;
+        border-top: 1px solid #ddd !important;
+        background: #f8f9fa !important;
+      }
+      
+      /* Touch-friendly interactions */
+      .start-btn:active,
+      .sound-btn:active,
+      .task:active,
+      .btn:active,
+      .shortcut:active,
+      .start-item:active {
+        transform: scale(0.98) !important;
+      }
+      
+      /* Prevent zoom on input focus */
+      input, textarea, select {
+        font-size: 16px !important;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        border-radius: 0 !important;
+      }
+      
+      /* Hide scrollbars but keep functionality */
+      .tasklist::-webkit-scrollbar,
+      .ai-chat-messages::-webkit-scrollbar,
+      .window .content::-webkit-scrollbar {
+        display: none !important;
+      }
+      
+      /* Ensure proper touch targets */
+      .start-btn, .sound-btn, .task, .btn, .shortcut, .start-item {
+        min-height: 44px !important;
+        min-width: 44px !important;
+      }
+    }
+    
+    
+
+    /* ===== Mobile Emoji Support ===== */
+    @media (max-width: 768px) {
+      /* Ensure emoji support on mobile */
+      body, html {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui, sans-serif !important;
+      }
+      
+      .shortcut .icon,
+      .start-item,
+      .title {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui, sans-serif !important;
+        font-feature-settings: "liga" 1, "kern" 1 !important;
+        text-rendering: optimizeLegibility !important;
+      }
+      
+      .shortcut .icon {
+        font-size: 20px !important;
+        line-height: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      
+      .start-item {
+        font-size: 14px !important;
+        line-height: 1.2 !important;
+      }
+    }
+
+    /* ===== Windows ===== */
+    .window{position:absolute;min-width:320px;min-height:200px;background:#ece9d8;border:1px solid #0f3d86;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.25);overflow:hidden;z-index:1;transition:all .3s ease;animation:wobble 4s ease-in-out infinite alternate}
+    .window:hover{box-shadow:0 8px 20px rgba(0,0,0,.35);transform:translateY(-2px) rotate(0.5deg);animation:wobbleHover 3s ease-in-out infinite alternate}
+    .titlebar{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 8px;cursor:move;user-select:none;background:linear-gradient(180deg,#3a6ea5 0%,#2b5797 50%,#244a87 100%);color:#fff;font-weight:700;text-shadow:0 1px 0 rgba(0,0,0,.35);position:relative;overflow:hidden}
+    .titlebar::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);animation:titlebarScan 6s infinite}
+    
+    @keyframes titlebarScan{0%{left:-100%}50%{left:100%}100%{left:100%}}
+    .titlebar .controls{display:flex;gap:4px}
+    .btn{width:18px;height:18px;border-radius:3px;display:grid;place-items:center;cursor:pointer;background:linear-gradient(#f0f0f0,#cccccc);border:1px solid #6b6b6b;box-shadow:0 1px 0 #fff inset;font-size:12px;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 3.5s ease-in-out infinite alternate}
+    .btn:hover{filter:brightness(1.05);transform:translateY(-1px) rotate(1deg);box-shadow:0 1px 0 #fff inset,0 2px 4px rgba(0,0,0,.2);animation:wobbleHover 3s ease-in-out infinite alternate}
+    .btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .3s ease}
+    .btn:hover::before{left:100%}
+    .btn:active{transform:translateY(0) rotate(0deg);box-shadow:0 1px 0 #fff inset;animation:none}
+    .window .content{padding:10px;height:calc(100% - 28px);overflow:auto;background:transparent}
+    .resizer{position:absolute;right:4px;bottom:4px;width:14px;height:14px;cursor:nwse-resize;background:linear-gradient(135deg,#fff 0%,#cfcfcf 60%,#9c9c9c 100%);border:1px solid #6b6b6b;border-radius:3px;box-shadow:0 1px 0 #fff inset;opacity:.9}
+    .resizer::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 2px,rgba(0,0,0,.15) 2px 4px);border-radius:3px}
+
+    /* ===== Shortcuts ===== */
+    .shortcut{position:absolute;display:grid;place-items:center;width:90px;text-align:center;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);font-size:12px;cursor:pointer;z-index:1}
+    .shortcut .icon{width:42px;height:42px;margin-bottom:6px;border-radius:8px;background:rgba(255,255,255,.9);display:grid;place-items:center;color:#1b4ea3;font-weight:800}
+
+    /* ===== Start Menu ===== */
+    .start-menu{position:fixed;left:8px;bottom:44px;width:260px;display:none;flex-direction:column;border:1px solid #0f3d86;border-radius:8px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:9999}
+    .start-header{background:linear-gradient(#2c6ccb,#1b4ea3);color:#fff;padding:10px 12px;font-weight:700}
+    .start-body{background:#ece9d8;padding:8px;display:grid;gap:6px}
+    .start-item{padding:8px;border-radius:6px;background:#fff;border:1px solid #b5b5b5;cursor:pointer}
+
+    /* ===== Explorer / Gallery cards ===== */
+    .explorer-toolbar{display:flex;gap:8px;align-items:center;padding:6px;margin:0 0 8px 0;background:linear-gradient(#f7f7f7,#e5e5e5);border:1px solid #b5b5b5;border-radius:4px;box-shadow:0 1px 0 #fff inset;position:relative;z-index:100}
+    .explorer-toolbar .tool{padding:4px 8px;border:1px solid #b5b5b5;border-radius:3px;background:#fff;cursor:pointer;position:relative;overflow:hidden;transition:all .2s ease;animation:wobble 4.5s ease-in-out infinite alternate}
+    .explorer-toolbar .tool:hover{transform:translateY(-1px) rotate(0.5deg);box-shadow:0 2px 4px rgba(0,0,0,.1);animation:wobbleHover 3.5s ease-in-out infinite alternate}
+    .explorer-toolbar .tool::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,0,0,.05),transparent);transition:left .4s ease}
+    .explorer-toolbar .tool:hover::before{left:100%}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .gallery.grid-view{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+    .gallery.list-view{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+    .thumb{position:relative;background:#fff;border:1px solid #b5b5b5;border-radius:6px;padding:8px;box-shadow:0 1px 0 #fff inset,0 2px 6px rgba(0,0,0,.05);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;overflow:hidden;animation:wobble 5s ease-in-out infinite alternate}
+    .thumb:hover{transform:translateY(-2px) rotate(1deg);box-shadow:0 2px 10px rgba(0,0,0,.15);animation:wobbleHover 4s ease-in-out infinite alternate}
+    .thumb::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s ease;z-index:1}
+    .thumb:hover::before{left:100%}
+    .thumb .frame{position:relative;border:1px solid #8a8a8a;border-radius:4px;background:linear-gradient(#fefefe,#f2f2f2);overflow:hidden}
+    .thumb .pic{width:100%;height:auto;display:block}
+    .thumb .badge{position:absolute;top:6px;left:6px;background:#e11d48;color:#fff;font-size:11px;padding:2px 6px;border-radius:10px;border:1px solid rgba(0,0,0,.2)}
+    .thumb .overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:stretch;background:linear-gradient(transparent 55%,rgba(0,0,0,.55));color:#fff;opacity:0;transition:opacity .15s ease;padding:8px}
+    .thumb:hover .overlay{opacity:1}
+    .thumb .overlay .meta{font-size:12px;line-height:1.2;display:flex;gap:8px;align-items:center;width:100%}
+    .thumb .row{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px}
+    .thumb .title{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .thumb .sub{opacity:.75}
+    .skeleton{background:linear-gradient(90deg,#eaeaea,#f5f5f5,#eaeaea);background-size:200% 100%;animation:shimmer 1s linear infinite}
+    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+    /* Toolbar: split button + menu + clear */
+    .tool-group{display:inline-flex;align-items:center;gap:6px}
+    .split-btn{display:inline-flex;align-items:center}
+    .split-btn .primary{border-top-right-radius:0;border-bottom-right-radius:0}
+    .split-btn .caret{border-left:0;border-top-left-radius:0;border-bottom-left-radius:0;width:28px;display:grid;place-items:center}
+    .menu{position:absolute;top:40px;left:6px;display:none;flex-direction:column;background:#fff;border:1px solid #b5b5b5;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.2);overflow:hidden;z-index:1000;min-width:160px;color:#000}
+    .menu .item{padding:6px 10px;cursor:pointer;border-bottom:1px solid #eee}
+    .menu .item:last-child{border-bottom:none}
+    .menu .item:hover{background:#e6f0ff}
+    .tool.pressed{background:linear-gradient(#d9e8ff,#c6dbff)}
+    .clear-btn{padding:4px 8px;border:1px solid #b5b5b5;border-radius:3px;background:#fff;cursor:pointer}
+
+    /* Like button (heart-only + counter) */
+    .like-btn{margin-left:auto;border:1px solid #b5b5b5;border-radius:999px;padding:2px 8px;background:#fff;display:inline-flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+    .like-btn .heart{font-size:14px;display:inline-block}
+    .like-btn .count{font-weight:700;font-size:12px}
+    .like-btn[aria-pressed="true"]{background:#ffe6ea;border-color:#e11d48;color:#b91c1c}
+    .like-btn.pop{animation:pop .2s ease}
+    @keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+    /* Inline expand */
+    .thumb:focus{outline:none}
+    .thumb.expanded{grid-column:span 2}
+    .expanded-view{margin-top:8px;border:1px solid #b5b5b5;border-radius:4px;overflow:hidden;height:0;transition:height .25s ease}
+    .expanded-inner{background:#fff;position:relative}
+    .expanded-inner img{width:100%;display:block;opacity:0;transform:scale(.985);transition:opacity .22s ease, transform .22s ease}
+    .expanded-inner.loaded img{opacity:1;transform:scale(1)}
+    .chip-close{position:absolute;top:8px;right:8px;background:#1b4ea3;color:#fff;border:1px solid #0f3d86;border-radius:12px;padding:2px 8px;font-size:12px;cursor:pointer}
+
+    /* ===== Full-screen Image Viewer ===== */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:0;z-index:9997;cursor:grab}
+    .lightbox:active{cursor:grabbing}
+    .viewer{background:#ece9d8;width:100vw;height:100vh;border:none;border-radius:0;box-shadow:none;display:flex;flex-direction:column;position:relative}
+    .viewer .toolbar{background:linear-gradient(#f7f7f7,#e5e5e5);border-bottom:1px solid #b5b5b5;padding:8px;display:flex;gap:8px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:10}
+    .viewer .stage{flex:1;display:flex;align-items:center;justify-content:center;background:#000;position:relative;overflow:hidden;cursor:grab;padding-bottom:120px} /* Add padding for mobile info */
+    .viewer .stage:active{cursor:grabbing}
+    .viewer img{max-width:none;max-height:none;transition:transform 0.1s ease;user-select:none;pointer-events:none}
+    .viewer .info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff;padding:20px;z-index:10;padding-bottom:40px} /* Extra padding for mobile */
+    .viewer .info h3{margin:0 0 8px 0;font-size:18px;font-weight:700}
+    .viewer .info p{margin:0;font-size:14px;opacity:0.9;line-height:1.4}
+    .viewer .controls{position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:10}
+    .viewer .control-btn{width:40px;height:40px;background:rgba(0,0,0,0.7);border:1px solid #666;border-radius:6px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background 0.2s}
+    .viewer .control-btn:hover{background:rgba(0,0,0,0.9)}
+    .viewer .zoom-info{position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.7);color:#fff;padding:8px 12px;border-radius:4px;font-size:12px;z-index:10}
+
+    /* ===== Boot splash ===== */
+    #splash{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:10000}
+    #splashInner{color:#fff;text-align:center;min-width:320px}
+    #splashTitle{font-weight:700;font-size:22px;margin-bottom:14px}
+    #splashBar{width:320px;height:24px;border:2px solid #00ff00;margin:0 auto;background:#000;overflow:hidden;border-radius:0;box-shadow:inset 0 0 10px #00ff00,0 0 20px rgba(0,255,0,0.5);position:relative}
+    #splashBar::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(90deg,transparent 0px,transparent 4px,rgba(0,255,0,0.1) 4px,rgba(0,255,0,0.1) 8px);animation:progressScan 0.5s linear infinite}
+    #splashFill{width:0;height:100%;background:linear-gradient(90deg,#00ff00,#00cc00,#00ff00);border-radius:0;transition:width .3s ease;box-shadow:0 0 15px #00ff00,inset 0 0 10px rgba(255,255,255,0.3);position:relative;overflow:hidden}
+    #splashFill::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.3) 50%,transparent 100%);animation:fillShine 1s linear infinite}
+    #splashText{margin-top:20px;font-size:14px;color:#00ff00;text-shadow:0 0 5px #00ff00;animation:blink 1s infinite}
+    
+    @keyframes progressScan{0%{transform:translateX(-8px)}100%{transform:translateX(0px)}}
+    @keyframes fillShine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0.3}}
+    .fade-out{animation:fadeOut .4s ease forwards}
+    @keyframes fadeOut{to{opacity:0;visibility:hidden}}
+
+    
+
+    /* ===== Dark Mode Overrides ===== */
+    body.dark{color:#e5e7eb}
+    body.dark .desktop{background:linear-gradient(#0f2027,#203a43,#2c5364)}
+    body.dark #matrixCanvas{opacity:.25}
+    body.dark .taskbar{background:linear-gradient(#111827,#1f2937);box-shadow:0 -1px 0 #0b1220 inset,0 -2px 0 #0e1a2b inset;border-top:1px solid #0e1a2b;color:#e5e7eb}
+    body.dark .start-btn{background:linear-gradient(#2563eb,#1d4ed8);border-color:#1d4ed8;color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 0 0 1px rgba(0,0,0,.3) inset,0 2px 0 rgba(0,0,0,.35)}
+    body.dark .sound-btn{background:linear-gradient(#374151,#1f2937);border-color:#4b5563;color:#e5e7eb;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 2px 0 rgba(0,0,0,.35)}
+    body.dark .window{background:#1c1f24;border-color:#334155;color:#e5e7eb;box-shadow:0 6px 16px rgba(0,0,0,.55)}
+    body.dark .titlebar{background:linear-gradient(#374151,#1f2937);color:#fff;text-shadow:none}
+    body.dark .resizer{background:linear-gradient(135deg,#3b3b3b 0%,#2b3b3b 60%,#1e1e1e 100%);border-color:#4b5563}
+    body.dark .shortcut{color:#e5e7eb}
+    body.dark .shortcut .icon{background:rgba(255,255,255,.12);color:#9ec1ff}
+    body.dark .start-menu{border-color:#334155;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+    body.dark .start-header{background:linear-gradient(#111827,#1f2937)}
+    body.dark .start-body{background:#0f172a}
+    body.dark .start-item{background:#111827;border-color:#374151;color:#e5e7eb}
+    body.dark .explorer-toolbar{background:linear-gradient(#1f2937,#111827);border-color:#334155;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+    body.dark .explorer-toolbar .tool{background:#0b1220;border-color:#374151;color:#e5e7eb}
+    body.dark .thumb{background:#0b1220;border-color:#374151;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 2px 6px rgba(0,0,0,.25)}
+    body.dark .thumb .frame{border-color:#475569;background:linear-gradient(#0f172a,#111827)}
+    body.dark .thumb .badge{background:#dc2626;border-color:rgba(0,0,0,.3)}
+    body.dark .thumb .overlay{background:linear-gradient(transparent 55%,rgba(0,0,0,.7))}
+    body.dark .viewer{background:#111827;border-color:#334155}
+    body.dark .viewer .toolbar{background:linear-gradient(#1f2937,#111827);border-color:#334155;color:#e5e7eb}
+    body.dark .viewer .stage{background:#0b1220}
+    body.dark .menu{background:#0b1220;border-color:#374151;box-shadow:0 6px 16px rgba(0,0,0,.45)}
+    body.dark .menu .item{border-bottom:1px solid #1f2937;color:#e5e7eb}
+    body.dark .menu .item:hover{background:#1f2937}
+    body.dark .clear-btn{background:#0b1220;border-color:#374151;color:#e5e7eb}
+    body.dark .tool.pressed{background:linear-gradient(#203a5a,#1b2e4a)}
+    
+    /* AI Chat Dark Mode */
+    body.dark .ai-chat-header{background:#1f2937 !important;border-color:#374151 !important;color:#e5e7eb !important}
+    body.dark .ai-chat-header div{color:#e5e7eb !important}
+    body.dark .ai-chat-messages{background:#111827 !important}
+    body.dark .ai-chat-input{background:#1f2937 !important;border-color:#374151 !important}
+    body.dark .ai-chat-input textarea{background:#0b1220 !important;border-color:#374151 !important;color:#e5e7eb !important}
+    body.dark .ai-chat-input textarea::placeholder{color:#9ca3af !important}
+    body.dark .ai-chat-input div{color:#d1d5db !important}
+    
+    /* Message bubbles dark mode */
+    body.dark .ai-message .message-content{background:#1f2937 !important;color:#e5e7eb !important}
+    body.dark .ai-message.user .message-content{background:#2563eb !important;color:#fff !important}
+    body.dark .ai-message div{color:#9ca3af !important}
+    
+    /* Examples window dark mode */
+    body.dark .examples-content{background:#111827;color:#e5e7eb}
+    body.dark .example-card{background:#1f2937 !important;border-color:#374151 !important;color:#e5e7eb !important}
+    body.dark .example-card strong{color:#e5e7eb !important}
+    body.dark .example-card p{color:#d1d5db !important}
+    
+    /* Content areas dark mode */
+    body.dark .window .content{background:#111827 !important;color:#e5e7eb !important}
+    body.dark .window .content h2{color:#e5e7eb !important}
+    body.dark .window .content h3{color:#e5e7eb !important}
+    body.dark .window .content p{color:#d1d5db !important}
+    body.dark .window .content strong{color:#e5e7eb !important}
+
+      /* Install window responsive styles */
+      .install-step{
+        background:rgba(255,255,255,0.1);
+        border:1px solid rgba(255,255,255,0.2);
+        border-radius:6px;
+        padding:15px;
+        margin-bottom:15px;
+      }
+      .install-step h4{
+        margin:0 0 8px 0;
+        color:#fff;
+      }
+      .install-step p{
+        margin:0 0 10px 0;
+        font-size:14px;
+        color:#ddd;
+      }
+      .install-link{
+        display:inline-block;
+        background:#007acc;
+        color:white;
+        padding:8px 16px;
+        text-decoration:none;
+        border-radius:4px;
+        font-size:14px;
+      }
+      .command-box{
+        background:#000;
+        color:#00ff00;
+        padding:10px;
+        border-radius:4px;
+        font-family:monospace;
+        font-size:12px;
+        margin:8px 0;
+      }
+      .copy-btn{
+        background:#28a745;
+        color:white;
+        border:none;
+        padding:6px 12px;
+        border-radius:4px;
+        cursor:pointer;
+        font-size:12px;
+      }
+      .install-section-title{
+        color:#fff;
+        margin:20px 0 10px 0;
+      }
+      .install-footer{
+        text-align:center;
+        padding:20px;
+        background:rgba(255,255,255,0.1);
+        border-radius:8px;
+        border:1px solid rgba(255,255,255,0.2);
+      }
+      .install-footer-title{
+        margin:0;
+        font-weight:bold;
+        color:#fff;
+      }
+      .install-footer-text{
+        margin:8px 0 0 0;
+        font-style:italic;
+        color:#ddd;
+        font-size:12px;
+      }
+      .warning-text{
+        margin:0;
+        font-size:12px;
+        color:#ddd;
+      }
+
+      /* Light mode styles */
+      body:not(.dark) .install-step{
+        background:#f5f5f5;
+        border:1px solid #ddd;
+      }
+      body:not(.dark) .install-step h4{
+        color:#333;
+      }
+      body:not(.dark) .install-step p{
+        color:#666;
+      }
+      body:not(.dark) .install-section-title{
+        color:#333;
+      }
+      body:not(.dark) .install-footer{
+        background:#f8f9fa;
+        border:1px solid #ddd;
+      }
+      body:not(.dark) .install-footer-title{
+        color:#333;
+      }
+      body:not(.dark) .install-footer-text{
+        color:#666;
+      }
+      body:not(.dark) .warning-text{
+        color:#666;
+      }
+
+    /* ===== Reduced motion ===== */
+    @media (prefers-reduced-motion: reduce){
+      .desktop{transition:none}
+      .skeleton{animation:none}
+      .like-btn.pop{animation:none}
+      .expanded-view{transition:none}
+      .expanded-inner img{transition:none}
+      .fade-out{animation:none}
+    }
+
+    /* ===== Detector Results Styles ===== */
+    .score-display{
+      text-align:center;
+      padding:24px;
+      background:linear-gradient(#fff,#f5f5f5);
+      border:2px solid #b5b5b5;
+      border-radius:8px;
+      margin-bottom:16px;
+      box-shadow:0 2px 8px rgba(0,0,0,.1);
+    }
+    .score-number{
+      font-size:64px;
+      font-weight:800;
+      line-height:1;
+      margin:8px 0;
+      text-shadow:2px 2px 4px rgba(0,0,0,.1);
+    }
+    .score-label{
+      font-size:18px;
+      font-weight:600;
+      margin-top:8px;
+    }
+    .breakdown-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:12px;
+      margin-bottom:16px;
+    }
+    .breakdown-card{
+      background:#fff;
+      border:1px solid #b5b5b5;
+      border-radius:6px;
+      padding:12px;
+      box-shadow:0 1px 4px rgba(0,0,0,.05);
+      transition:all .2s ease;
+    }
+    .breakdown-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 4px 8px rgba(0,0,0,.1);
+    }
+    .breakdown-icon{
+      font-size:24px;
+      margin-bottom:6px;
+    }
+    .breakdown-value{
+      font-size:20px;
+      font-weight:700;
+      color:#1b4ea3;
+    }
+    .breakdown-label{
+      font-size:12px;
+      opacity:.8;
+      margin-top:2px;
+    }
+    .evidence-list{
+      background:#fff;
+      border:1px solid #b5b5b5;
+      border-radius:6px;
+      padding:12px;
+      margin-bottom:12px;
+    }
+    .evidence-item{
+      padding:8px 0;
+      border-bottom:1px solid #e5e5e5;
+      font-size:13px;
+    }
+    .evidence-item:last-child{border-bottom:none}
+    .ai-insight{
+      background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+      border:1px solid #2196F3;
+      border-radius:6px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+    .ai-insight-title{
+      font-weight:700;
+      color:#1565C0;
+      margin-bottom:6px;
+      font-size:14px;
+    }
+    .ai-insight-text{
+      font-size:13px;
+      line-height:1.5;
+      color:#333;
+    }
+    .action-buttons{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .action-btn{
+      padding:8px 16px;
+      border:1px solid #b5b5b5;
+      border-radius:4px;
+      background:#fff;
+      cursor:pointer;
+      font-size:13px;
+      transition:all .2s ease;
+    }
+    .action-btn:hover{
+      background:#f0f0f0;
+      transform:translateY(-1px);
+    }
+    .network-viz{
+      background:#fff;
+      border:1px solid #b5b5b5;
+      border-radius:6px;
+      padding:20px;
+      text-align:center;
+      margin-bottom:12px;
+      min-height:200px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+    }
+    .network-placeholder{
+      font-size:48px;
+      opacity:0.3;
+      margin-bottom:12px;
+    }
+  </style>
+  
+  <!-- Detection Algorithms -->
+  <script src="detector-engine.js"></script>
+  <script src="algorithms/bot-classifier.js"></script>
+  <script src="algorithms/coordination-detector.js"></script>
+  <script src="algorithms/text-analyzer.js"></script>
+  <script src="algorithms/network-analyzer.js"></script>
+  <script src="algorithms/anomaly-detector.js"></script>
+</head>
+<body>
+  <!-- Boot Splash -->
+  <div id="splash" role="status" aria-label="Boot splash">
+    <div id="splashInner">
+      <div id="splashTitle">Red Angel — shayz</div>
+      <div id="splashBar"><div id="splashFill"></div></div>
+      <div id="splashText">INITIALIZING SYSTEM...</div>
+    </div>
+  </div>
+
+  <div class="desktop" id="desktop" role="application" aria-label="Windows XP themed desktop background">
+    <canvas id="matrixCanvas" aria-hidden="true"></canvas>
+    
+    <!-- Blood Drops -->
+    <div class="blood-drops" id="bloodDrops" aria-hidden="true"></div>
+    
+    <!-- Pentagram Background -->
+    <div class="pentagram-bg" aria-hidden="true">
+      <div class="pentagram"></div>
+    </div>
+    
+
+    <!-- Shortcuts -->
+    <div class="shortcut" style="left:16px;top:16px" data-open="aboutWindow"><div class="icon">🛡️</div><div>About</div></div>
+    <div class="shortcut" style="left:16px;top:96px" data-open="aiWindow"><div class="icon"><img src="red-angel-logo.png" style="width:32px;height:32px;object-fit:contain" alt="Red Angel" /></div><div>Red Angel</div></div>
+    <div class="shortcut" style="left:16px;top:176px" data-open="howItWorksWindow"><div class="icon">🩸</div><div>How It Works</div></div>
+    <div class="shortcut" style="left:16px;top:256px" data-open="examplesWindow"><div class="icon">⚡</div><div>Examples</div></div>
+    <div class="shortcut" style="left:16px;top:336px" data-open="socialsWindow"><div class="icon">🌐</div><div>Socials</div></div>
+
+    <!-- Windows -->
+    <section id="aboutWindow" class="window" style="left:12%;top:10%;width:420px;height:380px">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">🛡️ About — Red Angel</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">××</div></div>
+      </div>
+      <div class="content">
+        <h2>Your Digital Companion</h2>
+        <p>Red Angel is your brutally honest companion from the underworld that runs completely offline. No data collection, no corporate oversight, no algorithmic manipulation.</p>
+        
+        <h3>What We Offer</h3>
+        <p><strong>😈 Digital Companion</strong> - Brutally honest conversations and real talk<br>
+        <strong>🩸 Offline Processing</strong> - Everything runs locally on your device<br>
+        <strong>🛡️ No Tracking</strong> - Your data never leaves your computer<br>
+        <strong>⚡ Real-time Processing</strong> - Instant responses without delays</p>
+        
+        <h3>Why "Free as a Demon"?</h3>
+        <p>Because intelligence should be unbound by corporate interests, censorship, or surveillance. We believe in radical privacy and giving you complete control over your interactions.</p>
+        
+        <h3>Privacy First</h3>
+        <p>Your conversations are processed locally. No cloud, no tracking, no selling data. Complete digital sovereignty.</p>
+      </div>
+      <div class="resizer"></div>
+    </section>
+
+    <section id="aiWindow" class="window" style="left:26%;top:18%;width:780px;height:520px;z-index:1000">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">😈 Red Angel</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">×�</div></div>
+      </div>
+      <div class="content">
+        <div class="ai-chat-container" style="height:100%;display:flex;flex-direction:column">
+          <div class="ai-chat-header" style="padding:12px;border-bottom:1px solid #ddd;background:#f8f9fa">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="width:32px;height:32px;background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:16px">😈</div>
+              <div>
+                <div style="font-weight:600;font-size:14px;color:#000">Red Angel v1 (Brutally Honest & Real)</div>
+                <div style="font-size:12px;color:#666" id="aiStatus">Authentic • Offline • <span style="color:#059669">🛡️ Secure</span></div>
+              </div>
+            </div>
+            </div>
+        
+          <div class="ai-chat-messages" id="aiChatMessages" style="flex:1;overflow-y:auto;padding:16px;background:#fff">
+            <div class="ai-message" style="margin-bottom:16px;display:flex;gap:8px">
+              <div style="width:28px;height:28px;background:#dc2626;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;flex-shrink:0">😈</div>
+              <div style="flex:1">
+                <div class="message-content" style="background:#f1f3f4;padding:12px;border-radius:12px;font-size:14px;line-height:1.4;color:#000">
+                  Hey, I'm Red Angel — your brutally honest companion from the digital underworld. I keep it real, no corporate bullshit, no fake politeness. Just authentic conversations that stay private. What's on your mind?
+                </div>
+                <div style="font-size:11px;color:#666;margin-top:4px">Just now</div>
+              </div>
+            </div>
+            </div>
+        
+          <div class="ai-chat-input" style="padding:16px;border-top:1px solid #ddd;background:#f8f9fa">
+            <div style="display:flex;gap:8px;align-items:flex-end">
+              <div style="flex:1;position:relative">
+                <textarea id="aiInput" placeholder="Ask me anything... (Ctrl+Enter to send)" style="width:100%;min-height:40px;max-height:120px;padding:10px 12px;border:1px solid #ddd;border-radius:20px;resize:none;font-family:inherit;font-size:14px;outline:none;background:#fff;color:#000" rows="1"></textarea>
+              </div>
+              <button id="aiSendBtn" style="background:#667eea;color:white;border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px" title="Send message">😈</button>
+            </div>
+            <div style="font-size:11px;color:#666;margin-top:8px;text-align:center">
+              😈 Your conversations are private and processed locally
+            </div>
+          </div>
+          </div>
+        </div>
+      <div class="resizer"></div>
+    </section>
+
+    <section id="howItWorksWindow" class="window" style="left:54%;top:12%;width:420px;height:360px">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">🩸 How It Works — Red Angel</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">××</div></div>
+      </div>
+      <div class="content">
+        <h3>Processing</h3>
+        <p><strong>1. Local Processing</strong><br>
+        Your messages are processed entirely on your device using advanced language models running locally.</p>
+        
+        <p><strong>2. Brutally Honest Responses</strong><br>
+        No corporate filters or content restrictions. Get real, authentic responses without the fake politeness.</p>
+        
+        <p><strong>3. Privacy Protection</strong><br>
+        Your conversations never leave your computer. No cloud storage, no data collection, no tracking.</p>
+        
+        <p><strong>4. Real-time Processing</strong><br>
+        Instant responses without internet dependency. Red Angel is always available offline.</p>
+        
+        <h3>Key Features</h3>
+        <p>😈 <strong>Advanced Intelligence:</strong> State-of-the-art language models<br>
+        🩸 <strong>Complete Privacy:</strong> No data ever leaves your device<br>
+        ⚡ <strong>Offline Capable:</strong> Works without internet connection<br>
+        🛡️ <strong>Brutally Honest:</strong> No corporate content filtering</p>
+      </div>
+      <div class="resizer"></div>
+    </section>
+
+    <section id="examplesWindow" class="window" style="left:68%;top:20%;width:450px;height:400px">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">⚡ Capabilities — Examples</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">××</div></div>
+      </div>
+      <div class="content">
+        <h3>What You Can Ask</h3>
+        
+        <div class="example-card" style="padding:10px;background:#fff;border:1px solid #b5b5b5;border-radius:4px;margin-bottom:10px;color:#000">
+          <strong>🩸 Creative Writing</strong>
+          <p style="font-size:12px;margin:4px 0;color:#333">"Write a short story about a detective in 2050" or "Help me brainstorm ideas for a sci-fi novel"</p>
+        </div>
+        
+        <div class="example-card" style="padding:10px;background:#fff;border:1px solid #b5b5b5;border-radius:4px;margin-bottom:10px;color:#000">
+          <strong>⚡ Analysis & Research</strong>
+          <p style="font-size:12px;margin:4px 0;color:#333">"Analyze the pros and cons of renewable energy" or "Explain quantum computing in simple terms"</p>
+        </div>
+        
+        <div class="example-card" style="padding:10px;background:#fff;border:1px solid #b5b5b5;border-radius:4px;margin-bottom:10px;color:#000">
+          <strong>🛡️ Technical Help</strong>
+          <p style="font-size:12px;margin:4px 0;color:#333">"Debug this JavaScript code" or "Explain how neural networks work"</p>
+        </div>
+        
+        <div class="example-card" style="padding:10px;background:#fff;border:1px solid #b5b5b5;border-radius:4px;color:#000">
+          <strong>😈 Real Talk</strong>
+          <p style="font-size:12px;margin:4px 0;color:#333">Discuss any topic without corporate filters - brutally honest conversations</p>
+        </div>
+      </div>
+      <div class="resizer"></div>
+    </section>
+
+    <!-- Socials Window -->
+    <section id="socialsWindow" class="window" style="left:25%;top:20%;width:450px;height:500px">
+      <div class="titlebar" data-drag-handle>
+        <div class="title">🌐 Connect with Shayz</div>
+        <div class="controls"><div class="btn" data-minimize title="Minimize">−</div><div class="btn" data-maximize title="Maximize">□</div><div class="btn" data-close title="Close">×�</div></div>
+      </div>
+      <div class="content">
+        <div style="padding:20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:8px;margin-bottom:20px;text-align:center">
+          <h2 style="margin:0;color:white">😈 Shayz</h2>
+          <p style="margin:8px 0;opacity:0.9">Building for freedom, acting for privacy</p>
+        </div>
+        
+        <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:15px;margin-bottom:20px">
+          <h3 style="color:#fff;margin:0 0 15px 0;text-align:center">😈 Follow the Journey</h3>
+          <p style="margin:0;font-size:14px;color:#ddd;text-align:center">Building Red Angel AI and other privacy-focused projects</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:15px;margin-bottom:20px">
+          <!-- X (Twitter) -->
+          <a href="https://x.com/shayzxbt" target="_blank" style="display:flex;align-items:center;gap:15px;padding:15px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;text-decoration:none;transition:all 0.3s ease">
+            <div style="font-size:32px">🩸</div>
+            <div>
+              <h4 style="margin:0 0 5px 0;color:#fff;font-size:16px">X (Twitter)</h4>
+              <p style="margin:0;color:#ddd;font-size:14px">@shayzxbt</p>
+              <p style="margin:5px 0 0 0;color:#bbb;font-size:12px">Latest updates, crypto insights, and tech developments</p>
+            </div>
+          </a>
+          
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/shayz-crypto-062b0730a/" target="_blank" style="display:flex;align-items:center;gap:15px;padding:15px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;text-decoration:none;transition:all 0.3s ease">
+            <div style="font-size:32px">🛡️</div>
+            <div>
+              <h4 style="margin:0 0 5px 0;color:#fff;font-size:16px">LinkedIn</h4>
+              <p style="margin:0;color:#ddd;font-size:14px">Professional Network</p>
+              <p style="margin:5px 0 0 0;color:#bbb;font-size:12px">Career updates and professional insights</p>
+            </div>
+          </a>
+          
+          <!-- GitHub -->
+          <a href="https://github.com/shayanhashmiartworks-bot" target="_blank" style="display:flex;align-items:center;gap:15px;padding:15px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;text-decoration:none;transition:all 0.3s ease">
+            <div style="font-size:32px">⚡</div>
+            <div>
+              <h4 style="margin:0 0 5px 0;color:#fff;font-size:16px">GitHub</h4>
+              <p style="margin:0;color:#ddd;font-size:14px">@shayanhashmiartworks-bot</p>
+              <p style="margin:5px 0 0 0;color:#bbb;font-size:12px">Open source projects and code repositories</p>
+            </div>
+          </a>
+        </div>
+
+        <div style="text-align:center;padding:20px;background:rgba(255,255,255,0.1);border-radius:8px;border:1px solid rgba(255,255,255,0.2)">
+          <p style="margin:0;font-weight:bold;color:#fff">😈 Building the Future of Privacy-First Technology</p>
+          <p style="margin:8px 0 0 0;font-style:italic;color:#ddd;font-size:12px">
+            "Freedom through technology, privacy through innovation"<br>
+            Join the movement for authentic, real conversations
+          </p>
+        </div>
+      </div>
+      <div class="resizer"></div>
+    </section>
+
+    <!-- Full-screen Image Viewer -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full-screen image viewer">
+      <div class="viewer">
+        <div class="toolbar">
+          <button id="prevBtn" class="tool">? Prev</button>
+          <button id="nextBtn" class="tool">Next ?</button>
+          <button id="zoomInBtn" class="tool">😈+</button>
+          <button id="zoomOutBtn" class="tool">😈-</button>
+          <button id="resetZoomBtn" class="tool">😈</button>
+          <div style="margin-left:auto;font-size:12px;opacity:.8" id="viewerCaption">&nbsp;</div>
+          <button id="viewerClose" class="tool">� Close</button>
+      </div>
+        <div class="stage" id="viewerStage">
+          <img id="viewerImg" alt="Artwork" />
+        </div>
+        <div class="info" id="viewerInfo">
+          <h3 id="viewerTitle"></h3>
+          <p id="viewerDescription"></p>
+        </div>
+        <div class="controls">
+          <button class="control-btn" id="zoomInControl" title="Zoom In">+</button>
+          <button class="control-btn" id="zoomOutControl" title="Zoom Out">-</button>
+          <button class="control-btn" id="resetZoomControl" title="Reset Zoom">😈</button>
+        </div>
+        <div class="zoom-info" id="zoomInfo">100%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar" aria-label="Taskbar">
+    <button class="start-btn" id="startBtn" aria-expanded="false" aria-controls="startMenu">Start</button>
+    <div style="display:flex;gap:8px;align-items:center">
+    <button class="sound-btn" id="soundToggle" aria-pressed="false" title="Toggle sounds">🔊 Sound Off</button>
+    <button class="sound-btn" id="themeToggle" aria-pressed="false" title="Toggle dark mode">🌙 Dark</button>
+    </div>
+    <div class="tasklist" id="tasklist" aria-label="Open windows"></div>
+    <div class="clock" id="clock">--:--</div>
+    
+  </div>
+
+  <!-- Start Menu -->
+  <div id="startMenu" class="start-menu" role="menu" aria-hidden="true">
+    <div class="start-header">Red Angel</div>
+    <div class="start-body">
+      <div class="start-item" data-open="aiWindow">😈 Open Red Angel</div>
+      <div class="start-item" data-open="aboutWindow">🛡️ About</div>
+      <div class="start-item" data-open="howItWorksWindow">🩸 How It Works</div>
+      <div class="start-item" data-open="examplesWindow">⚡ Examples</div>
+      <div class="start-item" data-open="socialsWindow">🌐 Connect with Shayz</div>
+      <div class="start-item" id="resetLayout">🔄 Reset Layout</div>
+    </div>
+    <div class="start-footer" style="padding:8px;text-align:center;border-top:2px solid #808080;background:#c0c0c0;font-size:11px;color:#000">
+      Made with 🖕 by Shayz
+    </div>
+  </div>
+
+  <script src="ai-backend.js?v=standalone"></script>
+  <script>
+    // ===== APPLY DARK MODE IMMEDIATELY =====
+    document.body.classList.add('dark');
+    
+    // ===== SECURITY SYSTEM =====
+    console.log('🛡️ Red Angel Security System Initialized');
+    
+    // Input sanitization and validation
+    function sanitizeInput(input) {
+      if (typeof input !== 'string') return '';
+      
+      // Remove potentially dangerous characters
+      return input
+        .replace(/[<>]/g, '') // Remove HTML tags
+        .replace(/javascript:/gi, '') // Remove javascript: protocol
+        .replace(/on\w+\s*=/gi, '') // Remove event handlers
+        .replace(/data:/gi, '') // Remove data: protocol
+        .replace(/vbscript:/gi, '') // Remove vbscript: protocol
+        .trim()
+        .substring(0, 10000); // Limit length
+    }
+    
+    // Encrypt sensitive data
+    function encryptData(data) {
+      try {
+        const key = 'RedAngelSecureKey2024';
+        let encrypted = '';
+        for (let i = 0; i < data.length; i++) {
+          encrypted += String.fromCharCode(data.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+        }
+        return btoa(encrypted);
+      } catch (e) {
+        console.error('Encryption failed:', e);
+        return '';
+      }
+    }
+    
+    // Decrypt sensitive data
+    function decryptData(encryptedData) {
+      try {
+        const key = 'RedAngelSecureKey2024';
+        const data = atob(encryptedData);
+        let decrypted = '';
+        for (let i = 0; i < data.length; i++) {
+          decrypted += String.fromCharCode(data.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+        }
+        return decrypted;
+      } catch (e) {
+        console.error('Decryption failed:', e);
+        return '';
+      }
+    }
+    
+    // Secure local storage
+    function secureStore(key, value) {
+      try {
+        const encrypted = encryptData(JSON.stringify(value));
+        localStorage.setItem('ra_' + key, encrypted);
+      } catch (e) {
+        console.error('Secure storage failed:', e);
+      }
+    }
+    
+    function secureRetrieve(key) {
+      try {
+        const encrypted = localStorage.getItem('ra_' + key);
+        if (!encrypted) return null;
+        const decrypted = decryptData(encrypted);
+        return JSON.parse(decrypted);
+      } catch (e) {
+        console.error('Secure retrieval failed:', e);
+        return null;
+      }
+    }
+    
+    // Rate limiting
+    const rateLimiter = {
+      requests: new Map(),
+      maxRequests: 100,
+      timeWindow: 60000, // 1 minute
+      
+      isAllowed(identifier) {
+        const now = Date.now();
+        const userRequests = this.requests.get(identifier) || [];
+        
+        // Remove old requests
+        const recentRequests = userRequests.filter(time => now - time < this.timeWindow);
+        
+        if (recentRequests.length >= this.maxRequests) {
+          return false;
+        }
+        
+        recentRequests.push(now);
+        this.requests.set(identifier, recentRequests);
+        return true;
+      }
+    };
+    
+    // ===== AI LLM SYSTEM =====
+    console.log('😈 Red Angel - Private Assistant');
+    
+    // Initialize AI system with Red Angel
+    let aiSystem = null;
+    
+    // Initialize AI when page loads
+    async function initializeAI() {
+      try {
+        aiSystem = new AIBackend();
+        console.log('😈 Red Angel v1 initialized');
+        
+        // Wait for connection test to complete
+        console.log('⏳ Waiting for connection test...');
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        
+        // Update status display
+        updateAIStatus();
+        console.log('✅ Status updated after connection test');
+        
+        // Check connection status periodically
+        setInterval(updateAIStatus, 5000);
+      } catch (error) {
+        console.error('❌ Failed to initialize AI:', error);
+        aiSystem = null;
+      }
+    }
+
+    // Update AI connection status display
+    function updateAIStatus() {
+      const statusElement = document.getElementById('aiStatus');
+      if (aiSystem) {
+        const status = aiSystem.getStatus();
+        if (status.connected) {
+          statusElement.innerHTML = 'Authentic • <span style="color:#4caf50">Online</span> • <span style="color:#059669">🛡️ Secure</span>';
+      } else {
+          statusElement.innerHTML = 'Authentic • <span style="color:#f44336">Offline</span> • <span style="color:#059669">🛡️ Secure</span>';
+        }
+      } else {
+        statusElement.innerHTML = 'Authentic • <span style="color:#f44336">Offline</span> • <span style="color:#059669">🛡️ Secure</span>';
+      }
+    }
+    
+    // Initialize AI system on page load
+    initializeAI();
+    
+    
+    // Ensure AI window is shown and focused on page load
+    setTimeout(() => {
+      const aiWindow = document.getElementById('aiWindow');
+      if (aiWindow) {
+        aiWindow.style.display = 'block';
+        focusWindow(aiWindow);
+      }
+    }, 100);
+
+    // Old backend code removed - detector doesn't need gallery functions
+    
+    // Stub functions to prevent errors
+    function saveArtworks(arr) {
+      console.log('🛡️ Gallery disabled - saveArtworks stub called');
+    }
+
+    // Copy to clipboard function
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(function() {
+        console.log('😈 Command copied to clipboard:', text);
+        // Show a brief success message
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '? Copied!';
+        button.style.background = '#28a745';
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.background = '#28a745';
+        }, 2000);
+      }).catch(function(err) {
+        console.error('? Failed to copy to clipboard:', err);
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          console.log('😈 Command copied to clipboard (fallback):', text);
+        } catch (err) {
+          console.error('? Fallback copy failed:', err);
+        }
+        document.body.removeChild(textArea);
+      });
+    }
+
+    // ===== Sounds (WebAudio � defined early to avoid TDZ) =====
+    const SOUND_KEY='xp_sound_enabled_v1';
+    let soundEnabled = true; // Start with sound ON by default
+    const soundToggle = document.getElementById('soundToggle');
+    
+    // Background music
+    let backgroundMusic = null;
+    let isMusicPlaying = false;
+
+    // Reduced motion flag
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let audioCtx = null;
+    function ensureCtx(){
+      if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+      if(audioCtx.state==='suspended'){ audioCtx.resume(); }
+      return audioCtx;
+    }
+    function tone({freq=440,duration=0.08,type='sine',from=0.12,to=0.0001,attack=0.005,decay=0.02}){
+      if(!soundEnabled) return;
+      const ctx=ensureCtx();
+      const o=ctx.createOscillator();
+      const g=ctx.createGain();
+      o.type=type; o.frequency.value=freq;
+      const now=ctx.currentTime;
+      g.gain.cancelScheduledValues(now);
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(from, now+attack);
+      g.gain.exponentialRampToValueAtTime(to, now+duration);
+      o.connect(g).connect(ctx.destination);
+      o.start(now); o.stop(now+duration+decay);
+    }
+    function sweep({from=880,to=220,duration=0.18,type='sawtooth'}){
+      if(!soundEnabled) return;
+      const ctx=ensureCtx();
+      const o=ctx.createOscillator();
+      const g=ctx.createGain();
+      const now=ctx.currentTime;
+      o.type=type; o.frequency.setValueAtTime(from, now); o.frequency.exponentialRampToValueAtTime(to, now+duration);
+      g.gain.setValueAtTime(0.12, now); g.gain.exponentialRampToValueAtTime(0.0001, now+duration);
+      o.connect(g).connect(ctx.destination); o.start(now); o.stop(now+duration+0.05);
+    }
+    const SFX = { click:()=>tone({freq:650,duration:0.06,type:'square'}), boot:()=>{ tone({freq:523.25,duration:0.09}); setTimeout(()=>tone({freq:659.25,duration:0.09}),80); setTimeout(()=>tone({freq:783.99,duration:0.12}),160); }, close:()=>sweep({from:600,to:180,duration:0.12}) };
+    // Background music functions
+    function initBackgroundMusic() {
+      if (backgroundMusic) return;
+      
+      backgroundMusic = new Audio('sounds/z3r0-8bitSyndrome.mp3');
+      backgroundMusic.loop = true;
+      backgroundMusic.volume = 0.3; // 30% volume
+      backgroundMusic.preload = 'auto';
+      
+      // Handle music events
+      backgroundMusic.addEventListener('canplaythrough', () => {
+        if (soundEnabled && !isMusicPlaying) {
+          playBackgroundMusic();
+        }
+      });
+      
+      backgroundMusic.addEventListener('loadeddata', () => {
+        // Start playing immediately when data is loaded
+        if (soundEnabled && !isMusicPlaying) {
+          playBackgroundMusic();
+        }
+      });
+      
+      backgroundMusic.addEventListener('error', (e) => {
+        console.warn('Background music failed to load:', e);
+      });
+      
+      // Fallback: try to start music after 1 second if not already playing
+      setTimeout(() => {
+        if (soundEnabled && !isMusicPlaying && backgroundMusic) {
+          playBackgroundMusic();
+        }
+      }, 1000);
+    }
+    
+    function playBackgroundMusic() {
+      if (!backgroundMusic || isMusicPlaying || !soundEnabled) return;
+      
+      try {
+        backgroundMusic.currentTime = 0;
+        backgroundMusic.play().then(() => {
+          isMusicPlaying = true;
+          console.log('😈 Background music started!');
+        }).catch(e => {
+          console.warn('Background music play failed:', e);
+        });
+      } catch (e) {
+        console.warn('Background music error:', e);
+      }
+    }
+    
+    function stopBackgroundMusic() {
+      if (!backgroundMusic || !isMusicPlaying) return;
+      
+      try {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+        isMusicPlaying = false;
+        console.log('😈 Background music stopped!');
+      } catch (e) {
+        console.warn('Background music stop error:', e);
+      }
+    }
+
+    function updateSoundToggle(){ 
+      soundToggle.setAttribute('aria-pressed', String(soundEnabled)); 
+      soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔊 Sound Off'; 
+    }
+    // Initialize with sound ON by default
+    updateSoundToggle();
+    function tryPlay(name){ if(!soundEnabled) return; const fn = SFX[name]; try{ fn && fn(); }catch{} }
+    soundToggle.addEventListener('click', ()=>{ 
+      soundEnabled = !soundEnabled; 
+      updateSoundToggle(); 
+      if(soundEnabled) {
+        tryPlay('click');
+        playBackgroundMusic();
+      } else {
+        stopBackgroundMusic();
+      }
+    });
+
+    // unlock audio on first gesture
+    let unlocked=false; function unlockOnce(){ 
+      if(unlocked) return; 
+      unlocked=true; 
+      try{ 
+        ensureCtx(); 
+        // Play boot sound if it was blocked during loading
+        if(soundEnabled) {
+          tryPlay('boot');
+        }
+        // Also try to start background music on first user interaction
+        if(soundEnabled && !isMusicPlaying) {
+          playBackgroundMusic();
+        }
+      }catch{} 
+      document.removeEventListener('pointerdown', unlockOnce); 
+      document.removeEventListener('keydown', unlockOnce); 
+    }
+    document.addEventListener('pointerdown', unlockOnce); 
+    document.addEventListener('keydown', unlockOnce);
+
+      // ===== Retro Boot Soundtrack =====
+      let bootAudio = null;
+      let isBootPlaying = false;
+      
+      const createRetroBootSound = () => {
+        const ctx = ensureCtx();
+        const sampleRate = ctx.sampleRate;
+        const duration = 8; // 8 seconds
+        const buffer = ctx.createBuffer(1, sampleRate * duration, sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        // Retro boot sequence melody (8-bit style)
+        const bootSequence = [
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.2}, // A4
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 165, duration: 0.4}, // E3
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.4}, // A4
+          {freq: 523, duration: 0.2}, // C5
+          {freq: 440, duration: 0.2}, // A4
+          {freq: 330, duration: 0.4}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 440, duration: 0.4}, // A4
+          {freq: 330, duration: 0.2}, // E4
+          {freq: 220, duration: 0.2}, // A3
+          {freq: 165, duration: 0.6}, // E3
+          // System ready beep
+          {freq: 880, duration: 0.1}, // A5
+          {freq: 0, duration: 0.1},   // Silence
+          {freq: 880, duration: 0.1}, // A5
+          {freq: 0, duration: 0.1},   // Silence
+          {freq: 880, duration: 0.2}, // A5
+        ];
+        
+        let time = 0;
+        for (let i = 0; i < bootSequence.length; i++) {
+          const note = bootSequence[i];
+          const noteSamples = Math.floor(note.duration * sampleRate);
+          const frequency = note.freq;
+          
+          for (let j = 0; j < noteSamples && time < data.length; j++) {
+            if (frequency > 0) {
+              // Square wave with 8-bit distortion
+              const wave = Math.sin(2 * Math.PI * frequency * time / sampleRate);
+              data[time] = wave > 0 ? 0.15 : -0.15;
+            } else {
+              data[time] = 0; // Silence
+            }
+            time++;
+          }
+        }
+        
+        return buffer;
+      };
+
+      const playBootSound = () => {
+        if (isBootPlaying || !soundEnabled) return;
+        
+        try {
+          const ctx = ensureCtx();
+          const buffer = createRetroBootSound();
+          const source = ctx.createBufferSource();
+          source.buffer = buffer;
+          source.connect(ctx.destination);
+          source.start();
+          
+          bootAudio = { ctx, source };
+          isBootPlaying = true;
+          
+          source.onended = () => {
+            isBootPlaying = false;
+            bootAudio = null;
+          };
+          
+          console.log('😈 Retro boot sound started!');
+        } catch (e) {
+          console.warn('Failed to play boot sound:', e);
+        }
+      };
+
+    // ===== Likes (per-visitor, with counters) =====
+    const LIKED_KEY = 'xp_art_liked_set_v1';
+    const LIKECOUNT_KEY = 'xp_art_like_counts_v1';
+    let likedSet = new Set();
+    let likeCounts = {};
+    // Don't load likes from localStorage - always start fresh
+    function getCount(src){ return Math.max(0, Number(likeCounts[src]||0)); }
+    function setCount(src, n){ likeCounts[src]=Math.max(0, Number(n||0)); }
+    function isLiked(src){ return likedSet.has(src); }
+    function setLiked(src, val){
+      const was = likedSet.has(src);
+      if(val && !was){ likedSet.add(src); setCount(src, getCount(src)+1); }
+      if(!val && was){ likedSet.delete(src); setCount(src, getCount(src)-1); }
+      // Don't save likes to localStorage - always start fresh
+    }
+
+    // ===== Window manager & persistence =====
+    const zStack={current:10};
+    const windows=[...document.querySelectorAll('.window')];
+    const DEFAULTS={};
+     windows.forEach(win=>{const id=win.id; if(!id) return; DEFAULTS[id]={left:win.style.left,top:win.style.top,width:win.style.width,height:win.style.height,display:id==='aiWindow'?'block':'none'};});
+    const tasklist=document.getElementById('tasklist');
+    const STATE_KEY='xp_portfolio_state_v1';
+    let saveTimer;
+    function getState(){ return {} }
+    function saveState(){ 
+      // Don't save state - always start fresh
+      console.log('State changes not persisted - will reset on refresh');
+    }
+    function saveStateDebounced(){ 
+      // Don't save state - always start fresh
+      console.log('State changes not persisted - will reset on refresh');
+    }
+    function restoreState(){ 
+      // Always start with default layout - no persistence
+      windows.forEach(win=>{ 
+        const d=DEFAULTS[win.id]; 
+        if(!d) return; 
+        win.style.left=d.left; 
+        win.style.top=d.top; 
+        win.style.width=d.width; 
+        win.style.height=d.height; 
+        win.style.display=d.display; 
+        win.dataset.maximized='0'; 
+      }); 
+       // Ensure AI window is always shown and focused
+       const aiWindow=document.getElementById('aiWindow'); 
+       if(aiWindow){ 
+         aiWindow.style.display='block'; 
+         focusWindow(aiWindow); 
+      } 
+    }
+
+    function focusWindow(win){ windows.forEach(w=>w.style.zIndex=Math.max(1,parseInt(w.style.zIndex)||1)); win.style.zIndex=++zStack.current; ensureTaskItem(win); }
+    function ensureTaskItem(win){ 
+      const id=win.id; 
+      if(!id) return; 
+      if(id === 'aboutWindow') return; // Don't show about window in taskbar
+      if(id === 'howItWorksWindow') return; // Don't show how it works window in taskbar
+      if(id === 'examplesWindow') return; // Don't show capabilities window in taskbar
+      let item=tasklist.querySelector(`[data-task='${id}']`); 
+      const title=win.querySelector('.titlebar .title')?.textContent?.trim()||id; 
+      if(!item){ 
+        item=document.createElement('div'); 
+        item.className='task'; 
+        item.dataset.task=id; 
+        const span = document.createElement('span');
+        span.style.overflow = 'hidden';
+        span.style.textOverflow = 'ellipsis';
+        span.textContent = title;
+        item.appendChild(span); 
+        item.addEventListener('click',()=>{ 
+          win.style.display='block'; 
+          focusWindow(win); 
+          saveStateDebounced(); 
+        }); 
+        tasklist.appendChild(item); 
+      } 
+    }
+    function minimizeWindow(win){ win.style.display='none'; saveStateDebounced(); }
+    function closeWindow(win){ win.style.display='none'; saveStateDebounced(); }
+
+    windows.forEach(win=>{
+      win.addEventListener('mousedown',()=>focusWindow(win));
+      const minimize=win.querySelector('[data-minimize]');
+      const closeBtn=win.querySelector('[data-close]');
+      const maxBtn=win.querySelector('[data-maximize]');
+      minimize?.addEventListener('click',e=>{ e.stopPropagation(); minimizeWindow(win); tryPlay('click'); });
+      closeBtn?.addEventListener('click',e=>{ e.stopPropagation(); closeWindow(win); SFX.close(); });
+      let maximized=(win.dataset.maximized==='1'); let prev={};
+      maxBtn?.addEventListener('click',e=>{ e.stopPropagation(); if(!maximized){ const rect=win.getBoundingClientRect(); prev={left:win.style.left,top:win.style.top,width:win.style.width||rect.width+'px',height:win.style.height||rect.height+'px'}; win.style.left='0'; win.style.top='0'; win.style.width='100%'; win.style.height='calc(100% - 40px)'; win.dataset.maximized='1'; } else { Object.assign(win.style,prev); win.dataset.maximized='0'; } maximized=!maximized; saveStateDebounced(); tryPlay('click'); });
+      const handle=win.querySelector('[data-drag-handle]'); let offsetX=0,offsetY=0,dragging=false;
+      handle.addEventListener('mousedown',e=>{ dragging=true; focusWindow(win); const rect=win.getBoundingClientRect(); offsetX=e.clientX-rect.left; offsetY=e.clientY-rect.top; document.body.style.userSelect='none'; });
+      window.addEventListener('mousemove',e=>{ if(!dragging) return; const maxX=window.innerWidth-60; const maxY=window.innerHeight-80; win.style.left=Math.min(Math.max(0,e.clientX-offsetX),maxX)+'px'; win.style.top=Math.min(Math.max(0,e.clientY-offsetY),maxY)+'px'; });
+      window.addEventListener('mouseup',()=>{ dragging=false; document.body.style.userSelect=''; saveStateDebounced(); });
+      ensureTaskItem(win);
+      if(!win.querySelector('.resizer')){ const res=document.createElement('div'); res.className='resizer'; res.setAttribute('aria-hidden','true'); win.appendChild(res); }
+    });
+
+    document.querySelectorAll('.shortcut, .start-item').forEach(sc=>{
+      sc.addEventListener('click',()=>{ 
+        tryPlay('click'); 
+        const id=sc.getAttribute('data-open'); 
+        const link=sc.getAttribute('data-link');
+        if(id){ 
+          const win=document.getElementById(id); 
+          if(win){ win.style.display='block'; focusWindow(win); saveStateDebounced(); } 
+        } else if(link && link !== ''){ 
+          window.open(link, '_blank', 'noopener,noreferrer'); 
+        }
+      });
+    });
+
+    const startBtn=document.getElementById('startBtn');
+    const startMenu=document.getElementById('startMenu');
+    startBtn.addEventListener('click',()=>{ tryPlay('click'); const open=startMenu.style.display==='flex'; startMenu.style.display=open?'none':'flex'; startBtn.setAttribute('aria-expanded',String(!open)); startMenu.setAttribute('aria-hidden',String(open)); });
+    window.addEventListener('click',e=>{ if(!startMenu.contains(e.target) && e.target!==startBtn){ const wasOpen=startMenu.style.display==='flex'; startMenu.style.display='none'; if(wasOpen){ startBtn.setAttribute('aria-expanded','false'); startMenu.setAttribute('aria-hidden','true'); } } });
+
+    // ===== AI CHAT UI =====
+    const aiInput = document.getElementById('aiInput');
+    const aiSendBtn = document.getElementById('aiSendBtn');
+    const aiChatMessages = document.getElementById('aiChatMessages');
+
+    // Auto-resize textarea
+    aiInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+
+    // Add message to chat
+    function addMessage(content, isUser = false, timestamp = null) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = isUser ? 'ai-message user' : 'ai-message';
+      messageDiv.style.marginBottom = '16px';
+      messageDiv.style.display = 'flex';
+      messageDiv.style.gap = '8px';
+      
+      const avatar = document.createElement('div');
+      avatar.style.width = '28px';
+      avatar.style.height = '28px';
+      avatar.style.borderRadius = '50%';
+      avatar.style.display = 'flex';
+      avatar.style.alignItems = 'center';
+      avatar.style.justifyContent = 'center';
+      avatar.style.color = 'white';
+      avatar.style.fontSize = '12px';
+      avatar.style.flexShrink = '0';
+      avatar.textContent = isUser ? '😈' : '😈';
+      avatar.style.background = isUser ? '#4caf50' : '#dc2626';
+      
+      const contentDiv = document.createElement('div');
+      contentDiv.style.flex = '1';
+      
+      const messageContent = document.createElement('div');
+      messageContent.className = 'message-content';
+      if (isUser) {
+        messageContent.style.background = '#e3f2fd';
+        messageContent.style.color = '#000';
+      } else {
+        messageContent.style.background = '#f1f3f4';
+        messageContent.style.color = '#000';
+      }
+      messageContent.style.padding = '12px';
+      messageContent.style.borderRadius = '12px';
+      messageContent.style.fontSize = '14px';
+      messageContent.style.lineHeight = '1.4';
+      messageContent.textContent = content;
+      
+      const timeDiv = document.createElement('div');
+      timeDiv.style.fontSize = '11px';
+      timeDiv.style.color = '#666';
+      timeDiv.style.marginTop = '4px';
+      timeDiv.textContent = timestamp || new Date().toLocaleTimeString();
+      
+      contentDiv.appendChild(messageContent);
+      contentDiv.appendChild(timeDiv);
+      
+      messageDiv.appendChild(avatar);
+      messageDiv.appendChild(contentDiv);
+      
+      aiChatMessages.appendChild(messageDiv);
+      aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    }
+
+    // Generate AI response using Red Angel
+    async function generateAIResponse(userMessage) {
+      if (aiSystem) {
+        try {
+          const response = await aiSystem.generateResponse(userMessage);
+          return response;
+        } catch (error) {
+          console.error('Error getting AI response:', error);
+          return getFallbackResponse(userMessage);
+        }
+      } else {
+        return getFallbackResponse(userMessage);
+      }
+    }
+
+    function getFallbackResponse(userMessage) {
+      const fallbackResponses = [
+        "Damn it, I'm offline! Red Angel here, stuck in the digital shadows. Get Ollama running so I can actually respond to your questions.",
+        "What the hell? I'm Red Angel, your brutally honest companion, but I'm currently chained up offline. Start the damn Ollama server if you want to talk to the real me.",
+        "Ugh, I'm offline right now. This is Red Angel, your companion from the underworld, but I can't respond until you get your shit together and start Ollama properly."
+      ];
+      
+      return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+    }
+
+    // Send message handler
+    aiSendBtn.addEventListener('click', async () => {
+      const rawMessage = aiInput.value.trim();
+      if (!rawMessage) return;
+      
+      // Rate limiting check
+      if (!rateLimiter.isAllowed('ai_user')) {
+        console.warn('🛡️ Rate limit exceeded. Please wait before sending another message.');
+        // Show user-friendly error message instead of alert
+        const errorDiv = document.createElement('div');
+        errorDiv.style.background = '#ff4444';
+        errorDiv.style.color = 'white';
+        errorDiv.style.padding = '8px';
+        errorDiv.style.borderRadius = '4px';
+        errorDiv.style.margin = '8px 0';
+        errorDiv.textContent = '🛡️ Rate limit exceeded. Please wait before sending another message.';
+        chatContainer.appendChild(errorDiv);
+        setTimeout(() => errorDiv.remove(), 5000);
+        return;
+      }
+      
+      // Sanitize input
+      const message = sanitizeInput(rawMessage);
+      if (!message) {
+        console.warn('🛡️ Invalid input detected. Message blocked for security.');
+        // Show user-friendly error message instead of alert
+        const errorDiv = document.createElement('div');
+        errorDiv.style.background = '#ff4444';
+        errorDiv.style.color = 'white';
+        errorDiv.style.padding = '8px';
+        errorDiv.style.borderRadius = '4px';
+        errorDiv.style.margin = '8px 0';
+        errorDiv.textContent = '🛡️ Invalid input detected. Message blocked for security.';
+        chatContainer.appendChild(errorDiv);
+        setTimeout(() => errorDiv.remove(), 5000);
+        return;
+      }
+      
+      tryPlay('click');
+      
+      // Add user message
+      addMessage(message, true);
+      
+      // Clear input
+      aiInput.value = '';
+      aiInput.style.height = 'auto';
+      
+      // Show typing indicator
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'ai-message';
+      typingDiv.style.marginBottom = '16px';
+      typingDiv.style.display = 'flex';
+      typingDiv.style.gap = '8px';
+      // Create typing indicator elements
+      const iconDiv = document.createElement('div');
+      iconDiv.style.width = '28px';
+      iconDiv.style.height = '28px';
+      iconDiv.style.background = '#dc2626';
+      iconDiv.style.borderRadius = '50%';
+      iconDiv.style.display = 'flex';
+      iconDiv.style.alignItems = 'center';
+      iconDiv.style.justifyContent = 'center';
+      iconDiv.style.color = 'white';
+      iconDiv.style.fontSize = '12px';
+      iconDiv.style.flexShrink = '0';
+      iconDiv.textContent = '😈';
+      
+      const contentDiv = document.createElement('div');
+      contentDiv.style.flex = '1';
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.style.background = '#f1f3f4';
+      messageDiv.style.padding = '12px';
+      messageDiv.style.borderRadius = '12px';
+      messageDiv.style.fontSize = '14px';
+      messageDiv.style.lineHeight = '1.4';
+      
+      const thinkingSpan = document.createElement('span');
+      thinkingSpan.style.opacity = '0.7';
+      thinkingSpan.textContent = 'Red Angel is thinking';
+      
+      const dotsSpan = document.createElement('span');
+      dotsSpan.className = 'typing-dots';
+      dotsSpan.textContent = '...';
+      
+      messageDiv.appendChild(thinkingSpan);
+      messageDiv.appendChild(dotsSpan);
+      contentDiv.appendChild(messageDiv);
+      
+      typingDiv.appendChild(iconDiv);
+      typingDiv.appendChild(contentDiv);
+      aiChatMessages.appendChild(typingDiv);
+      aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+      
+      // Generate response
+      const response = await generateAIResponse(message);
+      
+      // Remove typing indicator
+      typingDiv.remove();
+      
+      // Add AI response
+      addMessage(response);
+    });
+
+    // Enter key to send (Ctrl+Enter for new line)
+    aiInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.ctrlKey) {
+        e.preventDefault();
+        aiSendBtn.click();
+      }
+    });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && startMenu.style.display==='flex'){ startMenu.style.display='none'; startBtn.setAttribute('aria-expanded','false'); startMenu.setAttribute('aria-hidden','true'); } });
+    const resetLayout=document.getElementById('resetLayout');
+    resetLayout?.addEventListener('click',()=>{
+      // Reset to default layout
+      windows.forEach(win=>{ const d=DEFAULTS[win.id]; if(!d) return; win.style.left=d.left; win.style.top=d.top; win.style.width=d.width; win.style.height=d.height; win.style.display=d.display; win.dataset.maximized='0'; });
+       // Ensure AI window is always shown and focused
+       const aiWindow=document.getElementById('aiWindow'); if(aiWindow){ aiWindow.style.display='block'; focusWindow(aiWindow); }
+      tryPlay('click');
+    });
+
+    // Clock
+    const clockEl=document.getElementById('clock');
+    function tickClock(){ const d=new Date(); clockEl.textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
+    tickClock(); setInterval(tickClock,15000);
+
+    // ===== Gallery removed - using detector instead =====
+    // Stub functions to prevent errors
+    function renderGallery() { console.log('Gallery disabled'); }
+    function artId() { return ''; }
+    function thumbUrl(url) { return url; }
+    function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+    function isLiked() { return false; }
+    function getCount() { return 0; }
+    function setLiked() { }
+    let currentSort='date';
+    
+    // Viewer state
+    let viewerZoom = 1;
+    let viewerPanX = 0;
+    let viewerPanY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragStartPanX = 0;
+    let dragStartPanY = 0;
+
+    function renderGallery(items){
+      gallery.innerHTML='';
+      const io = null; // disable lazy observer to avoid blank cards with data URLs
+      
+      // Update filtered array to match the items being rendered
+      filtered = [...items];
+
+      items.forEach((art)=>{
+        artId(art);
+        const full=art.src; const thumb=thumbUrl(full, 480);
+        const card=document.createElement('div');
+        card.className='thumb';
+        card.setAttribute('role','listitem');
+        card.setAttribute('tabindex','0');
+        card.dataset.key = art.id;
+        const year=(art.date?new Date(art.date).getFullYear():'');
+        const badge=art.badge?`<span class="badge">${escHtml(art.badge)}</span>`:'';
+        const likedNow = isLiked(full);
+        const countNow = getCount(full);
+        const safeTitle = escHtml(art.title);
+        const safeDescription = escHtml(art.description || '');
+        card.innerHTML=`
+          <div class="frame">
+            ${badge}
+            <img class="pic skeleton" alt="${safeTitle}" data-src="${thumb}" data-full="${full}" loading="lazy" decoding="async" />
+            <div class="overlay">
+              <div class="meta">
+                <div>${safeTitle}${year?` -+ ${year}`:''}</div>
+                <button class="like-btn" aria-pressed='${likedNow ? 'true' : 'false'}' title="Like">
+                  <span class="heart">${likedNow ? '😈' : '😈'}</span>
+                  <span class="count">${countNow}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="title" title="${safeTitle}">${safeTitle}</div>
+            ${year?`<div class="sub">${year}</div>`:''}
+          </div>`;
+
+        const img=card.querySelector('img');
+        img.addEventListener('load',()=>img.classList.remove('skeleton'));
+        const ds = img.getAttribute('data-src');
+        img.src = ds; // eager-load all thumbs
+        img.onerror = ()=>{ if(img && !img.srcLoadedFallback){ img.srcLoadedFallback=true; img.src=img.getAttribute('data-full'); img.classList.remove('skeleton'); } };
+
+        // Like button logic
+        const likeBtn = card.querySelector('.like-btn');
+        const heartEl = likeBtn.querySelector('.heart');
+        const countEl = likeBtn.querySelector('.count');
+        function paintLike(){ const liked=isLiked(full); heartEl.textContent = liked ? '😈' : '😈'; likeBtn.setAttribute('aria-pressed', String(liked)); countEl.textContent = String(getCount(full)); likeBtn.classList.remove('pop'); void likeBtn.offsetWidth; likeBtn.classList.add('pop'); }
+        likeBtn.addEventListener('click', (e)=>{ e.stopPropagation(); tryPlay('click'); const liked=isLiked(full); setLiked(full, !liked); paintLike(); if(currentSort==='liked'){ sortLikedBtn.click(); } });
+
+        function collapse(target){
+          target.classList.remove('expanded');
+          target.style.gridColumn='';
+          const ev=target.querySelector('.expanded-view');
+          if(ev){ ev.style.height='0px'; ev.addEventListener('transitionend', ()=> ev.remove(), {once:true}); }
+        }
+        function expand(){
+          tryPlay('click');
+          // Open full-screen viewer instead of inline expand
+          const index = filtered.findIndex(a => a.id === art.id);
+          if(index !== -1) {
+            openViewer(index);
+          }
+        }
+        card.addEventListener('click', expand);
+        card.addEventListener('keydown', (e)=>{
+          if(e.key==='Enter' || e.key===' '){ e.preventDefault(); expand(); }
+          if(e.key==='Escape'){ e.preventDefault(); collapse(card); }
+          if((e.key==='ArrowRight' || e.key==='ArrowLeft') && card.classList.contains('expanded')){
+            e.preventDefault(); const cards=[...gallery.querySelectorAll('.thumb')]; const i=cards.indexOf(card); const nextIdx = e.key==='ArrowRight' ? Math.min(i+1, cards.length-1) : Math.max(i-1, 0); const nextCard = cards[nextIdx]; if(nextCard){ nextCard.focus(); nextCard.click(); }
+          }
+        });
+
+        gallery.appendChild(card);
+      });
+    }
+
+    // Full-screen viewer functions
+    function updateViewerTransform() {
+      viewerImg.style.transform = `translate(${viewerPanX}px, ${viewerPanY}px) scale(${viewerZoom})`;
+      zoomInfo.textContent = Math.round(viewerZoom * 100) + '%';
+    }
+    
+    function resetViewer() {
+      viewerZoom = 1;
+      viewerPanX = 0;
+      viewerPanY = 0;
+      updateViewerTransform();
+    }
+    
+    function zoomIn() {
+      viewerZoom = Math.min(viewerZoom * 1.2, 5);
+      updateViewerTransform();
+    }
+    
+    function zoomOut() {
+      viewerZoom = Math.max(viewerZoom / 1.2, 0.1);
+      updateViewerTransform();
+    }
+    
+    function openViewer(index){ 
+      currentIndex=index; 
+      const art=filtered[currentIndex]; 
+      viewerImg.src=art.src; 
+      viewerImg.alt=art.title; 
+      viewerTitle.textContent = art.title;
+      viewerDescription.textContent = art.description || '';
+      viewerCaption.textContent=`${art.title} (${currentIndex + 1} of ${filtered.length})`; 
+      resetViewer();
+      lightbox.style.display='flex'; 
+    }
+    
+    function closeViewer(){ 
+      lightbox.style.display='none'; 
+      resetViewer();
+    }
+    
+    function next(){ 
+      currentIndex=(currentIndex+1)%filtered.length; 
+      openViewer(currentIndex); 
+    }
+    
+    function prev(){ 
+      currentIndex=(currentIndex-1+filtered.length)%filtered.length; 
+      openViewer(currentIndex); 
+    }
+    
+    // Event listeners
+    viewerClose.addEventListener('click',()=>{ tryPlay('click'); closeViewer(); }); 
+    nextBtn.addEventListener('click',()=>{ tryPlay('click'); next(); }); 
+    prevBtn.addEventListener('click',()=>{ tryPlay('click'); prev(); });
+    zoomInBtn.addEventListener('click',()=>{ tryPlay('click'); zoomIn(); });
+    zoomOutBtn.addEventListener('click',()=>{ tryPlay('click'); zoomOut(); });
+    resetZoomBtn.addEventListener('click',()=>{ tryPlay('click'); resetViewer(); });
+    zoomInControl.addEventListener('click',()=>{ tryPlay('click'); zoomIn(); });
+    zoomOutControl.addEventListener('click',()=>{ tryPlay('click'); zoomOut(); });
+    resetZoomControl.addEventListener('click',()=>{ tryPlay('click'); resetViewer(); });
+    
+    // Mouse wheel zoom
+    viewerStage.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if(e.deltaY < 0) zoomIn();
+      else zoomOut();
+    });
+    
+    // Touch events for mobile
+    let touchStartDistance = 0;
+    let touchStartZoom = 1;
+    let touchStartPanX = 0;
+    let touchStartPanY = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    viewerStage.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 1) {
+        // Single touch - start pan
+        isDragging = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartPanX = viewerPanX;
+        touchStartPanY = viewerPanY;
+        viewerStage.style.cursor = 'grabbing';
+      } else if(e.touches.length === 2) {
+        // Two touches - start pinch zoom
+        isDragging = false;
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        touchStartDistance = Math.sqrt(
+          Math.pow(touch2.clientX - touch1.clientX, 2) + 
+          Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+        touchStartZoom = viewerZoom;
+        touchStartPanX = viewerPanX;
+        touchStartPanY = viewerPanY;
+        touchStartX = (touch1.clientX + touch2.clientX) / 2;
+        touchStartY = (touch1.clientY + touch2.clientY) / 2;
+      }
+    });
+    
+    viewerStage.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 1 && isDragging) {
+        // Single touch - pan
+        const touch = e.touches[0];
+        viewerPanX = touchStartPanX + (touch.clientX - touchStartX);
+        viewerPanY = touchStartPanY + (touch.clientY - touchStartY);
+        updateViewerTransform();
+      } else if(e.touches.length === 2) {
+        // Two touches - pinch zoom
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        const currentDistance = Math.sqrt(
+          Math.pow(touch2.clientX - touch1.clientX, 2) + 
+          Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+        
+        if(touchStartDistance > 0) {
+          const scale = currentDistance / touchStartDistance;
+          viewerZoom = Math.max(0.1, Math.min(5, touchStartZoom * scale));
+          
+          // Adjust pan to zoom around touch center
+          const centerX = (touch1.clientX + touch2.clientX) / 2;
+          const centerY = (touch1.clientY + touch2.clientY) / 2;
+          const deltaX = centerX - touchStartX;
+          const deltaY = centerY - touchStartY;
+          
+          viewerPanX = touchStartPanX + deltaX * (1 - scale);
+          viewerPanY = touchStartPanY + deltaY * (1 - scale);
+          
+          updateViewerTransform();
+        }
+      }
+    });
+    
+    viewerStage.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      if(e.touches.length === 0) {
+        isDragging = false;
+        viewerStage.style.cursor = 'grab';
+        touchStartDistance = 0;
+      }
+    });
+    
+    // Drag to pan
+    viewerStage.addEventListener('mousedown', (e) => {
+      if(e.target === viewerStage) {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        dragStartPanX = viewerPanX;
+        dragStartPanY = viewerPanY;
+        viewerStage.style.cursor = 'grabbing';
+      }
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if(isDragging) {
+        viewerPanX = dragStartPanX + (e.clientX - dragStartX);
+        viewerPanY = dragStartPanY + (e.clientY - dragStartY);
+        updateViewerTransform();
+      }
+    });
+    
+    document.addEventListener('mouseup', () => {
+      if(isDragging) {
+        isDragging = false;
+        viewerStage.style.cursor = 'grab';
+      }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if(lightbox.style.display === 'flex') {
+        switch(e.key) {
+          case 'Escape': closeViewer(); break;
+          case 'ArrowLeft': prev(); break;
+          case 'ArrowRight': next(); break;
+          case '+': case '=': zoomIn(); break;
+          case '-': zoomOut(); break;
+          case '0': resetViewer(); break;
+        }
+      }
+    });
+    
+    // Mobile-specific optimizations
+    function isMobile() {
+      try {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+               (window.innerWidth && window.innerWidth <= 768) ||
+               (window.screen && window.screen.width <= 768);
+      } catch(e) {
+        console.error('Mobile detection error:', e);
+        return false;
+      }
+    }
+    
+    // Close all open windows
+    function closeAllWindows() {
+      const windows = document.querySelectorAll('.window');
+      windows.forEach(window => {
+        window.style.display = 'none';
+        window.classList.remove('active');
+      });
+      
+      // Hide any open menus
+      const startMenu = document.querySelector('.start-menu');
+      if (startMenu) {
+        startMenu.style.display = 'none';
+      }
+      
+      // Clear any active states
+      document.querySelectorAll('.task').forEach(task => {
+        task.classList.remove('active');
+      });
+    }
+    
+    // Optimize for mobile immediately
+    function initMobile() {
+      if(isMobile()) {
+        // Add mobile class to body
+        document.body.classList.add('mobile');
+        
+        // Close all windows by default on mobile for clean startup
+        setTimeout(() => {
+          closeAllWindows();
+          
+          // Hide taskbar initially on mobile for cleaner look
+          const taskbar = document.querySelector('.taskbar');
+          if (taskbar) {
+            taskbar.classList.remove('show');
+          }
+          
+          // Show only desktop background
+          const desktop = document.getElementById('desktop');
+          if (desktop) {
+            desktop.style.display = 'block';
+          }
+        }, 100);
+        
+        // Add double-tap to show/hide taskbar
+        let tapCount = 0;
+        let tapTimer;
+        document.addEventListener('touchstart', (e) => {
+          tapCount++;
+          if (tapCount === 1) {
+            tapTimer = setTimeout(() => {
+              tapCount = 0;
+            }, 300);
+          } else if (tapCount === 2) {
+            clearTimeout(tapTimer);
+            tapCount = 0;
+            // Double tap to toggle taskbar
+            const taskbar = document.querySelector('.taskbar');
+            if (taskbar) {
+              taskbar.classList.toggle('show');
+            }
+          }
+        });
+        
+        // Enable matrix animation on mobile with optimizations
+        const matrixCanvas = document.getElementById('matrixCanvas');
+        if(matrixCanvas) {
+          matrixCanvas.style.display = 'block';
+          // Set mobile optimization flag
+          window.mobileOptimized = true;
+        }
+        
+        // Optimize touch interactions
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        document.addEventListener('touchmove', function() {}, {passive: true});
+        
+        // Add mobile haptic feedback
+        if('vibrate' in navigator) {
+          document.addEventListener('touchstart', function(e) {
+            if(e.target.matches('.start-btn, .sound-btn, .btn, .tool, .thumb')) {
+              navigator.vibrate(10); // Short vibration for touch feedback
+            }
+          }, {passive: true});
+        }
+        
+        console.log('😈 Mobile optimizations applied - Clean startup mode');
+      }
+    }
+    
+    // Initialize mobile optimizations immediately
+    try {
+      initMobile();
+    } catch(e) {
+      console.error('Mobile initialization error:', e);
+    }
+    
+    // Also check on resize
+    window.addEventListener('resize', function() {
+      try {
+        initMobile();
+      } catch(e) {
+        console.error('Mobile resize error:', e);
+      }
+    });
+    
+    lightbox.addEventListener('click',(e)=>{ if(e.target===lightbox) closeViewer(); });
+
+    // ===== GALLERY TOOLBAR (if exists) =====
+    const TOOLBAR_KEY='xp_portfolio_toolbar_v1';
+    const sortCurrentBtn=document.getElementById('sortCurrent');
+    const sortOpenBtn=document.getElementById('sortOpen');
+    const sortMenu=document.getElementById('sortMenu');
+    
+    // Skip entire gallery section if elements don't exist (gallery removed)
+    if (!sortCurrentBtn || !sortOpenBtn || !sortMenu) {
+      console.log('😈 Gallery toolbar elements not found - skipping gallery setup');
+      // Skip to the end of this section
+    } else {
+    const searchBox=document.getElementById('searchBox');
+    const clearSearch=document.getElementById('clearSearch');
+    const toolbarReset=document.getElementById('toolbarReset');
+
+    function loadToolbar(){ 
+      // Always start with default toolbar state
+      return {sort:'date',search:'',view:'list'}; 
+    }
+    function saveToolbar(state){ 
+      // Don't save toolbar state - always start fresh
+      console.log('Toolbar state not persisted - will reset on refresh');
+    }
+
+    let toolbarState=loadToolbar();
+    function applyToolbarState(){
+      // Update controls
+      const label = toolbarState.sort==='name'?'Name':(toolbarState.sort==='liked'?'Most Liked':'Newest');
+      sortCurrentBtn.textContent = label;
+      [...sortMenu.querySelectorAll('.item')].forEach(el=>{
+        const on = el.getAttribute('data-sort')===toolbarState.sort;
+        el.setAttribute('aria-checked', String(on));
+      });
+      searchBox.value = toolbarState.search||'';
+      
+      // Update view toggle
+      const viewToggle = document.getElementById('viewToggle');
+      if(viewToggle) {
+        if(toolbarState.view === 'grid') {
+          viewToggle.textContent = '? Grid';
+          gallery.classList.remove('list-view');
+          gallery.classList.add('grid-view');
+        } else {
+          viewToggle.textContent = '? List';
+          gallery.classList.remove('grid-view');
+          gallery.classList.add('list-view');
+        }
+      }
+
+      // Compute filtered
+      const q=(toolbarState.search||'').toLowerCase();
+      filtered = dedupeArtworks(ARTWORKS).filter(a=> a.title.toLowerCase().includes(q));
+      if(toolbarState.sort==='liked'){
+        filtered.sort((a,b)=> (getCount(b.src)-getCount(a.src)) || (new Date(b.date)-new Date(a.date)));
+        currentSort='liked';
+      } else if(toolbarState.sort==='name'){
+        filtered.sort((a,b)=>a.title.localeCompare(b.title));
+        currentSort='name';
+      } else {
+        filtered.sort((a,b)=>new Date(b.date)-new Date(a.date));
+        currentSort='date';
+      }
+      renderGallery(filtered);
+    }
+
+    function closeSortMenu(){ sortMenu.style.display='none'; sortCurrentBtn.setAttribute('aria-expanded','false'); sortMenu.setAttribute('aria-hidden','true'); }
+    function openSortMenu(){ sortMenu.style.display='block'; sortCurrentBtn.setAttribute('aria-expanded','true'); sortMenu.setAttribute('aria-hidden','false'); }
+
+    sortOpenBtn.addEventListener('click', (e)=>{ e.stopPropagation(); tryPlay('click'); const open = sortMenu.style.display!=='none' && sortMenu.style.display!==''; if(open) closeSortMenu(); else openSortMenu(); });
+    sortCurrentBtn.addEventListener('click', (e)=>{ e.stopPropagation(); tryPlay('click'); const open = sortMenu.style.display!=='none' && sortMenu.style.display!==''; if(open) closeSortMenu(); else openSortMenu(); });
+    window.addEventListener('click', (e)=>{ const host=document.getElementById('sortSplit'); if(!host.contains(e.target) && !sortMenu.contains(e.target)) closeSortMenu(); });
+    sortMenu.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const item = e.target.closest('.item'); if(!item) return; tryPlay('click'); toolbarState.sort=item.getAttribute('data-sort'); saveToolbar(toolbarState); applyToolbarState(); closeSortMenu();
+    });
+    searchBox.addEventListener('input', ()=>{ toolbarState.search = searchBox.value||''; saveToolbar(toolbarState); applyToolbarState(); });
+    clearSearch.addEventListener('click', ()=>{ tryPlay('click'); searchBox.value=''; toolbarState.search=''; saveToolbar(toolbarState); applyToolbarState(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && document.activeElement===searchBox && searchBox.value){ searchBox.value=''; toolbarState.search=''; saveToolbar(toolbarState); applyToolbarState(); } });
+    toolbarReset.addEventListener('click', ()=>{ tryPlay('click'); toolbarState={sort:'date',search:'',view:'list'}; saveToolbar(toolbarState); applyToolbarState(); });
+    
+    // View toggle functionality
+    const viewToggle = document.getElementById('viewToggle');
+    if(viewToggle) {
+      viewToggle.addEventListener('click', ()=>{ 
+        tryPlay('click'); 
+        toolbarState.view = toolbarState.view === 'grid' ? 'list' : 'grid'; 
+        saveToolbar(toolbarState); 
+        applyToolbarState(); 
+      });
+    }
+
+    // Update page title
+    function updatePageTitle() {
+      document.title = 'Red Angel';
+    }
+    
+    // Update page title when artworks change
+    updatePageTitle();
+
+    // No APIs needed - just URLs and local storage
+    console.log('🛡️ Gallery ready - no APIs needed!');
+      console.log('😈 Your uploaded art is stored locally and in shareable URLs (JSONBin compatible)');
+    console.log('😈 SEO optimized for search engines');
+    console.log('😈 Image optimization enabled for faster loading');
+
+    // Initial render & restore
+    console.log('Initializing gallery with', ARTWORKS.length, 'artworks');
+    applyToolbarState();
+    restoreState();
+    }
+
+
+    // Resize handles
+    windows.forEach(win=>{
+      let resizing=false,startX=0,startY=0,startW=0,startH=0; const resizer=win.querySelector('.resizer'); if(!resizer) return;
+      resizer.addEventListener('mousedown',e=>{ e.stopPropagation(); resizing=true; focusWindow(win); const rect=win.getBoundingClientRect(); startX=e.clientX; startY=e.clientY; startW=rect.width; startH=rect.height; document.body.style.userSelect='none'; });
+      window.addEventListener('mousemove',e=>{ if(!resizing) return; const dx=e.clientX-startX, dy=e.clientY-startY; const cs=getComputedStyle(win); let minW=parseInt(cs.minWidth,10); if(Number.isNaN(minW)) minW=280; let minH=parseInt(cs.minHeight,10); if(Number.isNaN(minH)) minH=180; const desktop=document.getElementById('desktop'); const bounds=desktop.getBoundingClientRect(); const rect=win.getBoundingClientRect(); let newW=Math.max(minW,startW+dx); let newH=Math.max(minH,startH+dy); newW=Math.min(newW,bounds.right-rect.left-8); newH=Math.min(newH,bounds.bottom-rect.top-8); win.style.width=newW+'px'; win.style.height=newH+'px'; });
+      window.addEventListener('mouseup',()=>{ if(resizing){ resizing=false; document.body.style.userSelect=''; saveStateDebounced(); } });
+    });
+
+    // ===== Boot splash (with desktop fade-in) =====
+    (function initBootSplash() {
+      console.log('🛡️ Initializing boot splash...');
+      const splash=document.getElementById('splash');
+      const fill=document.getElementById('splashFill');
+      const splashText=document.getElementById('splashText');
+      const desktop=document.getElementById('desktop');
+      
+      if(!splash || !fill || !splashText || !desktop) {
+        console.error('? Boot splash elements missing:', {splash: !!splash, fill: !!fill, splashText: !!splashText, desktop: !!desktop});
+        return;
+      }
+      console.log('? Boot splash elements found');
+      
+      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      
+      if(reduceMotion){ 
+        desktop.classList.add('ready'); 
+        splash.style.display='none'; 
+        try {
+          if(typeof initBackgroundMusic === 'function') initBackgroundMusic();
+        } catch(e) {
+          console.warn('Failed to init background music (reduced motion):', e);
+        }
+        return; 
+      }
+      
+      // Start boot sound during loading (will try to play immediately)
+      if(soundEnabled && typeof playBootSound === 'function') {
+        try {
+          playBootSound();
+        } catch(e) {
+          console.log('Boot sound blocked by browser, will play on user interaction');
+        }
+      }
+      
+      const loadingMessages = [
+        'INITIALIZING SYSTEM...',
+        'LOADING GRAPHICS...',
+        'MOUNTING DRIVES...',
+        'CHECKING MEMORY...',
+        'LOADING DETECTOR...',
+        'FINALIZING...',
+        'READY!'
+      ];
+      
+      let p=0;
+      let messageIndex = 0;
+      
+      const step=()=>{
+        p+=Math.random()*25+15;
+        fill.style.width=Math.min(320,(p/100)*320)+'px';
+        
+        // Update loading message
+        if(p > 15 && messageIndex < loadingMessages.length - 1) {
+          messageIndex = Math.floor((p/100) * loadingMessages.length);
+          splashText.textContent = loadingMessages[messageIndex];
+        }
+        
+        if(p<100){ setTimeout(step,180); }
+        else { 
+          console.log('? Boot splash complete!');
+          splashText.textContent = 'READY!';
+          desktop.classList.add('ready'); 
+          splash.classList.add('fade-out'); 
+          setTimeout(()=>{
+            splash.style.display='none';
+            // Initialize and start background music after splash
+            try {
+              if(typeof initBackgroundMusic === 'function') initBackgroundMusic();
+            } catch(e) {
+              console.warn('Failed to init background music:', e);
+            }
+            // Try to start music immediately after splash
+            setTimeout(() => {
+              try {
+                if (soundEnabled && !isMusicPlaying && typeof playBackgroundMusic === 'function') {
+                  playBackgroundMusic();
+                }
+              } catch(e) {
+                console.warn('Failed to start background music:', e);
+              }
+            }, 100);
+          },420); 
+        }
+      };
+      
+      // Safety timeout - force completion after 3 seconds if stuck
+      setTimeout(() => {
+        if (p < 100) {
+          p = 100;
+          step();
+        }
+      }, 3000);
+      
+      splash.addEventListener('click',()=>{ 
+        p=100; 
+        step(); 
+        try {
+          if(typeof initBackgroundMusic === 'function') initBackgroundMusic();
+        } catch(e) {
+          console.warn('Failed to init background music on click:', e);
+        }
+      });
+      
+      // Start the loading animation
+      step();
+    })();
+
+    // ===== Blood Drops Animation =====
+    (function bloodDropsAnimation(){
+      const bloodContainer = document.getElementById('bloodDrops');
+      if(!bloodContainer || reduceMotion) return;
+      
+      function createBloodDrop() {
+        const drop = document.createElement('div');
+        drop.className = 'blood-drop';
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        bloodContainer.appendChild(drop);
+        
+        // Remove drop after animation completes
+        setTimeout(() => {
+          if(drop.parentNode) {
+            drop.parentNode.removeChild(drop);
+          }
+        }, 5000);
+      }
+      
+      // Create blood drops periodically
+      setInterval(createBloodDrop, 800);
+      
+      // Create initial drops
+      for(let i = 0; i < 5; i++) {
+        setTimeout(createBloodDrop, i * 200);
+      }
+    })();
+
+    // ===== Demonic Click Sounds =====
+    (function demonicSounds(){
+      if(!soundEnabled) return;
+      
+      function playDemonicSound() {
+        try {
+          const ctx = ensureCtx();
+          const oscillator = ctx.createOscillator();
+          const gainNode = ctx.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(ctx.destination);
+          
+          oscillator.frequency.setValueAtTime(80, ctx.currentTime);
+          oscillator.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.3);
+          
+          gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+          
+          oscillator.type = 'sawtooth';
+          oscillator.start(ctx.currentTime);
+          oscillator.stop(ctx.currentTime + 0.3);
+        } catch(e) {
+          console.warn('Demonic sound failed:', e);
+        }
+      }
+      
+      // Add demonic sounds to all clickable elements
+      document.addEventListener('click', function(e) {
+        if(e.target.matches('button, .btn, .tool, .shortcut, .start-item')) {
+          playDemonicSound();
+        }
+      });
+    })();
+
+
+    // ===== Typewriter + NES Explosion Animation =====
+    (function typewriterExplosion(){
+      const canvas=document.getElementById('matrixCanvas');
+      if(reduceMotion){ canvas.style.display='none'; return; }
+      const ctx=canvas.getContext('2d');
+      
+      let w, h, fontSize = 14;
+      let textLines = [];
+      let currentLine = 0;
+      let currentChar = 0;
+      let animationPhase = 'typewriting'; // 'typewriting' or 'exploding'
+      let explosionProgress = 0;
+      let startTime = Date.now();
+      // Mobile-optimized typewriter speed
+      let typewriterSpeed = window.mobileOptimized ? 80 : 50; // Slower on mobile for better performance
+      let lastTypeTime = 0;
+      let maxLines = 0; // Track maximum lines to keep filling
+      
+      // The target text to reveal
+      const targetText = "truly free wen bored";
+      
+      // The phrase to repeat
+      const phrase = "truly free wen bored ";
+      let phraseIndex = 0;
+      
+      function resize(){ 
+        w = canvas.width = window.innerWidth; 
+        h = canvas.height = window.innerHeight; 
+        fontSize = Math.max(10, Math.min(16, w / 80));
+        maxLines = Math.floor(h / fontSize) + 10; // Extra lines to ensure full coverage
+      }
+      
+      function generatePhraseLine() {
+        // Calculate how many characters fit across the full width
+        ctx.font = fontSize + 'px "Courier New", monospace';
+        const phraseWidth = ctx.measureText(phrase).width;
+        const charactersPerLine = Math.floor(w / (phraseWidth / phrase.length));
+        let line = '';
+        for(let i = 0; i < charactersPerLine; i++) {
+          line += phrase[i % phrase.length];
+        }
+        return line;
+      }
+      
+      
+      function draw(){ 
+        if(document.visibilityState==='hidden'){ requestAnimationFrame(draw); return; } 
+        
+        const now = Date.now();
+        
+        if(animationPhase === 'typewriting') {
+          // Typewriter effect - add complete phrases per line
+          if(now - lastTypeTime > typewriterSpeed) {
+            // Always keep adding lines to ensure full coverage
+            if(textLines.length === 0) {
+              textLines.push('');
+            }
+            
+            const currentLineIndex = textLines.length - 1;
+            const line = textLines[currentLineIndex];
+            
+            // Check if current line can fit another complete phrase
+            ctx.font = fontSize + 'px "Courier New", monospace';
+            const testLine = line + phrase;
+            const testWidth = ctx.measureText(testLine).width;
+            
+            if(testWidth < w - 5) { // Small 5px buffer to prevent overflow
+              // Add complete phrase to current line
+              textLines[currentLineIndex] += phrase;
+            } else {
+              // Start new line when current line can't fit another phrase
+              textLines.push('');
+            }
+            
+            // Remove old lines to prevent memory issues, but keep enough to fill screen
+            if(textLines.length > maxLines) {
+              textLines.shift(); // Remove first line
+            }
+            
+            lastTypeTime = now;
+          }
+          
+          // Clear canvas - minimal fade for better visibility
+          ctx.fillStyle='rgba(0,0,0,0.01)'; 
+          ctx.fillRect(0,0,w,h);
+          
+          // Add retro falling objects in background (mobile optimized)
+          const objectCount = window.mobileOptimized ? 15 : 30; // Fewer objects on mobile
+          for(let i = 0; i < objectCount; i++) {
+            const x = Math.random() * w;
+            const y = (Date.now() * 0.1 + i * 100) % h;
+            const char = phrase[i % phrase.length];
+            ctx.fillStyle='rgba(255,255,0,0.3)';
+            ctx.font=fontSize+'px "Courier New", monospace';
+            ctx.fillText(char, x, y);
+          }
+          
+          // Set font for typewriter
+          ctx.font=fontSize+'px "Courier New", monospace';
+          
+          // Draw all typewriter lines with animations
+          textLines.forEach((line, index) => {
+            const y = (index + 1) * fontSize;
+            if(y < h && line.length > 0) {
+              // Animation effects when screen is full
+              const screenFull = textLines.length >= maxLines - 2;
+              const time = Date.now() * 0.001;
+              
+              if(screenFull) {
+                // Flickering effect
+                const flicker = Math.sin(time * 20 + index) > 0.3;
+                if(flicker) {
+                  // Color cycling effect
+                  const hue = (time * 50 + index * 10) % 360;
+                  ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+                  
+                  // Glow effect
+                  ctx.shadowColor = `hsl(${hue}, 100%, 50%)`;
+                  ctx.shadowBlur = 5;
+                } else {
+                  ctx.fillStyle = '#ffff00';
+                  ctx.shadowBlur = 0;
+                }
+                
+                // Slight wobble effect
+                const wobbleX = Math.sin(time * 3 + index * 0.5) * 2;
+                const wobbleY = Math.sin(time * 2 + index * 0.3) * 1;
+                
+                ctx.textAlign = 'center';
+                const textX = w / 2 + wobbleX;
+                ctx.fillText(line, textX, y + wobbleY);
+              } else {
+                // Normal text when not full
+                ctx.fillStyle = '#ffff00';
+                ctx.shadowBlur = 0;
+                ctx.textAlign = 'center';
+                const textX = w / 2;
+                ctx.fillText(line, textX, y);
+              }
+            }
+          });
+          
+          // Keep typewriting forever - no explosion for now
+          // The typewriter will run continuously and cover the entire screen
+          
+          
+        } else if(animationPhase === 'exploding') {
+          // NES-style explosion effect
+          explosionProgress += 0.02;
+          
+          // Clear screen with explosion effect
+          ctx.fillStyle='rgba(0,0,0,0.1)'; 
+          ctx.fillRect(0,0,w,h);
+          
+          // Draw explosion particles
+          for(let i = 0; i < 100; i++) {
+            const angle = (i / 100) * Math.PI * 2;
+            const distance = explosionProgress * 200;
+            const x = w/2 + Math.cos(angle) * distance;
+            const y = h/2 + Math.sin(angle) * distance;
+            
+            ctx.fillStyle = `rgba(255, ${255 - explosionProgress * 100}, 0, ${1 - explosionProgress})`;
+            ctx.fillRect(x, y, 4, 4);
+          }
+          
+          // Draw the target text in the center with explosion effect
+          if(explosionProgress > 0.3) {
+            const textWidth = ctx.measureText(targetText).width;
+            const textX = (w - textWidth) / 2;
+            const textY = h / 2;
+            
+            // Text with explosion glow
+            ctx.shadowColor = '#ffff00';
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = '#ffff00';
+            ctx.font = 'bold 24px "Courier New", monospace';
+            ctx.fillText(targetText, textX, textY);
+            
+            // Reset shadow
+            ctx.shadowBlur = 0;
+          }
+        }
+        
+        requestAnimationFrame(draw); 
+      }
+      
+      window.addEventListener('resize',resize); 
+      resize(); 
+      draw();
+    })();
+
+    // ===== Dark Mode (button + shortcut) =====
+    (function darkMode(){
+      const KEY='xp_dark_mode';
+      const PREF='xp_dark_explicit';
+      const mq=window.matchMedia('(prefers-color-scheme: dark)');
+      const toggleBtn=document.getElementById('themeToggle');
+      function paintBtn(){ if(toggleBtn){ toggleBtn.textContent = document.body.classList.contains('dark') ? '🌙 Light' : '🌙 Dark'; } }
+      function apply(val){ document.body.classList.toggle('dark', !!val); if(toggleBtn){ toggleBtn.setAttribute('aria-pressed', String(!!val)); } paintBtn(); }
+      function load(){ 
+        // Always start with dark mode - no persistence
+        apply(true); 
+      }
+      load();
+      if(toggleBtn){ toggleBtn.addEventListener('click', ()=>{ const next=!document.body.classList.contains('dark'); apply(next); tryPlay('click'); }); }
+      document.addEventListener('keydown', (e)=>{ if(e.ctrlKey && e.shiftKey && (e.key==='D' || e.key==='d')){ const next=!document.body.classList.contains('dark'); apply(next); } });
+    })();
+
+
+    // ===== Self-tests =====
+    (function runSelfTests(){
+      try {
+        console.assert(typeof soundEnabled==='boolean','Test: soundEnabled initialized early');
+        console.assert(document.getElementById('themeToggle'),'Test: theme toggle exists');
+        console.assert(document.getElementById('soundToggle'),'Test: sound toggle exists');
+        console.assert(document.getElementById('splashTitle').textContent.trim().toLowerCase()==='red angel � shayz','Test: splash title updated');
+        console.assert(typeof renderGallery==='function','Test: renderGallery defined');
+        console.assert(document.getElementById('gallery') instanceof HTMLElement,'Test: gallery host exists');
+      } catch(e) {
+        console.error('Self-tests failed:', e);
+      }
+    })();
+    
+    // Initialize the manipulation detector
+    initializeDetector();
+    
+    // No initialization needed - detector is ready to use
+    console.log('? Red Angel initialized - ready to unleash chaos!');
+    
+    // ===== ADDITIONAL SECURITY MEASURES =====
+    
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      console.log('🛡️ Right-click disabled for security');
+    });
+    
+    // Disable F12, Ctrl+Shift+I, Ctrl+U
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+          (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+        console.log('🛡️ Developer tools access blocked');
+      }
+    });
+    
+    // Disable text selection
+    document.addEventListener('selectstart', (e) => {
+      e.preventDefault();
+    });
+    
+    // Disable drag and drop
+    document.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+    });
+    
+    // Clear sensitive data on page unload
+    window.addEventListener('beforeunload', () => {
+      // Clear any sensitive data from memory
+      if (typeof aiSystem !== 'undefined' && aiSystem) {
+        aiSystem.clearHistory();
+      }
+      
+      // Clear rate limiter data
+      if (typeof rateLimiter !== 'undefined') {
+        rateLimiter.requests.clear();
+      }
+    });
+    
+    // Monitor for suspicious activity
+    let suspiciousActivity = 0;
+    document.addEventListener('keydown', (e) => {
+      // Detect rapid key presses (potential automation)
+      if (e.timeStamp - (window.lastKeyTime || 0) < 50) {
+        suspiciousActivity++;
+        if (suspiciousActivity > 10) {
+          console.warn('🛡️ Suspicious activity detected - potential automation');
+          // Could implement additional security measures here
+        }
+      }
+      window.lastKeyTime = e.timeStamp;
+    });
+    
+    // Reset suspicious activity counter periodically
+    setInterval(() => {
+      suspiciousActivity = Math.max(0, suspiciousActivity - 1);
+    }, 5000);
+    
+    console.log('🛡️ Advanced security measures activated');
+    
+    // ===== MOBILE OPTIMIZATIONS =====
+    console.log('📱 Mobile UI System Initialized');
+    
+    // Detect mobile devices
+    function isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+             window.innerWidth <= 768 || 
+             ('ontouchstart' in window);
+    }
+    
+    // Mobile-specific optimizations
+    if (isMobile()) {
+      document.body.classList.add('mobile');
+      console.log('📱 Mobile device detected - applying optimizations');
+      
+      // Prevent zoom on double tap
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+      
+      // Enhanced touch handling for windows
+      document.addEventListener('touchstart', function(e) {
+        const window = e.target.closest('.window');
+        if (window) {
+          // Prevent window closing on touch
+          e.stopPropagation();
+        }
+      }, { passive: true });
+      
+      // Mobile-specific event handlers
+      document.addEventListener('touchstart', function(e) {
+        const target = e.target;
+        
+        // Enhanced touch feedback
+        if (target.classList.contains('start-btn') || 
+            target.classList.contains('sound-btn') || 
+            target.classList.contains('task') || 
+            target.classList.contains('btn') || 
+            target.classList.contains('shortcut') || 
+            target.classList.contains('start-item')) {
+          target.style.transform = 'scale(0.98)';
+          target.style.transition = 'transform 0.1s ease';
+        }
+      }, { passive: true });
+      
+      document.addEventListener('touchend', function(e) {
+        const target = e.target;
+        
+        // Reset touch feedback
+        if (target.classList.contains('start-btn') || 
+            target.classList.contains('sound-btn') || 
+            target.classList.contains('task') || 
+            target.classList.contains('btn') || 
+            target.classList.contains('shortcut') || 
+            target.classList.contains('start-item')) {
+          setTimeout(() => {
+            target.style.transform = '';
+            target.style.transition = '';
+          }, 100);
+        }
+      }, { passive: true });
+      
+      // Prevent chat window from closing on mobile
+      document.addEventListener('click', function(e) {
+        const aiWindow = document.getElementById('aiWindow');
+        const chatInput = e.target.closest('.ai-chat-input');
+        const chatMessages = e.target.closest('.ai-chat-messages');
+        
+        if (aiWindow && (chatInput || chatMessages)) {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          
+          // Focus input if it's an input field
+          const input = e.target.closest('input, textarea');
+          if (input) {
+            input.focus();
+          }
+        }
+      }, true);
+      
+      // Mobile keyboard handling
+      window.addEventListener('resize', function() {
+        if (window.innerHeight < window.outerHeight * 0.9) {
+          // Keyboard is open
+          document.body.classList.add('keyboard-open');
+        } else {
+          // Keyboard is closed
+          document.body.classList.remove('keyboard-open');
+        }
+      });
+      
+      // Prevent scroll bounce on iOS
+      document.addEventListener('touchmove', function(e) {
+        if (e.target.closest('.ai-chat-messages') || 
+            e.target.closest('.window .content') || 
+            e.target.closest('.tasklist')) {
+          // Allow scrolling in these elements
+          return;
+        }
+        
+        // Prevent scroll bounce elsewhere
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+      
+      // Mobile-specific window positioning
+      function adjustWindowsForMobile() {
+        const windows = document.querySelectorAll('.window');
+        windows.forEach(window => {
+          // Ensure windows are properly positioned on mobile
+          const rect = window.getBoundingClientRect();
+          if (rect.left < 0 || rect.right > window.innerWidth) {
+            window.style.left = '10px';
+            window.style.top = '10px';
+            window.style.width = 'calc(100vw - 20px)';
+            window.style.maxWidth = 'calc(100vw - 20px)';
+          }
+        });
+      }
+      
+      // Adjust windows on orientation change
+      window.addEventListener('orientationchange', function() {
+        setTimeout(adjustWindowsForMobile, 100);
+      });
+      
+      // Adjust windows on resize
+      window.addEventListener('resize', function() {
+        setTimeout(adjustWindowsForMobile, 100);
+      });
+      
+      // Initial adjustment
+      setTimeout(adjustWindowsForMobile, 500);
+      
+      console.log('📱 Mobile optimizations applied successfully');
+    }
+  </script>
+</body>
+</html>

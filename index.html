@@ -1114,29 +1114,60 @@
           <p class="warning-text">Red Angel is brutally honest and doesn't hold back. Conversations can include strong language and unfiltered opinions. Use at your own discretion.</p>
         </div>
 
-        <h3 class="install-section-title">😈 INSTALLATION</h3>
-        
-        <div class="install-step">
-          <h4>Step 1: Install Ollama</h4>
-          <p>Download and install Ollama from the official website:</p>
-          <a href="https://ollama.com" target="_blank" class="install-link">😈 Download Ollama</a>
-        </div>
-        
-        <div class="install-step">
-          <h4>Step 2: Pull Red Angel Model</h4>
-          <div class="command-box">
-            ollama pull shayzinasimulation/red-angel-v1:latest
+        <!-- Desktop App Download (Recommended) -->
+        <div style="background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;padding:20px;margin-bottom:25px;text-align:center">
+          <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:15px">
+            <span style="font-size:32px">💻</span>
+            <h3 style="margin:0;color:white;font-size:20px">Desktop App</h3>
+            <span style="background:#4caf50;color:white;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:bold">RECOMMENDED</span>
           </div>
-          <button onclick="copyToClipboard('ollama pull shayzinasimulation/red-angel-v1:latest')" class="copy-btn">😈 Copy Command</button>
-        </div>
-        
-        <div class="install-step">
-          <h4>Step 3: Run Red Angel</h4>
-          <div class="command-box">
-            ollama run shayzinasimulation/red-angel-v1:latest
+          <p style="margin:0 0 15px 0;color:rgba(255,255,255,0.9);font-size:14px">One-click install. Everything included. Works 100% offline.</p>
+          <a href="https://github.com/shayanhashmiartworks-bot/Red-Angel-AI---Rude-Uncensored-AI-Assistant/releases" target="_blank" style="display:inline-block;background:white;color:#667eea;padding:15px 30px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:16px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:all 0.3s">
+            ⬇️ Download for Windows (6-8GB)
+          </a>
+          <div style="margin-top:15px;font-size:12px;color:rgba(255,255,255,0.7)">
+            ✅ No setup required • ✅ AI runs on your machine • ✅ 100% private
           </div>
-          <button onclick="copyToClipboard('ollama run shayzinasimulation/red-angel-v1:latest')" class="copy-btn">😈 Copy Command</button>
         </div>
+
+        <!-- Divider -->
+        <div style="display:flex;align-items:center;gap:10px;margin:20px 0">
+          <div style="flex:1;height:1px;background:rgba(255,255,255,0.2)"></div>
+          <span style="color:#888;font-size:12px;font-weight:bold">OR</span>
+          <div style="flex:1;height:1px;background:rgba(255,255,255,0.2)"></div>
+        </div>
+
+        <!-- Advanced: Ollama Installation -->
+        <details style="margin-bottom:20px">
+          <summary style="cursor:pointer;padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;font-weight:bold;color:#fff;user-select:none">
+            ⚙️ Advanced: Use with Ollama
+          </summary>
+          <div style="padding:15px 0">
+            <p style="font-size:13px;color:#888;margin-bottom:15px">For developers and advanced users who want to use Ollama directly:</p>
+            
+            <div class="install-step">
+              <h4>Step 1: Install Ollama</h4>
+              <p>Download and install Ollama from the official website:</p>
+              <a href="https://ollama.com" target="_blank" class="install-link">😈 Download Ollama</a>
+            </div>
+            
+            <div class="install-step">
+              <h4>Step 2: Pull Red Angel Model</h4>
+              <div class="command-box">
+                ollama pull shayzinasimulation/red-angel-v1:latest
+              </div>
+              <button onclick="copyToClipboard('ollama pull shayzinasimulation/red-angel-v1:latest')" class="copy-btn">😈 Copy Command</button>
+            </div>
+            
+            <div class="install-step">
+              <h4>Step 3: Run Red Angel</h4>
+              <div class="command-box">
+                ollama run shayzinasimulation/red-angel-v1:latest
+              </div>
+              <button onclick="copyToClipboard('ollama run shayzinasimulation/red-angel-v1:latest')" class="copy-btn">😈 Copy Command</button>
+            </div>
+          </div>
+        </details>
 
         <h3 class="install-section-title">😈 LINKS</h3>
         
@@ -1312,7 +1343,7 @@
     </div>
   </div>
 
-  <script src="ai-backend.js?v=20"></script>
+  <script src="ai-backend.js?v=21"></script>
   <script src="security-config.js"></script>
   <script>
     // ===== APPLY DARK MODE IMMEDIATELY =====
