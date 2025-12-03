@@ -440,6 +440,25 @@ a {
     margin-bottom: 12px;
 }
 
+.hero-quote {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent-gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    position: relative;
+}
+
+.hero-quote::before,
+.hero-quote::after {
+    content: '✦';
+    margin: 0 16px;
+    opacity: 0.6;
+}
+
 .hero-subtitle {
     display: flex;
     justify-content: center;
