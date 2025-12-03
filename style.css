@@ -835,6 +835,13 @@ section {
     font-size: 32px;
 }
 
+.seat-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 45, 45, 0.6));
+}
+
 .seat-info {
     position: absolute;
     top: 100%;
