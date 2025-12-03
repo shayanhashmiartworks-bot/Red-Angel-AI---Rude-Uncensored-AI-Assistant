@@ -552,13 +552,64 @@ a {
 
 /* Hero Visual */
 .hero-visual {
-    position: absolute;
-    right: -100px;
-    top: 50%;
-    transform: translateY(-50%);
+    position: relative;
+    margin-top: 40px;
     z-index: 5;
-    opacity: 0.15;
-    display: none;
+}
+
+.hero-mockup {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.mockup-frame {
+    background: var(--bg-card);
+    border: 2px solid var(--red-primary);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-glow-strong);
+}
+
+.mockup-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.red { background: #ff5f57; }
+.dot.yellow { background: #febc2e; }
+.dot.green { background: #28c840; }
+
+.mockup-title {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.mockup-screen {
+    padding: 0;
+}
+
+.mockup-img {
+    width: 100%;
+    display: block;
+}
+
+.mockup-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(255, 45, 45, 0.2) 0%, transparent 70%);
+    z-index: -1;
 }
 
 /* Hero Stats */
