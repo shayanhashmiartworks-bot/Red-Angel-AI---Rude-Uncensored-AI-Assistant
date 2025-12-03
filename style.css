@@ -100,7 +100,10 @@ a {
 
 .loader-icon {
     font-size: 60px;
-    animation: pulse 1s ease-in-out infinite;
+    animation: pulse 2s ease-in-out infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .loader-text {
@@ -238,6 +241,27 @@ a {
 
 .logo-icon {
     font-size: 28px;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 45, 45, 0.5));
+}
+
+.footer-logo-img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 45, 45, 0.5));
+}
+
+.loader-logo {
+    height: 120px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(255, 45, 45, 0.8));
 }
 
 .logo-text {
