@@ -244,24 +244,32 @@ a {
 }
 
 .logo-img {
-    height: 40px;
-    width: auto;
-    object-fit: contain;
+    height: 36px;
+    width: 36px;
+    object-fit: cover;
+    object-position: center 38%;
+    border-radius: 8px;
     filter: drop-shadow(0 0 10px rgba(255, 45, 45, 0.5));
 }
 
 .footer-logo-img {
-    height: 50px;
-    width: auto;
-    object-fit: contain;
+    height: 44px;
+    width: 44px;
+    object-fit: cover;
+    object-position: center 38%;
+    border-radius: 8px;
     filter: drop-shadow(0 0 10px rgba(255, 45, 45, 0.5));
 }
 
 .loader-logo {
-    height: 120px;
+    max-width: 90vw;
+    max-height: 60vh;
     width: auto;
+    height: auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 20px rgba(255, 45, 45, 0.8));
+    filter: drop-shadow(0 0 30px rgba(255, 45, 45, 0.8));
+    border-radius: 8px;
+    border: 2px solid var(--red-primary);
 }
 
 .logo-text {
